@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="think," />
+  <meta name="keywords" content="Android构建分析," />
 
 
 
@@ -84,28 +84,32 @@
 
 
 
-<meta name="description" content="标签： 测试Hexo
-
-开篇。这是开始博客的理由。↓
-为什么你要写博客？
-一个选择">
+<meta name="description" content="你简单的介绍下Android打包原理吧。
+哦…..
+当被问到这个”无聊至极”的问题的时候，其实我内心是拒绝的。不就先生成.class文件，再通过Android的什么东西生成.dex文件么，再融合无法编译的资源和编译好的资源文件生成.apk么。
+那你详细讲一下吧？
+你这是搞事情哦！！！">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第一篇博客">
-<meta property="og:url" content="http://yoursite.com/2016/10/13/第一篇博客/index.html">
-<meta property="og:site_name" content="Altman29的博客">
-<meta property="og:description" content="标签： 测试Hexo
-
-开篇。这是开始博客的理由。↓
-为什么你要写博客？
-一个选择">
-<meta property="og:updated_time" content="2016-11-14T02:06:34.000Z">
+<meta property="og:title" content="Android App打包原理分析">
+<meta property="og:url" content="http://yoursite.com/2016/11/26/app打包原理/index.html">
+<meta property="og:site_name" content="Altman29's Home">
+<meta property="og:description" content="你简单的介绍下Android打包原理吧。
+哦…..
+当被问到这个”无聊至极”的问题的时候，其实我内心是拒绝的。不就先生成.class文件，再通过Android的什么东西生成.dex文件么，再融合无法编译的资源和编译好的资源文件生成.apk么。
+那你详细讲一下吧？
+你这是搞事情哦！！！">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/13485426.jpg">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/71977170.jpg">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/11329344.jpg">
+<meta property="og:updated_time" content="2016-11-26T10:47:51.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第一篇博客">
-<meta name="twitter:description" content="标签： 测试Hexo
-
-开篇。这是开始博客的理由。↓
-为什么你要写博客？
-一个选择">
+<meta name="twitter:title" content="Android App打包原理分析">
+<meta name="twitter:description" content="你简单的介绍下Android打包原理吧。
+哦…..
+当被问到这个”无聊至极”的问题的时候，其实我内心是拒绝的。不就先生成.class文件，再通过Android的什么东西生成.dex文件么，再融合无法编译的资源和编译好的资源文件生成.apk么。
+那你详细讲一下吧？
+你这是搞事情哦！！！">
+<meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/13485426.jpg">
 
 
 
@@ -123,7 +127,7 @@
   };
 </script>
 
-  <title> 第一篇博客 | Altman29的博客 </title>
+  <title> Android App打包原理分析 | Altman29's Home </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -154,7 +158,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Altman29的博客</span>
+      <span class="site-title">Altman29's Home</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -263,7 +267,7 @@
             
             
               
-                第一篇博客
+                Android App打包原理分析
               
             
           </h1>
@@ -275,8 +279,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-13T14:57:44+08:00" content="2016-10-13">
-              2016-10-13
+            <time itemprop="dateCreated" datetime="2016-11-26T17:18:47+08:00" content="2016-11-26">
+              2016-11-26
             </time>
           </span>
 
@@ -289,8 +293,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/somes/" itemprop="url" rel="index">
-                    <span itemprop="name">somes</span>
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -305,8 +309,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/10/13/第一篇博客/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/13/第一篇博客/" itemprop="commentsCount"></span>
+                <a href="/2016/11/26/app打包原理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/26/app打包原理/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -316,7 +320,7 @@
           
           
           
-             <span id="/2016/10/13/第一篇博客/" class="leancloud_visitors" data-flag-title="第一篇博客">
+             <span id="/2016/11/26/app打包原理/" class="leancloud_visitors" data-flag-title="Android App打包原理分析">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -338,83 +342,46 @@
       
 
       
-        <p>标签： 测试Hexo</p>
-<hr>
-<p>开篇。这是开始博客的理由。↓</p>
-<p>为什么你要写博客？</p>
-<p>一个选择</p>
+        <p><img src="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/13485426.jpg" alt=""></p>
+<p>你简单的介绍下Android打包原理吧。</p>
+<p>哦…..</p>
+<p>当被问到这个”无聊至极”的问题的时候，其实我内心是拒绝的。不就先生成.class文件，再通过Android的什么东西生成.dex文件么，再融合无法编译的资源和编译好的资源文件生成.apk么。</p>
+<p>那你详细讲一下吧？</p>
+<p>你这是搞事情哦！！！</p>
 <a id="more"></a>
-<h2 id="为什么写blog"><a href="#为什么写blog" class="headerlink" title="为什么写blog"></a>为什么写blog</h2><p>我知道现在可能说这话有点不合时宜，毕竟博客时代都已经过去了，再号召大家用过就好像时的东西是不是有点逆流而上？</p>
-<p>我曾经也问过自己这个问题，但是我觉得，博客时代过去跟我们要开博客是没有多大关系的，就好像你的读书时代已经过去你就不再读书一样。</p>
-<p>判断一件事情值不值得去做有一个方法：在一张白纸的左边写不值得做的原因，然后在右边写值得做的原因，写完一比较，一权衡，自然能够得出结果。</p>
-<p>大家都成年人了，你会觉得这样思考分析总结的过程才是正确的思考的方法吧？</p>
-<p>所以，我在这里列出要写（独立）博客的原因，供大家去选择，然后填在你白纸的右边。</p>
-<p>注意，我不是给你一个建议，而是提供一个选择，这个选择蕴藏着我也不知道的可能。</p>
-<h2 id="博客的内容"><a href="#博客的内容" class="headerlink" title="博客的内容"></a>博客的内容</h2><p>写博客不难，你可以当作是生活的记录，但是这样的记录没有任何的意义。写要对得住写本身，写出来的东西应该是思考的结果。我认为，如果你要开一个博客，博客的内容应该是这样的：</p>
-<pre><code>1. 不是生活杂记、不是流水账、不是牢骚、不是抱怨、不是心情琐记……；
-2. 有目的地写，要务实，追求质量；
-3. 承认真实的自己，不要吹嘘，不要装逼，无需讨好读者；
-4. 记录自己学习、思考、总结的过程；
-5. 分享你的故事、所得、感想、经验；
-</code></pre><h2 id="值得写的原因"><a href="#值得写的原因" class="headerlink" title="值得写的原因"></a>值得写的原因</h2><p>以下是一个清单，可以根据自己的情况匹配，然后选择。</p>
-<p>##重新认识自己</p>
-<p>是不是很久没有跟自己对话了？</p>
-<h2 id="九个问题"><a href="#九个问题" class="headerlink" title="九个问题"></a>九个问题</h2><p>你可以尝试从回答一些问题开始，将你过去要回避的问题写下来，例如就可以从这个九个问题开始：</p>
-<pre><code>1、请你介绍一下你自己，你是个什么样的人？
-
-2、你有什么理想吗？这个理想是怎么形成的？
-
-3、你理想的伴侣关系是什么样的？你自己在这个伴侣关系中扮演什么样的角色？要承担什么样的责任？
-
-4、你理想的事业是什么，你正在做的工作符合你的事业理想吗？这份工作对你的意义是什么？
-
-5、你对亲子关系怎么看？对你来说，什么是一个理想的父亲（母亲），你期望自己成为这样一个理想父亲（母亲）吗？
-
-6、你对钱怎么看，你认为赚到多少钱是足够的？如果你明天一早醒来，已经有足够的钱，你将会如何继续安排自己的生活？
-
-7、对你来说，什么是理想的性生活？什么是理想的性道德，在你的性道德观中，什么样的性生活是禁忌的，需要避免的，什么样的性生活是美好的，需要得到鼓励和发展的？
-
-8、你的择友标准是什么？什么样的人你会愿意交往，什么样的人你会拒绝和他交往？
-
-9、你对死亡怎么看？你希望自己活到多少岁，你准备怎么度过从现在到死亡的这段时间？如果你要立遗嘱，这份遗嘱会怎么写？
-</code></pre><p>以上的这九个问题摘自《很少人能顺畅回答这9个问题——心理治疗刚开始医生常常会先问你的 》by 李孟潮。</p>
-<p>这些问题的答案你可以选择不发，但是我强烈地建议写下来，只有在写的时候你才可以慎重地思考这些问题，而不会回避跳过或者留下空白，这是接受自己的第一步。<br>提供持续学习的动力</p>
-<p>例如，我为自己设限每天写一千字，信息的不断输出给我带来恐惧，我害怕有一天我写无可写，于是我不停地阅读，通过个人的知识管理促使自己不断学习，提高核心竞争力。</p>
-<p>详细的知识管理可以看我的这篇文章：《个人知识管理的方法》，回复「知识」可见<br>积累更多的知识</p>
-<p>写并不是单纯的写。</p>
-<p>例如你写着写着，你突然忘记了一个概念，于是上网找，找回来这个概念的时候，你重温这个概念，可能还会顺便看了一下这个概念的其他东西。</p>
-<p>例如你需要获取第一手的资料，寻找信息来源本身就是一个知识积累的过程，同时，你慢慢就学会了鉴别知识：什么是没有用的心灵鸡汤，什么是不值得关注的吐槽名人，还有，在这个过程中，你还养成你的心智。<br>提高将事情讲清楚的能力</p>
-<p>很多东西你以为懂了，但当你在写下来的时候，你就觉得无从下手了。</p>
-<pre><code>如果一件事情你不能讲清楚，十有八九你还没有完全理解。
-</code></pre><p>将事情写下来，慢慢就可以提高你的逻辑思维能力，分析能力，写会迫使你在你脑中搭建一个有条理的框架。例如我写这篇文章一样，我就将值得写博客的原因一点一点地罗列出来，事情就更加清晰，你也可以更好的思考问题。<br>分享带来的连锁反应</p>
-<pre><code>“通过分享，你获得了直接而快速的回报，你最终或许会发现你已将版权和“保留所有权利”抛诸脑后。新的经济学准则是：参与你作品的人越多，回报越高。在分享主义里，如果你愿意你可以保留所有权，但是我乐于分享。” by 毛向辉 《分享主义：一场思维革命》
-</code></pre><p>互联网精神其中最重要的就是分享主义，基于分享主义，你可以享受到社会化及互联网给你带来的种种便利和好处，你分享了一个知识，你就成为了互联网中的一个点，这个点的大小由你自己来决定，互联网的大潮会将你的这个点推送到它所能触及的每个角落，让需要的人得到，同时，你的这个点也会继续扩大，连接到整个网络，这个点有可能连接成一张网，而你就是这张网的中心。<br>帮你找到志同道合的人</p>
-<p>在微博，在朋友圈，你可能找不到跟你志同道合的人，而在博客，你可以通过看他的几篇文章就迅速地理解认同这个人，即使你没有见过这个人，但你也可以通过这种关联来相互学习。</p>
-<p>如果你在一个领域有相当的了解，你将这些内容发在网络上，网络上跟你志趣相投的人也会被你吸引过来，根据吸引力法则，你是怎样的人你就被怎么样的人吸引，这就是博客所能赋予你的魅力。</p>
-<pre><code>即使博客没有被他人关注，我们依然可以找到同好，你可以自己将博文转载到其他站点，人们会通过搜索引擎找到你，有邮件、微博等工具，我们不乏与他人交流的途径。by Gabriel Weinberg《Why I blog》
-</code></pre><h2 id="记录成长"><a href="#记录成长" class="headerlink" title="记录成长"></a>记录成长</h2><p>隔一段时间，你再回头看你写的博客，你会发现自己正在通过这样的方式在不断的成长，这种成长在自己眼里是一种财富，在别人眼里是一张地图，你得到了收获，不断修正自己的错误，别人得到了指引，避免走弯路。</p>
-<p>更多的情况是当你回望自己的时候你会发现自己是一个傻逼，so what，that is what I am！<br>培养持续做一件事情的能力</p>
-<p>开始是坚持，后来是习惯，接着喜欢。以后当有人对你说，「你写那么多有用的东西，你真的很厉害啊！」你可以笑而不语，也可以大声说道：「你妹，你不知道我开始的时候多么痛苦！」</p>
-<p>让你长久地去跑步，你可能做不到；让你每个月看一本书，你也可能做不到；但让你持续地写一个博客，你可以做得到。</p>
-<p>你不相信？你不试试你怎么知道？</p>
-<p>默默地持续做一件事是一种难得的能力，也是一种难得的品质。<br>讨论反思</p>
-<p>每人都会有思维的盲点，就好像这篇文章一样，可能你觉得我可能说得不对，你可以反驳我，我欢迎这种讨论，因为讨论的过程中会产生各种的思维的碰撞，这种碰撞会让你反思，也会激发出你新的灵感，这种讨论反思给自己的带来巨大的受益。</p>
-<p>互联网给你的反馈就是让你承受更多，接受更多，成为一个更好的人。<br>搜寻到你意想不到东西</p>
-<p>世界不止是你的家，你的公司，你的朋友圈，你应该去发现一个更大的世界，通过写博客，你会知道世界上还有很多人像你一样在写博客，这些人和知识正在世界的某个角落在等着你。</p>
-<p>例如，在写这篇文章的过程中，我才知道了Gabriel Weinberg，我才要将阳志平的博客重读一遍。写的过程会让你有很多新的发现，这些新的发现都值得你去再写下来，总结分享出去。<br>一个人在做一件属于自己的事</p>
-<p>很多你认为自己很牛逼的事情都是自己一个人做出来。</p>
-<p>别人在刷微博，你在看书，别人在看穿越剧，你在学英文，别人在去唱K，你在写个人总结。吃饭也要找同伴，出游要找同伴，看电影要找同伴，你上一次一个人在做一件属于自己的事是在什么时候？</p>
-<pre><code>如果你想要清晰地思考，就必须远离人群。但是走得越远，你的处境就会越困难，收到的阻力也会越大。因为你没有迎合社会习俗，而是一步步地与它背道而驰。如果自己就是潮水的一部分 ，怎么能看见潮流的方向呢？你只能永远保持质疑，问自己，什么话是我不能说的？为什么？——Paul Graham《不能说的话》
-</code></pre><h2 id="互联网的身份识别："><a href="#互联网的身份识别：" class="headerlink" title="互联网的身份识别："></a>互联网的身份识别：</h2><pre><code>一个长期的价值博客是一份很好的简历。这里的“简历”并非是狭义上的求职简历，毕竟现在还没有到价值博客的时代，很多人写博客都是到处转载或者干脆碎碎念，正因此面试官未必拿个人博客当成了解一个人的更可靠窗口。
-
-这里的“简历”是指一个让别人了解自己的窗口，虽然我们未必做得到像罗永浩、Keso这样的博客，个人的影响力已经足以支撑出一份事业（牛博和5gme），但至少你会因此而结识更多的人，你的博客价值越高，你结识的人就越牛，跟牛人交流又会让你的眼界得到极大的开阔，打开一扇又一扇你原本不知道的门，于是你就变得更牛… 这是一个良性循环。by 刘未鹏
-</code></pre><h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>你可能想不到在白纸的左边（不值得写博客的原因）写什么了，想不到写个「博客时代已经过去」或者「我没有时间」也可以，但与此同时，你也可以用那些时间去思考一下「怎么做到长期写一个价值博客」。</p>
-<p>如果你不想思考，也可以回复「价值」看看别人的建议。</p>
-<p>推荐写作平台：</p>
-<pre><code>简书（推荐）
-自己搭建一个独立博客
-新浪博客
-</code></pre><p>作者：陈素封<br>链接：<a href="https://zhuanlan.zhihu.com/p/19743861" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/19743861</a><br>来源：知乎<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<h3 id="Apk文件结构"><a href="#Apk文件结构" class="headerlink" title="Apk文件结构"></a>Apk文件结构</h3><p>不是要说App打包原理么？先别急，先看一下apk文件的结构在来说打包原理，可以理解的更清晰哟~</p>
+<p>无图言X，不废话先上图：</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/71977170.jpg" alt=""></p>
+<p>红色标注部分的文件和文件夹都是Android爱普基本具备的，剩下的则是一些第三方库或代码生成的。对了，这个图片里的文件是怎么来的，再多嘴一句，其实就是apk文件修改后缀名为zip后，解压得到的，再其实你可以将apk看成一个特殊的压缩包。(Ps:无混淆，无加固，只为了解构建的过程。)</p>
+<h4 id="AndroidManifest-xml"><a href="#AndroidManifest-xml" class="headerlink" title="AndroidManifest.xml"></a>AndroidManifest.xml</h4><p>这个文件可以意为清单文件或者全局配置文件。里面有很多应用的配置信息，权限、版本号、四大组件的注册也在其中。</p>
+<h4 id="assets文件夹"><a href="#assets文件夹" class="headerlink" title="assets文件夹"></a>assets文件夹</h4><p>这个文件用于存储需要保持原始文件的资源文件，原始的意思就是打包之前里面东西什么样，打包之后还是那样。一般都是放一些音频，网页，字体等文件。</p>
+<h4 id="dex文件"><a href="#dex文件" class="headerlink" title="dex文件"></a>dex文件</h4><p>.dex文件是Android系统运行在Dalvik Virtual Machine上的可执行文件，也是Android爱普的核心。项目的Java源码通过javac生成class文件，在通过dx工具生成为classes.dex文件。</p>
+<h4 id="lib文件夹"><a href="#lib文件夹" class="headerlink" title="lib文件夹"></a>lib文件夹</h4><p>该目录存放着爱普需要的native库文件。比如so库以及底层实现的图片处理、音视频处理、数据库加密的库。该文件夹下常见多一个层次，根据不同的cpu型号划分为x86，ARM，ARM-v7a等。</p>
+<h4 id="META-INF文件夹"><a href="#META-INF文件夹" class="headerlink" title="META-INF文件夹"></a>META-INF文件夹</h4><p>该目录主要作用就是用于保证APK的完整性和安全性。主要有三个文件：</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/11329344.jpg" alt=""></p>
+<p>MANIFEST.MF：保存了整个apk文件中所有文件的文件名+SHA-1后的base64编码值。象征着apk的完整性。</p>
+<p>CERT.RSA：保存了公匙和加密方式的信息。</p>
+<p>CERT.SF：这个文件与MANIFEST.MF的结构一样，只是其编码会被私匙加密。每次安装时，通过该文件夹中的文件，就可以完成验证的过程。如果apk包被改变了，而篡改者没有私匙生成的CERT.SF，则无法完成校验。</p>
+<h4 id="res文件夹"><a href="#res文件夹" class="headerlink" title="res文件夹"></a>res文件夹</h4><p>这个就很清楚了，这是资源文件夹。什么anim，drawable，layout，values等等等等~</p>
+<h4 id="resource-arsc文件"><a href="#resource-arsc文件" class="headerlink" title="resource.arsc文件"></a>resource.arsc文件</h4><p>该文件是所有文件中结构最复杂的。</p>
+<p>它记录了资源文件，资源文件位置和资源id的映射关系。并且将所有的string都存放在了string pool中，节省了在查找资源时，字符串处理的开销。</p>
+<hr>
+<h3 id="Android打包流程"><a href="#Android打包流程" class="headerlink" title="Android打包流程"></a>Android打包流程</h3><p>在了解了 apk 文件的结构后，我们开始分析 Android 的打包流程。 </p>
+<h4 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h4><p>Android 打包流程的第一步，是处理资源文件。<br>在这个步骤中，起主要作用的是 aapt。<br>刚刚提及的 AndroidManifest.xml, res 文件夹，resource.arsc 文件的生成都与其有关，简单来说，aapt 解析项目代码中的 AndroidManifest.xml，收集项目中 res 文件夹的资源文件及 xml 文件，对其做压缩以及编译的处理。在此过程中，分配了资源 id 并生成了 R.java 文件 以及 arsc 文件。 </p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>上一步得到了 R.java 文件后，将其与项目代码一起编译得到 .class文件，然后打包为 jar 包。这个过程中，还会有混淆代码这一步骤。之后，再通过 dx 工具，将生成的 jar 包与第三方库的 jar 包一起编译为 dex 文件。这个过程中，如果是 5.0 以前的系统且超过了 65535 方法数的限制，需要人为的分 dex，5.0 以后则由 dx 工具包办。 </p>
+<p>到这一步，实际上 apk 所需要的主要内容已经大致齐全了。只需要把上面生成的 AndroidManifest.xml，classes.dex，res文件夹，resource.arsc 打包进 apk，并且将项目工程中的 assets 以及 lib 目录一并放入，就有了一个未经签名的 Android 安装包了。 </p>
+<h4 id="签名"><a href="#签名" class="headerlink" title="签名"></a>签名</h4><p>接下来还缺简单但是却关键的最后一步，那便是 apk 包的签名，这一步在之前对 META-INF 的介绍中，实际已有提及。只需要按步骤生成 MANIFEST.MF, CERT.RSA，CERT.SF 并放入META-INF 文件夹即可。 </p>
+<p>以上便是 Android 打包的基本流程，宏观来看实际并不复杂，但是其中的一些步骤展开来讲，却是很有内容的，比如 appt 对资源处理的那个部分，R.java 是如何生成的，resource.arsc 又是如何生成的，Android 是怎样完成对资源的获取的，这些我都不会，哈哈。以后慢慢补吧~</p>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>aapt（Android Asset Packaging Tool）给你的Activity提供所需的资源文件,如 AndroidManifest.xml，XML文件,并编译它们。同时产生R.java文件，使你可以在java代码中引用这些资源。</li>
+<li>aidl工具把.aidl接口转换成Java接口。</li>
+<li>你所有的Java代码,包括 R.java和 .aidl文件,由Java编译器和编译输出.class文件。</li>
+<li>dex工具把.class文件转换成Dalvik字节文件，第三方的类和.class也被转换成.dex文件</li>
+<li>所有无法编译的资源（比如图片），编译好的资源文件和.dex都被送到apkbuilder工具中，生成最后的.apk</li>
+<li>生成.apk时必须制定是debug还是release，release还要提供相应的key</li>
+<li>如果选择release版本，还需要使用zipalign工具对apk对齐。齐处理即使得所有资源文件距离文件起始偏移为4字节的整数倍，这样通过内存映射访问apk文件时处理速度更快。</li>
+</ul>
 
       
     </div>
@@ -436,7 +403,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/think/" rel="tag">#think</a>
+            <a href="/tags/Android构建分析/" rel="tag">#Android构建分析</a>
           
         </div>
       
@@ -445,17 +412,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/13/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2016/11/20/me/" rel="next" title="24岁的自个儿">
+                <i class="fa fa-chevron-left"></i> 24岁的自个儿
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/11/15/git-note/" rel="prev" title="Git 学习笔记">
-                Git 学习笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -470,10 +433,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/10/13/第一篇博客/"
-     data-title="第一篇博客"
+        <div class="ds-share flat" data-thread-key="2016/11/26/app打包原理/"
+     data-title="Android App打包原理分析"
      data-content=""
-     data-url="http://yoursite.com/2016/10/13/第一篇博客/">
+     data-url="http://yoursite.com/2016/11/26/app打包原理/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -499,8 +462,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/10/13/第一篇博客/"
-           data-title="第一篇博客" data-url="http://yoursite.com/2016/10/13/第一篇博客/">
+      <div class="ds-thread" data-thread-key="2016/11/26/app打包原理/"
+           data-title="Android App打包原理分析" data-url="http://yoursite.com/2016/11/26/app打包原理/">
       </div>
     
   </div>
@@ -562,7 +525,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -611,7 +574,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么写blog"><span class="nav-number">1.</span> <span class="nav-text">为什么写blog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#博客的内容"><span class="nav-number">2.</span> <span class="nav-text">博客的内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#值得写的原因"><span class="nav-number">3.</span> <span class="nav-text">值得写的原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九个问题"><span class="nav-number">4.</span> <span class="nav-text">九个问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#记录成长"><span class="nav-number">5.</span> <span class="nav-text">记录成长</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#互联网的身份识别："><span class="nav-number">6.</span> <span class="nav-text">互联网的身份识别：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后"><span class="nav-number">7.</span> <span class="nav-text">最后</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Apk文件结构"><span class="nav-number">1.</span> <span class="nav-text">Apk文件结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AndroidManifest-xml"><span class="nav-number">1.1.</span> <span class="nav-text">AndroidManifest.xml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#assets文件夹"><span class="nav-number">1.2.</span> <span class="nav-text">assets文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dex文件"><span class="nav-number">1.3.</span> <span class="nav-text">dex文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lib文件夹"><span class="nav-number">1.4.</span> <span class="nav-text">lib文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#META-INF文件夹"><span class="nav-number">1.5.</span> <span class="nav-text">META-INF文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#res文件夹"><span class="nav-number">1.6.</span> <span class="nav-text">res文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#resource-arsc文件"><span class="nav-number">1.7.</span> <span class="nav-text">resource.arsc文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android打包流程"><span class="nav-number">2.</span> <span class="nav-text">Android打包流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#资源"><span class="nav-number">2.1.</span> <span class="nav-text">资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">2.2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#签名"><span class="nav-number">2.3.</span> <span class="nav-text">签名</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
           </div>
         </section>
