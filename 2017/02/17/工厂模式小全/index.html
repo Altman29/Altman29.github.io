@@ -1,0 +1,794 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Factory，简单工厂，工厂方法，抽象工厂," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="工厂模式，使用较为广泛的一种设计模式，可以理解为封装通过new方式创建对象的代码。具体分为三种：简单工厂 - Simple Factory工厂方法 - Factory Method抽象工厂 - Abstract Factory">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工厂模式小全~">
+<meta property="og:url" content="http://yoursite.com/2017/02/17/工厂模式小全/index.html">
+<meta property="og:site_name" content="Altman29's Home">
+<meta property="og:description" content="工厂模式，使用较为广泛的一种设计模式，可以理解为封装通过new方式创建对象的代码。具体分为三种：简单工厂 - Simple Factory工厂方法 - Factory Method抽象工厂 - Abstract Factory">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/0001.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/0002.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/0003.png">
+<meta property="og:updated_time" content="2017-02-27T11:47:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="工厂模式小全~">
+<meta name="twitter:description" content="工厂模式，使用较为广泛的一种设计模式，可以理解为封装通过new方式创建对象的代码。具体分为三种：简单工厂 - Simple Factory工厂方法 - Factory Method抽象工厂 - Abstract Factory">
+<meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/0001.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6238561851811038000,
+      author: '权限汪'
+    }
+  };
+</script>
+
+  <title> 工厂模式小全~ | Altman29's Home </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Altman29's Home</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/gusetbook" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-edit"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                工厂模式小全~
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-17T17:51:04+08:00" content="2017-02-17">
+              2017-02-17
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/02/17/工厂模式小全/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/17/工厂模式小全/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+          
+          
+             <span id="/2017/02/17/工厂模式小全/" class="leancloud_visitors" data-flag-title="工厂模式小全~">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>工厂模式，使用较为广泛的一种设计模式，可以理解为封装通过new方式创建对象的代码。具体分为三种：<br>简单工厂 - Simple Factory<br>工厂方法 - Factory Method<br>抽象工厂 - Abstract Factory</p>
+</blockquote>
+<a id="more"></a>
+<h4 id="No-Factory"><a href="#No-Factory" class="headerlink" title="No Factory"></a>No Factory</h4><h5 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h5><p>如果用户要买一台MacBook，在没有工厂模式的情况下，用户只能根据电脑型号来创建电脑，客户代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span>&#123;</div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">MacBook</span></span>&#123;</div><div class="line">        <span class="comment">//macbook电脑</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">MacBook14</span> <span class="keyword">extends</span> <span class="title">MacBook</span></span>&#123;</div><div class="line">        <span class="comment">//macbook 14版</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">MacBook15</span> <span class="keyword">extends</span> <span class="title">MacBook</span></span>&#123;</div><div class="line">        <span class="comment">//macbook 15版</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> MacBook <span class="title">getMacBook</span><span class="params">(String type)</span></span>&#123;</div><div class="line">        <span class="keyword">switch</span> (type)&#123;</div><div class="line">            <span class="keyword">case</span> <span class="string">"macbook14"</span>:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">new</span> MacBook14();</div><div class="line">            <span class="keyword">case</span> <span class="string">"macbook15"</span>:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">new</span> MacBook15();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><p>当苹果公司要把MacBook14版下架，推出MacBook16版时，Customer代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span>&#123;</div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">MacBook</span></span>&#123;</div><div class="line">        <span class="comment">//macbook电脑</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">MacBook16</span> <span class="keyword">extends</span> <span class="title">MacBook</span></span>&#123;</div><div class="line">        <span class="comment">//macbook 16版</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">MacBook15</span> <span class="keyword">extends</span> <span class="title">MacBook</span></span>&#123;</div><div class="line">        <span class="comment">//macbook 15版</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> MacBook <span class="title">getMacBook</span><span class="params">(String type)</span></span>&#123;</div><div class="line">        <span class="keyword">switch</span> (type)&#123;</div><div class="line">            <span class="keyword">case</span> <span class="string">"macbook16"</span>:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">new</span> MacBook16();</div><div class="line">            <span class="keyword">case</span> <span class="string">"macbook15"</span>:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">new</span> MacBook15();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><br>简单的修改几行代码，看似满足了需求，但是这违背了一个原则：</p>
+<blockquote>
+<p>设计应该”对扩展开放，对修改关闭”。</p>
+</blockquote>
+<p>若是每次有新的型号推出，都要改变客户端代码，明显是不合理的。下面就开始介绍工厂模式。</p>
+<h4 id="普通工厂"><a href="#普通工厂" class="headerlink" title="普通工厂"></a>普通工厂</h4><p>当把创建电脑变化的部分封装到一个新的类SimpleMacBookFactory，Customer代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleMacBookFactory</span> </span>&#123;</div><div class="line">    <span class="comment">//普通工厂模式</span></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">MacBook</span> </span>&#123;</div><div class="line">        <span class="comment">//macbook电脑</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">MacBook14</span> <span class="keyword">extends</span> <span class="title">MacBook</span> </span>&#123;</div><div class="line">        <span class="comment">//macbook 14版</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">MacBook15</span> <span class="keyword">extends</span> <span class="title">MacBook</span> </span>&#123;</div><div class="line">        <span class="comment">//macbook 15版</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> MacBook <span class="title">createMacBook</span><span class="params">(String type)</span> </span>&#123;</div><div class="line">        <span class="keyword">switch</span> (type) &#123;</div><div class="line">            <span class="keyword">case</span> <span class="string">"macbook14"</span>:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">new</span> MacBook14();</div><div class="line">            <span class="keyword">case</span> <span class="string">"macbook15"</span>:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">new</span> MacBook15();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span>&#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getMacBook</span><span class="params">(String type)</span> </span>&#123;</div><div class="line">            SimpleMacBookFactory mSimpleMacBookFactory = <span class="keyword">new</span> SimpleMacBookFactory();</div><div class="line">            mSimpleMacBookFactory.createMacBook(type);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用普通工厂模式改变后，代码并没有太大变化，就是把new创建对象的part放在了factory中。当14版下架，16版推出时，还是要改变factory中的代码。但是此时Customer的代码是无须改动的。简单工厂的目的，就是把具体实例化的代码，从客户端转移。</p>
+<h5 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h5><p>当MacBook随着发展型号越来越多时，SimpleMacBookFactory的代码仍然需要改变，Customer类符合开闭原则，而SimpleMacBookFactory不符合开闭原则。下面，采用工厂方法来解决这一问题。把获取Mac的方法getMacBook()移到Customer，来解决SimpleMacBookFactory依赖过多MacBook实体对象的问题。</p>
+<h4 id="工厂方法"><a href="#工厂方法" class="headerlink" title="工厂方法"></a>工厂方法</h4><p>把用户变成抽象类，由子类具体实现决定要实例化什么类型的Mac，具体代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span>&#123;</div><div class="line">    <span class="comment">//把用户变成抽象类，由子类实现决定要实例化什么类型的电脑</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> MacBook <span class="title">getMacBook</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">//MacBook14用户</span></div><div class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MacBook14Customer</span> <span class="keyword">extends</span> <span class="title">Customer</span> </span>&#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> MacBook <span class="title">getMacBook</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> MacBook14();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//MacBook15用户</span></div><div class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MacBook15Customer</span> <span class="keyword">extends</span> <span class="title">Customer</span> </span>&#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> MacBook <span class="title">getMacBook</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> MacBook15();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MacBook</span> </span>&#123;</div><div class="line">        <span class="comment">//MacBook</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">MacBook14</span> <span class="keyword">extends</span> <span class="title">MacBook</span> </span>&#123;</div><div class="line">        <span class="comment">//macbook 14版</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">MacBook15</span> <span class="keyword">extends</span> <span class="title">MacBook</span> </span>&#123;</div><div class="line">        <span class="comment">//macbook 15版</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//不同用户获取Mac的代码：</span></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</div><div class="line">            Customer macBook14Customer = <span class="keyword">new</span> MacBook14Customer();</div><div class="line">            macBook14Customer.getMacBook();</div><div class="line">            Customer macBook15Customer = <span class="keyword">new</span> MacBook15Customer();</div><div class="line">            macBook15Customer.getMacBook()</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="问题-2"><a href="#问题-2" class="headerlink" title="问题"></a>问题</h5><p>用户获取电脑，是为了使用，给电脑添加一个开机方法来启动电脑。<br>可以看到，MacBook14实体类，当调用startUp()方法时，需要判断电池的毫安数，当等于10000时，成功启动，否则失败。MacBook依赖Battery，所以定义一个Battery电池抽象类，其中定义一个抽象方法power()，用来返回电池的毫安数。假设不同型号电脑的电池外形一样，只是毫安数不一样。So，这样调用就无法开机。为了防止发生此类情况，生产时，必须配套生产。当需要约束产品类之间的关系时，抽象工厂诞生了。<br>具体代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span>&#123;</div><div class="line">    <span class="comment">//把用户变成抽象类，由子类实现决定要实例化什么类型的电脑</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> MacBook <span class="title">getMacBook</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">//MacBook14用户</span></div><div class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MacBook14Customer</span> <span class="keyword">extends</span> <span class="title">Customer</span> </span>&#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> MacBook <span class="title">getMacBook</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Customer.MacBook14();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//MacBook15用户</span></div><div class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MacBook15Customer</span> <span class="keyword">extends</span> <span class="title">Customer</span> </span>&#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> MacBook <span class="title">getMacBook</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> Customer.MacBook15();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">MacBook</span> </span>&#123;</div><div class="line">        <span class="comment">//MacBook</span></div><div class="line">        <span class="comment">//电池毫安数</span></div><div class="line">        <span class="keyword">protected</span> <span class="keyword">int</span> power;</div><div class="line"></div><div class="line">        <span class="comment">//电池</span></div><div class="line">        <span class="keyword">protected</span> Battery battery;</div><div class="line"></div><div class="line">        <span class="comment">//setter 设置电池毫安数</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setBattery</span><span class="params">(Battery battery)</span> </span>&#123;</div><div class="line">            <span class="keyword">this</span>.battery = battery;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//开机方法</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">startUp</span><span class="params">()</span></span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">//MacBook提供一个抽象开机方法由子类实现</span></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">MacBook14</span> <span class="keyword">extends</span> <span class="title">MacBook</span> </span>&#123;</div><div class="line">        <span class="comment">//macbook 14版</span></div><div class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"MacBook14"</span>;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startUp</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">if</span> (battery.power() == <span class="number">10000</span>) &#123;</div><div class="line">                System.out.print(TAG + <span class="string">" startUp Success."</span>);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                System.out.print(TAG + <span class="string">" startUp Failed."</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">MacBook15</span> <span class="keyword">extends</span> <span class="title">MacBook</span> </span>&#123;</div><div class="line">        <span class="comment">//macbook 15版</span></div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startUp</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//电池抽象类，由具体子类实现</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Battery</span> </span>&#123;</div><div class="line">        <span class="comment">//获得电池毫安数</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">power</span><span class="params">()</span></span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//MacBook14的电池类具体实现</span></div><div class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MacBook14Battery</span> <span class="keyword">extends</span> <span class="title">Battery</span> </span>&#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">power</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">10000</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//MacBook15的电池类具体实现</span></div><div class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MacBook15Battery</span> <span class="keyword">extends</span> <span class="title">Battery</span> </span>&#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">power</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="number">20000</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//不同用户获取Mac的代码：</span></div><div class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</div><div class="line">            Customer macBook14customer = <span class="keyword">new</span> MacBook14Customer();</div><div class="line">            MacBook macBook14 = macBook14customer.getMacBook();</div><div class="line">            macBook14.setBattery(<span class="keyword">new</span> MacBook15Battery());<span class="comment">//14的macbook，15的电池 不匹配</span></div><div class="line">            macBook14.startUp();<span class="comment">//it will be Failed.!</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div></pre></td></tr></table></figure></p>
+<h4 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h4><p>MacBook稳定的产能，需要各个代工厂的生成，苹果公司制定了一套生成手机的框架来保证手机的质量，例如MacBook14只能使用MacBook14的电池。</p>
+<p>修改Customer类如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span>  <span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span>&#123;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startUp</span><span class="params">(MacBookFactory macBookFactory)</span></span>&#123;</div><div class="line">        macBookFactory.startUp();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Customer类提供了一个启动电脑的方法，传入一个MacBookFactory对象，由MacBookFactory创建电脑和对应的电池，防止因电池型号不对导致的无法启动。<br>MacBookFactory类如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">MacBookFactory</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> MacBook <span class="title">creatMacBook</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Battery <span class="title">creatBattery</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startUp</span><span class="params">()</span></span>&#123;</div><div class="line">         MacBook macBook = creatMacBook();</div><div class="line">         Battery battery = createBattery();</div><div class="line">         macBook.setBattery(battery);</div><div class="line">         macBook.startUp();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>MacBookFactory是一个抽象类，startUp方法确定了MacBook和Battery的关系，子类实现创建MacBook和Battery的方法。看MacBook14Factory的类：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MacBook14Factory</span> <span class="keyword">extends</span> <span class="title">MacBookFactory</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Iphone <span class="title">creatMacBook</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MacBook14();</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Battery <span class="title">creatBattery</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MacBook14Battery();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>最后是启动MacBook14的代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">MacBookFactory macBook14Factory = <span class="keyword">new</span> MacBook14Factory();</div><div class="line">Customer customer = <span class="keyword">new</span> Customer();</div><div class="line">customer.startUp(macBook14Factory);</div></pre></td></tr></table></figure></p>
+<p>可以看到，macBook14启动成功。因为MacBookFactory封装了startUp方法，明确了MacBook和Battery的关系，用户不能自主组装MacBook和Battery，防止了因电池装错而无法启动。</p>
+<h4 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h4><p><img src="http://ogo6z0ylk.bkt.clouddn.com/0001.png" alt=""></p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/0002.png" alt=""></p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/0003.png" alt=""></p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>简单工厂：将创建代码从客户端移至工厂类。<br>工厂方法：用继承的方式实现，一种产品对应一个工厂类。<br>抽象工厂：系统存在产品簇，并且维持产品之间的关系。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Factory，简单工厂，工厂方法，抽象工厂/" rel="tag">#Factory，简单工厂，工厂方法，抽象工厂</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/22/RecyclerView详解/" rel="next" title="RecyclerView详解">
+                <i class="fa fa-chevron-left"></i> RecyclerView详解
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/02/17/工厂模式小全/"
+     data-title="工厂模式小全~"
+     data-content=""
+     data-url="http://yoursite.com/2017/02/17/工厂模式小全/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/02/17/工厂模式小全/"
+           data-title="工厂模式小全~" data-url="http://yoursite.com/2017/02/17/工厂模式小全/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/ava.png"
+               alt="Altman29" />
+          <p class="site-author-name" itemprop="name">Altman29</p>
+          <p class="site-description motion-element" itemprop="description">生命就像，一条大河。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Altman29" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/5866547818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#No-Factory"><span class="nav-number">1.</span> <span class="nav-text">No Factory</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#场景"><span class="nav-number">1.1.</span> <span class="nav-text">场景</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#问题"><span class="nav-number">1.2.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#普通工厂"><span class="nav-number">2.</span> <span class="nav-text">普通工厂</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#问题-1"><span class="nav-number">2.1.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#工厂方法"><span class="nav-number">3.</span> <span class="nav-text">工厂方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#问题-2"><span class="nav-number">3.1.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#抽象工厂"><span class="nav-number">4.</span> <span class="nav-text">抽象工厂</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类图"><span class="nav-number">5.</span> <span class="nav-text">类图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Altman29</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+  &nbsp;丨&nbsp;
+  <!-- 不蒜统计 -->
+  <span style="display: inline;" id="busuanzi_container_site_uv">本站总访客数 <span id="busuanzi_value_site_uv" font="微软雅黑"></span> 次</span>
+  &nbsp;丨&nbsp;
+  <span style="display: inline;" id="busuanzi_container_site_pv">本站总访问量 <span id="busuanzi_value_site_pv" font="微软雅黑"></span> 次</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"Altman29"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("nfQNU5dFwiltiHNWVEeJeuFp-gzGzoHsz", "oANzCtO0CzmnL1JmWkHda5Dp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
