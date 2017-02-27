@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="RecyclerView," />
 
 
 
@@ -84,15 +84,16 @@
 
 
 
-<meta name="description" content="生命就像，一条大河。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Altman29's Home">
-<meta property="og:url" content="http://yoursite.com/archives/2016/11/index.html">
+<meta name="description" content="RecyclerView使用过一段时间了，通过导入support-v7对其进行使用。据官方的介绍，该控件用于在有限的窗口中展示大量的数据集，其实这样功能的控件也有很多，例如：ListView、GridView。那么为什么还需要RecyclerView呢？整体上看RecyclerView架构，提供了一种插拔式的体验，高度的解耦，异常的灵活，通过设置它提供的不同的LayoutManager，Item">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RecyclerView详解">
+<meta property="og:url" content="http://yoursite.com/2017/01/22/RecyclerView详解/index.html">
 <meta property="og:site_name" content="Altman29's Home">
-<meta property="og:description" content="生命就像，一条大河。">
+<meta property="og:description" content="RecyclerView使用过一段时间了，通过导入support-v7对其进行使用。据官方的介绍，该控件用于在有限的窗口中展示大量的数据集，其实这样功能的控件也有很多，例如：ListView、GridView。那么为什么还需要RecyclerView呢？整体上看RecyclerView架构，提供了一种插拔式的体验，高度的解耦，异常的灵活，通过设置它提供的不同的LayoutManager，Item">
+<meta property="og:updated_time" content="2017-02-27T09:28:50.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Altman29's Home">
-<meta name="twitter:description" content="生命就像，一条大河。">
+<meta name="twitter:title" content="RecyclerView详解">
+<meta name="twitter:description" content="RecyclerView使用过一段时间了，通过导入support-v7对其进行使用。据官方的介绍，该控件用于在有限的窗口中展示大量的数据集，其实这样功能的控件也有很多，例如：ListView、GridView。那么为什么还需要RecyclerView呢？整体上看RecyclerView架构，提供了一种插拔式的体验，高度的解耦，异常的灵活，通过设置它提供的不同的LayoutManager，Item">
 
 
 
@@ -110,7 +111,7 @@
   };
 </script>
 
-  <title> 归档 | Altman29's Home </title>
+  <title> RecyclerView详解 | Altman29's Home </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -131,7 +132,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -229,140 +230,160 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 7 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/11/26/app打包原理/" itemprop="url">
-              
-                <span itemprop="name">Android App打包原理分析</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-11-26T17:18:47+08:00"
-              content="2016-11-26" >
-          11-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/11/20/me/" itemprop="url">
-              
-                <span itemprop="name">24岁的自个儿</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-11-20T00:04:30+08:00"
-              content="2016-11-20" >
-          11-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/11/15/git-note/" itemprop="url">
-              
-                <span itemprop="name">Git 学习笔记</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-11-15T14:35:15+08:00"
-              content="2016-11-15" >
-          11-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
 
   
+  
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                RecyclerView详解
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-22T14:16:10+08:00" content="2017-01-22">
+              2017-01-22
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/22/RecyclerView详解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/22/RecyclerView详解/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+          
+          
+             <span id="/2017/01/22/RecyclerView详解/" class="leancloud_visitors" data-flag-title="RecyclerView详解">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>RecyclerView使用过一段时间了，通过导入support-v7对其进行使用。据官方的介绍，该控件用于在有限的窗口中展示大量的数据集，其实这样功能的控件也有很多，例如：ListView、GridView。那么为什么还需要RecyclerView呢？整体上看RecyclerView架构，提供了一种插拔式的体验，高度的解耦，异常的灵活，通过设置它提供的不同的LayoutManager，ItemDecoration，ItemAnimator实现令人膛目的效果。</p>
+</blockquote>
+<a id="more"></a>
+<p>原文链接<br><a href="http://blog.csdn.net/lmj623565791/article/details/45059587" target="_blank" rel="external">http://blog.csdn.net/lmj623565791/article/details/45059587</a></p>
+<p>RecyclerView实现Gallery效果<br><a href="http://blog.csdn.net/lmj623565791/article/details/38173061" target="_blank" rel="external">http://blog.csdn.net/lmj623565791/article/details/38173061</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/RecyclerView/" rel="tag">#RecyclerView</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/16/Singleton/" rel="next" title="单例模式Singleton">
+                <i class="fa fa-chevron-left"></i> 单例模式Singleton
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/01/22/RecyclerView详解/"
+     data-title="RecyclerView详解"
+     data-content=""
+     data-url="http://yoursite.com/2017/01/22/RecyclerView详解/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
 
 
           </div>
@@ -370,6 +391,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/01/22/RecyclerView详解/"
+           data-title="RecyclerView详解" data-url="http://yoursite.com/2017/01/22/RecyclerView详解/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -389,8 +418,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/ava.png"
@@ -460,6 +498,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -567,11 +616,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   
