@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android构建分析," />
+  <meta name="keywords" content="-IPC -Service -AIDL," />
 
 
 
@@ -84,32 +84,16 @@
 
 
 
-<meta name="description" content="你简单的介绍下Android打包原理吧。
-哦…..
-当被问到这个”无聊至极”的问题的时候，其实我内心是拒绝的。不就先生成.class文件，再通过Android的什么东西生成.dex文件么，再融合无法编译的资源和编译好的资源文件生成.apk么。
-那你详细讲一下吧？
-你这是搞事情哦！！！">
+<meta name="description" content="IPC(Interprocess communication)跨进程通信，是指在俩个进程之间交换数据的过程。多进程通信一般分为俩种情况。第一种：一个应用因为自身的需求采用多进程实现，比如某些模块由于特殊原因需要运行在单独的进程中。第二种：当前应用需要获得其他应用的数据，由于是俩个应用，所以必须采用跨进程的方式。使用过程中，惊觉这些东西的记忆开始变得模糊了，于是干脆在总结一下，写了这篇博客。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android App打包原理分析">
-<meta property="og:url" content="http://yoursite.com/2016/11/26/app打包原理/index.html">
+<meta property="og:title" content="Android IPC汇总">
+<meta property="og:url" content="http://yoursite.com/2017/02/27/Android-IPC汇总/index.html">
 <meta property="og:site_name" content="Altman29's Home">
-<meta property="og:description" content="你简单的介绍下Android打包原理吧。
-哦…..
-当被问到这个”无聊至极”的问题的时候，其实我内心是拒绝的。不就先生成.class文件，再通过Android的什么东西生成.dex文件么，再融合无法编译的资源和编译好的资源文件生成.apk么。
-那你详细讲一下吧？
-你这是搞事情哦！！！">
-<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/13485426.jpg">
-<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/71977170.jpg">
-<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/11329344.jpg">
-<meta property="og:updated_time" content="2016-11-26T10:47:51.000Z">
+<meta property="og:description" content="IPC(Interprocess communication)跨进程通信，是指在俩个进程之间交换数据的过程。多进程通信一般分为俩种情况。第一种：一个应用因为自身的需求采用多进程实现，比如某些模块由于特殊原因需要运行在单独的进程中。第二种：当前应用需要获得其他应用的数据，由于是俩个应用，所以必须采用跨进程的方式。使用过程中，惊觉这些东西的记忆开始变得模糊了，于是干脆在总结一下，写了这篇博客。">
+<meta property="og:updated_time" content="2017-03-10T02:51:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android App打包原理分析">
-<meta name="twitter:description" content="你简单的介绍下Android打包原理吧。
-哦…..
-当被问到这个”无聊至极”的问题的时候，其实我内心是拒绝的。不就先生成.class文件，再通过Android的什么东西生成.dex文件么，再融合无法编译的资源和编译好的资源文件生成.apk么。
-那你详细讲一下吧？
-你这是搞事情哦！！！">
-<meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/13485426.jpg">
+<meta name="twitter:title" content="Android IPC汇总">
+<meta name="twitter:description" content="IPC(Interprocess communication)跨进程通信，是指在俩个进程之间交换数据的过程。多进程通信一般分为俩种情况。第一种：一个应用因为自身的需求采用多进程实现，比如某些模块由于特殊原因需要运行在单独的进程中。第二种：当前应用需要获得其他应用的数据，由于是俩个应用，所以必须采用跨进程的方式。使用过程中，惊觉这些东西的记忆开始变得模糊了，于是干脆在总结一下，写了这篇博客。">
 
 
 
@@ -127,7 +111,7 @@
   };
 </script>
 
-  <title> Android App打包原理分析 | Altman29's Home </title>
+  <title> Android IPC汇总 | Altman29's Home </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -267,7 +251,7 @@
             
             
               
-                Android App打包原理分析
+                Android IPC汇总
               
             
           </h1>
@@ -279,8 +263,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-26T17:18:47+08:00" content="2016-11-26">
-              2016-11-26
+            <time itemprop="dateCreated" datetime="2017-02-27T16:26:03+08:00" content="2017-02-27">
+              2017-02-27
             </time>
           </span>
 
@@ -309,8 +293,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/11/26/app打包原理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/26/app打包原理/" itemprop="commentsCount"></span>
+                <a href="/2017/02/27/Android-IPC汇总/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/27/Android-IPC汇总/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -320,7 +304,7 @@
           
           
           
-             <span id="/2016/11/26/app打包原理/" class="leancloud_visitors" data-flag-title="Android App打包原理分析">
+             <span id="/2017/02/27/Android-IPC汇总/" class="leancloud_visitors" data-flag-title="Android IPC汇总">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -342,46 +326,23 @@
       
 
       
-        <p><img src="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/13485426.jpg" alt=""></p>
-<p>你简单的介绍下Android打包原理吧。</p>
-<p>哦…..</p>
-<p>当被问到这个”无聊至极”的问题的时候，其实我内心是拒绝的。不就先生成.class文件，再通过Android的什么东西生成.dex文件么，再融合无法编译的资源和编译好的资源文件生成.apk么。</p>
-<p>那你详细讲一下吧？</p>
-<p>你这是搞事情哦！！！</p>
+        <blockquote>
+<p>IPC(Interprocess communication)跨进程通信，是指在俩个进程之间交换数据的过程。多进程通信一般分为俩种情况。第一种：一个应用因为自身的需求采用多进程实现，比如某些模块由于特殊原因需要运行在单独的进程中。第二种：当前应用需要获得其他应用的数据，由于是俩个应用，所以必须采用跨进程的方式。使用过程中，惊觉这些东西的记忆开始变得模糊了，于是干脆在总结一下，写了这篇博客。</p>
+</blockquote>
 <a id="more"></a>
-<h3 id="Apk文件结构"><a href="#Apk文件结构" class="headerlink" title="Apk文件结构"></a>Apk文件结构</h3><p>不是要说App打包原理么？先别急，先看一下apk文件的结构在来说打包原理，可以理解的更清晰哟~</p>
-<p>无图言X，不废话先上图：</p>
-<p><img src="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/71977170.jpg" alt=""></p>
-<p>红色标注部分的文件和文件夹都是Android爱普基本具备的，剩下的则是一些第三方库或代码生成的。对了，这个图片里的文件是怎么来的，再多嘴一句，其实就是apk文件修改后缀名为zip后，解压得到的，再其实你可以将apk看成一个特殊的压缩包。(Ps:无混淆，无加固，只为了解构建的过程。)</p>
-<h4 id="AndroidManifest-xml"><a href="#AndroidManifest-xml" class="headerlink" title="AndroidManifest.xml"></a>AndroidManifest.xml</h4><p>这个文件可以意为清单文件或者全局配置文件。里面有很多应用的配置信息，权限、版本号、四大组件的注册也在其中。</p>
-<h4 id="assets文件夹"><a href="#assets文件夹" class="headerlink" title="assets文件夹"></a>assets文件夹</h4><p>这个文件用于存储需要保持原始文件的资源文件，原始的意思就是打包之前里面东西什么样，打包之后还是那样。一般都是放一些音频，网页，字体等文件。</p>
-<h4 id="dex文件"><a href="#dex文件" class="headerlink" title="dex文件"></a>dex文件</h4><p>.dex文件是Android系统运行在Dalvik Virtual Machine上的可执行文件，也是Android爱普的核心。项目的Java源码通过javac生成class文件，在通过dx工具生成为classes.dex文件。</p>
-<h4 id="lib文件夹"><a href="#lib文件夹" class="headerlink" title="lib文件夹"></a>lib文件夹</h4><p>该目录存放着爱普需要的native库文件。比如so库以及底层实现的图片处理、音视频处理、数据库加密的库。该文件夹下常见多一个层次，根据不同的cpu型号划分为x86，ARM，ARM-v7a等。</p>
-<h4 id="META-INF文件夹"><a href="#META-INF文件夹" class="headerlink" title="META-INF文件夹"></a>META-INF文件夹</h4><p>该目录主要作用就是用于保证APK的完整性和安全性。主要有三个文件：</p>
-<p><img src="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/11329344.jpg" alt=""></p>
-<p>MANIFEST.MF：保存了整个apk文件中所有文件的文件名+SHA-1后的base64编码值。象征着apk的完整性。</p>
-<p>CERT.RSA：保存了公匙和加密方式的信息。</p>
-<p>CERT.SF：这个文件与MANIFEST.MF的结构一样，只是其编码会被私匙加密。每次安装时，通过该文件夹中的文件，就可以完成验证的过程。如果apk包被改变了，而篡改者没有私匙生成的CERT.SF，则无法完成校验。</p>
-<h4 id="res文件夹"><a href="#res文件夹" class="headerlink" title="res文件夹"></a>res文件夹</h4><p>这个就很清楚了，这是资源文件夹。什么anim，drawable，layout，values等等等等~</p>
-<h4 id="resource-arsc文件"><a href="#resource-arsc文件" class="headerlink" title="resource.arsc文件"></a>resource.arsc文件</h4><p>该文件是所有文件中结构最复杂的。</p>
-<p>它记录了资源文件，资源文件位置和资源id的映射关系。并且将所有的string都存放在了string pool中，节省了在查找资源时，字符串处理的开销。</p>
-<hr>
-<h3 id="Android打包流程"><a href="#Android打包流程" class="headerlink" title="Android打包流程"></a>Android打包流程</h3><p>在了解了 apk 文件的结构后，我们开始分析 Android 的打包流程。 </p>
-<h4 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h4><p>Android 打包流程的第一步，是处理资源文件。<br>在这个步骤中，起主要作用的是 aapt。<br>刚刚提及的 AndroidManifest.xml, res 文件夹，resource.arsc 文件的生成都与其有关，简单来说，aapt 解析项目代码中的 AndroidManifest.xml，收集项目中 res 文件夹的资源文件及 xml 文件，对其做压缩以及编译的处理。在此过程中，分配了资源 id 并生成了 R.java 文件 以及 arsc 文件。 </p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>上一步得到了 R.java 文件后，将其与项目代码一起编译得到 .class文件，然后打包为 jar 包。这个过程中，还会有混淆代码这一步骤。之后，再通过 dx 工具，将生成的 jar 包与第三方库的 jar 包一起编译为 dex 文件。这个过程中，如果是 5.0 以前的系统且超过了 65535 方法数的限制，需要人为的分 dex，5.0 以后则由 dx 工具包办。 </p>
-<p>到这一步，实际上 apk 所需要的主要内容已经大致齐全了。只需要把上面生成的 AndroidManifest.xml，classes.dex，res文件夹，resource.arsc 打包进 apk，并且将项目工程中的 assets 以及 lib 目录一并放入，就有了一个未经签名的 Android 安装包了。 </p>
-<h4 id="签名"><a href="#签名" class="headerlink" title="签名"></a>签名</h4><p>接下来还缺简单但是却关键的最后一步，那便是 apk 包的签名，这一步在之前对 META-INF 的介绍中，实际已有提及。只需要按步骤生成 MANIFEST.MF, CERT.RSA，CERT.SF 并放入META-INF 文件夹即可。 </p>
-<p>以上便是 Android 打包的基本流程，宏观来看实际并不复杂，但是其中的一些步骤展开来讲，却是很有内容的，比如 appt 对资源处理的那个部分，R.java 是如何生成的，resource.arsc 又是如何生成的，Android 是怎样完成对资源的获取的，这些我都不会，哈哈。以后慢慢补吧~</p>
-<hr>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li>aapt（Android Asset Packaging Tool）给你的Activity提供所需的资源文件,如 AndroidManifest.xml，XML文件,并编译它们。同时产生R.java文件，使你可以在java代码中引用这些资源。</li>
-<li>aidl工具把.aidl接口转换成Java接口。</li>
-<li>你所有的Java代码,包括 R.java和 .aidl文件,由Java编译器和编译输出.class文件。</li>
-<li>dex工具把.class文件转换成Dalvik字节文件，第三方的类和.class也被转换成.dex文件</li>
-<li>所有无法编译的资源（比如图片），编译好的资源文件和.dex都被送到apkbuilder工具中，生成最后的.apk</li>
-<li>生成.apk时必须制定是debug还是release，release还要提供相应的key</li>
-<li>如果选择release版本，还需要使用zipalign工具对apk对齐。齐处理即使得所有资源文件距离文件起始偏移为4字节的整数倍，这样通过内存映射访问apk文件时处理速度更快。</li>
-</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Android开发中共有六种进程间通信方式。</p>
+<h4 id="Bundle"><a href="#Bundle" class="headerlink" title="Bundle"></a>Bundle</h4><p>Activity、Service、Receiver都是支持在Intent中传递Bundle的。由于Bundle实现了Parcelable接口，所以它可以在不同进程间传输。可以在Bundle中附加数据，并通过Intent传送出去。当然，传送的数据必须是能够被序列化的。<br>关于Android中序列化可以参考：<a href="http://altman29.cn/2017/02/21/Serializable-Parcelable/。" target="_blank" rel="external">http://altman29.cn/2017/02/21/Serializable-Parcelable/。</a></p>
+<h4 id="文件共享"><a href="#文件共享" class="headerlink" title="文件共享"></a>文件共享</h4><p>A进程把数据写入文件，B进程通过读取这个文件来获取数据。但这种方法有一个问题就是并发读写问题。不过，有一个特例，SharedPreferences是Android中提供的轻量级存储反感，底层采用XML实现。但是对于它的读写有一定的缓存策略，因此不建议在进程间通信使用它。</p>
+<p>举个栗子：</p>
+<p>在MainActivity的onResume中序列化一个对象到sd卡，然后在SecondActivity的onResume中反序列化，关键代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//MainActivity</span></div><div class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">persistToFile</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line"> </div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                User user = <span class="keyword">new</span> User(<span class="number">1</span>, <span class="string">"hello world"</span>, <span class="keyword">false</span>);</div><div class="line">                File dir = <span class="keyword">new</span> File(MyConstants.CHAPTER_2_PATH);</div><div class="line">                <span class="keyword">if</span> (!dir.exists()) &#123;</div><div class="line">                    dir.mkdirs();</div><div class="line">                &#125;</div><div class="line">                File cachedFile = <span class="keyword">new</span> File(MyConstants.CACHE_FILE_PATH);</div><div class="line">                ObjectOutputStream objectOutputStream = <span class="keyword">null</span>;</div><div class="line">                <span class="keyword">try</span> &#123;</div><div class="line">                    objectOutputStream = <span class="keyword">new</span> ObjectOutputStream(</div><div class="line">                            <span class="keyword">new</span> FileOutputStream(cachedFile));</div><div class="line">                    objectOutputStream.writeObject(user);</div><div class="line">                    Log.d(TAG, <span class="string">"persist user:"</span> + user);</div><div class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125; <span class="keyword">finally</span> &#123;</div><div class="line">                    MyUtils.close(objectOutputStream);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;).start();</div><div class="line">    &#125;</div><div class="line"> </div><div class="line"><span class="comment">//SecondActivity</span></div><div class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">recoverFromFile</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line"> </div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                User user = <span class="keyword">null</span>;</div><div class="line">                File cachedFile = <span class="keyword">new</span> File(MyConstants.CACHE_FILE_PATH);</div><div class="line">                <span class="keyword">if</span> (cachedFile.exists()) &#123;</div><div class="line">                    ObjectInputStream objectInputStream = <span class="keyword">null</span>;</div><div class="line">                    <span class="keyword">try</span> &#123;</div><div class="line">                        objectInputStream = <span class="keyword">new</span> ObjectInputStream(</div><div class="line">                                <span class="keyword">new</span> FileInputStream(cachedFile));</div><div class="line">                        user = (User) objectInputStream.readObject();</div><div class="line">                        Log.d(TAG, <span class="string">"recover user:"</span> + user);</div><div class="line">                    &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">                        e.printStackTrace();</div><div class="line">                    &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</div><div class="line">                        e.printStackTrace();</div><div class="line">                    &#125; <span class="keyword">finally</span> &#123;</div><div class="line">                        MyUtils.close(objectInputStream);</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;).start();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h4 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h4><p>不常用，实现思路：首先在远程Service建立一个TCP服务，然后在主界面中链接TCP服务，连接上后就可以给服务端发消息，服务端会随机回应一句话。</p>
+<h4 id="ContentProvider"><a href="#ContentProvider" class="headerlink" title="ContentProvider"></a>ContentProvider</h4><p>ContentProvider是Android中专门用于应用间进行数据共享的方式。</p>
+<p><a href="http://altman29.cn/2017/02/28/ContentProvider%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/" target="_blank" rel="external">http://altman29.cn/2017/02/28/ContentProvider%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%94%BE%E5%BC%83/</a></p>
+<h4 id="Messager"><a href="#Messager" class="headerlink" title="Messager"></a>Messager</h4><p>使用这个方式可以在不同进程间传递message对象，这是一种轻量级的IPC方案，当传递的对象可以放入message中时，可以考虑使用这种方式。</p>
+<h4 id="AIDL"><a href="#AIDL" class="headerlink" title="AIDL"></a>AIDL</h4><p>主要用于调用远程服务的方法的情况，还可以注册接口。在服务端定义aidl文件 自动生成java文件  然后在service中实现这个aidl  在onbind中返回这个对象<br>在客户端把服务端的aidl文件完全复制过来  包名必须完全一致   在onServiceConnected方法 中 把  Ibinder对象 用asInterface方法转化成 aidl对象<br>然后调用方法即可  </p>
+<p>需要注意的地方：<br>在aidl文件中并不是支持所有类型<br>仅支持如下6种类型：<br>基本数据类型—- int long  char  boolean double<br>String  charSequence<br>List  只支持ArrayList  CopyOnWriteArrayList也可以。。  里面元素也必须被aidl支持<br>Map   只支持HashMap   ConCurrentHashMap也可以  里面元素也必须支持aidl<br>Parcelable  所有实现了此接口的对象<br>AIDL  所有的AIDL接口   因此 如果需要使用接口 必须使用AIDL接口</p>
+<h4 id="Binder连接池"><a href="#Binder连接池" class="headerlink" title="Binder连接池"></a>Binder连接池</h4><p>我们在android中进程间通信 一般都使用 AIDL实现 因为它强大  但是普通的使用方法每次使用AIDL 都需要开启一个服务  如果有多个AIDL请求 那岂不是要开启很多个服务<br>这明显是不可以的  比如你让你用户的手机 发现你这一个应用程序绑定了10个服务  那是极差的  所以 我们在多个AIDL 请求的时候可以使用Binder连接池技术<br>只开启一个服务  根据需要获取的AIDL不同 转化成需要的AIDL 接口 执行不同的方法<br>实现的基本原理  就是在onbind中返回一个BinderPool 接口 这个接口有个方法 可以根据不同的标志位返回不同的aidl接口  这样我们在asInTerface之后调用哪个方法<br>传入标志位即可返回需要的aidl接口 </p>
 
       
     </div>
@@ -403,7 +364,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Android构建分析/" rel="tag">#Android构建分析</a>
+            <a href="/tags/IPC-Service-AIDL/" rel="tag">#-IPC -Service -AIDL</a>
           
         </div>
       
@@ -412,16 +373,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/20/me/" rel="next" title="24岁的自个儿">
-                <i class="fa fa-chevron-left"></i> 24岁的自个儿
+              <a href="/2017/02/21/Serializable-Parcelable/" rel="next" title="Serializable&Parcelable">
+                <i class="fa fa-chevron-left"></i> Serializable&Parcelable
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/12/09/design/" rel="prev" title="Java Design Patterns汇总">
-                Java Design Patterns汇总 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/02/28/ContentProvider从入门到放弃/" rel="prev" title="ContentProvider从入门到放弃">
+                ContentProvider从入门到放弃 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -437,10 +398,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/11/26/app打包原理/"
-     data-title="Android App打包原理分析"
+        <div class="ds-share flat" data-thread-key="2017/02/27/Android-IPC汇总/"
+     data-title="Android IPC汇总"
      data-content=""
-     data-url="http://yoursite.com/2016/11/26/app打包原理/">
+     data-url="http://yoursite.com/2017/02/27/Android-IPC汇总/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -466,8 +427,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/11/26/app打包原理/"
-           data-title="Android App打包原理分析" data-url="http://yoursite.com/2016/11/26/app打包原理/">
+      <div class="ds-thread" data-thread-key="2017/02/27/Android-IPC汇总/"
+           data-title="Android IPC汇总" data-url="http://yoursite.com/2017/02/27/Android-IPC汇总/">
       </div>
     
   </div>
@@ -578,7 +539,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Apk文件结构"><span class="nav-number">1.</span> <span class="nav-text">Apk文件结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AndroidManifest-xml"><span class="nav-number">1.1.</span> <span class="nav-text">AndroidManifest.xml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#assets文件夹"><span class="nav-number">1.2.</span> <span class="nav-text">assets文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dex文件"><span class="nav-number">1.3.</span> <span class="nav-text">dex文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lib文件夹"><span class="nav-number">1.4.</span> <span class="nav-text">lib文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#META-INF文件夹"><span class="nav-number">1.5.</span> <span class="nav-text">META-INF文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#res文件夹"><span class="nav-number">1.6.</span> <span class="nav-text">res文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#resource-arsc文件"><span class="nav-number">1.7.</span> <span class="nav-text">resource.arsc文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android打包流程"><span class="nav-number">2.</span> <span class="nav-text">Android打包流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#资源"><span class="nav-number">2.1.</span> <span class="nav-text">资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">2.2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#签名"><span class="nav-number">2.3.</span> <span class="nav-text">签名</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Bundle"><span class="nav-number">1.1.</span> <span class="nav-text">Bundle</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件共享"><span class="nav-number">1.2.</span> <span class="nav-text">文件共享</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Socket"><span class="nav-number">1.3.</span> <span class="nav-text">Socket</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ContentProvider"><span class="nav-number">1.4.</span> <span class="nav-text">ContentProvider</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Messager"><span class="nav-number">1.5.</span> <span class="nav-text">Messager</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AIDL"><span class="nav-number">1.6.</span> <span class="nav-text">AIDL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Binder连接池"><span class="nav-number">1.7.</span> <span class="nav-text">Binder连接池</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
