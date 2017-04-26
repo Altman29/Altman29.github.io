@@ -84,17 +84,17 @@
 
 
 
-<meta name="description" content="由于Android中每个程序都是运行在独立的进程中，每个进程的内存空间和内存地址都是相互不可见的，所以我们如果直接将一个对象的引用由进程A传递给进程B，进程B根据这个引用的地址是获取不到正确的对象的。你可能还有一个疑问，如果我只是在应用内部进行跳转，为什么还需要将对象序列化呢？因为在Android中，每一个组件都设计成开放可复用的模块，我们通过一个Intent启动一个组件并不能保证启动的组件和">
+<meta name="description" content="由于Android中每个程序都是运行在独立的进程中，每个进程的内存空间和内存地址都是相互不可见的，所以我们如果直接将一个对象的引用由进程A传递给进程B，进程B根据这个引用的地址是获取不到正确的对象的。你可能还有一个疑问，如果我只是在应用内部进行跳转，为什么还需要将对象序列化呢？因为在Android中，每一个组件都设计成开放可复用的模块，我们通过一个Intent启动一个组件并不能保证启动的组件和当前">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Serializable&Parcelable">
 <meta property="og:url" content="http://yoursite.com/2017/02/21/Serializable-Parcelable/index.html">
-<meta property="og:site_name" content="Altman29's Home">
-<meta property="og:description" content="由于Android中每个程序都是运行在独立的进程中，每个进程的内存空间和内存地址都是相互不可见的，所以我们如果直接将一个对象的引用由进程A传递给进程B，进程B根据这个引用的地址是获取不到正确的对象的。你可能还有一个疑问，如果我只是在应用内部进行跳转，为什么还需要将对象序列化呢？因为在Android中，每一个组件都设计成开放可复用的模块，我们通过一个Intent启动一个组件并不能保证启动的组件和">
+<meta property="og:site_name" content="拾叁妖">
+<meta property="og:description" content="由于Android中每个程序都是运行在独立的进程中，每个进程的内存空间和内存地址都是相互不可见的，所以我们如果直接将一个对象的引用由进程A传递给进程B，进程B根据这个引用的地址是获取不到正确的对象的。你可能还有一个疑问，如果我只是在应用内部进行跳转，为什么还需要将对象序列化呢？因为在Android中，每一个组件都设计成开放可复用的模块，我们通过一个Intent启动一个组件并不能保证启动的组件和当前">
 <meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/123.png">
-<meta property="og:updated_time" content="2017-02-28T03:40:53.000Z">
+<meta property="og:updated_time" content="2017-04-26T02:38:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Serializable&Parcelable">
-<meta name="twitter:description" content="由于Android中每个程序都是运行在独立的进程中，每个进程的内存空间和内存地址都是相互不可见的，所以我们如果直接将一个对象的引用由进程A传递给进程B，进程B根据这个引用的地址是获取不到正确的对象的。你可能还有一个疑问，如果我只是在应用内部进行跳转，为什么还需要将对象序列化呢？因为在Android中，每一个组件都设计成开放可复用的模块，我们通过一个Intent启动一个组件并不能保证启动的组件和">
+<meta name="twitter:description" content="由于Android中每个程序都是运行在独立的进程中，每个进程的内存空间和内存地址都是相互不可见的，所以我们如果直接将一个对象的引用由进程A传递给进程B，进程B根据这个引用的地址是获取不到正确的对象的。你可能还有一个疑问，如果我只是在应用内部进行跳转，为什么还需要将对象序列化呢？因为在Android中，每一个组件都设计成开放可复用的模块，我们通过一个Intent启动一个组件并不能保证启动的组件和当前">
 <meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/123.png">
 
 
@@ -113,7 +113,7 @@
   };
 </script>
 
-  <title> Serializable&Parcelable | Altman29's Home </title>
+  <title> Serializable&Parcelable | 拾叁妖 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -144,7 +144,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Altman29's Home</span>
+      <span class="site-title">拾叁妖</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -328,11 +328,9 @@
       
 
       
-        <p><img src="http://ogo6z0ylk.bkt.clouddn.com/123.png" alt=""></p>
-<blockquote>
-<p>由于Android中每个程序都是运行在独立的进程中，每个进程的内存空间和内存地址都是相互不可见的，所以我们如果直接将一个对象的引用由进程A传递给进程B，进程B根据这个引用的地址是获取不到正确的对象的。你可能还有一个疑问，如果我只是在应用内部进行跳转，为什么还需要将对象序列化呢？因为在Android中，每一个组件都设计成开放可复用的模块，我们通过一个Intent启动一个组件并不能保证启动的组件和当前组件在一个进程。</p>
-</blockquote>
+        <p>由于Android中每个程序都是运行在独立的进程中，每个进程的内存空间和内存地址都是相互不可见的，所以我们如果直接将一个对象的引用由进程A传递给进程B，进程B根据这个引用的地址是获取不到正确的对象的。你可能还有一个疑问，如果我只是在应用内部进行跳转，为什么还需要将对象序列化呢？因为在Android中，每一个组件都设计成开放可复用的模块，我们通过一个Intent启动一个组件并不能保证启动的组件和当前组件在一个进程。</p>
 <a id="more"></a>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/123.png" alt=""></p>
 <h3 id="序列化的原因"><a href="#序列化的原因" class="headerlink" title="序列化的原因"></a>序列化的原因</h3><p>序列化的原因可以归纳为一下三种情况：<br>1.永久的保存对象，保存对象的字节序列到本地文件中；<br>2.对象在网络中传递(用于网络传输是以字节流的方式对数据进行传输，以此序列化的目的是将对象数据转换成字节流的形式)；<br>3.对象在ICP间传递。</p>
 <h3 id="序列化的方法"><a href="#序列化的方法" class="headerlink" title="序列化的方法"></a>序列化的方法</h3><p>在Android系统中关于序列化的方法一般有俩种，分别是实现Serializable接口和实现Parcelable接口，其中Serializable接口是来自Java中的序列化接口，而Parcelable是Android中自带的序列化接口。实际使用中根据不同情况来选择合适的使用。</p>
 <h3 id="S-amp-P的区别"><a href="#S-amp-P的区别" class="headerlink" title="S&amp;P的区别"></a>S&amp;P的区别</h3><p>Serializable是JavaSE支持的，Parcelable是Android特有的；<br>P效率高，快10倍左右；<br>P不能用在数据需要永久储存的情况，比如本地文件。P不能保证外界有变化时数据的持续性。</p>
@@ -468,14 +466,14 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/ava.png"
-               alt="Altman29" />
-          <p class="site-author-name" itemprop="name">Altman29</p>
-          <p class="site-description motion-element" itemprop="description">生命就像，一条大河。</p>
+               alt="拾叁妖" />
+          <p class="site-author-name" itemprop="name">拾叁妖</p>
+          <p class="site-description motion-element" itemprop="description">奇变偶不变，符号看象限。</p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">11</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -492,7 +490,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -567,7 +565,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Altman29</span>
+  <span class="author" itemprop="copyrightHolder">拾叁妖</span>
 </div>
 
 <div class="powered-by">

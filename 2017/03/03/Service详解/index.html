@@ -84,17 +84,17 @@
 
 
 
-<meta name="description" content="最近在做IPC相关的东西，不可避免涉及到Service，进程线程这些知识点，研究过程中发现印象已经开始模糊了，于是记录查考。">
+<meta name="description" content="最近在做IPC相关的东西，不可避免涉及到Service，进程线程这些知识点，研究过程中发现印象已经开始模糊了，于是记录查考。Service是Android中一个类，它是Android四大组件之一，使用Service可以在后台执行长时间的操作（ perform long-running operations in the background ），Service并不与用户产生UI交互。其他的应用组件">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Service详解">
 <meta property="og:url" content="http://yoursite.com/2017/03/03/Service详解/index.html">
-<meta property="og:site_name" content="Altman29's Home">
-<meta property="og:description" content="最近在做IPC相关的东西，不可避免涉及到Service，进程线程这些知识点，研究过程中发现印象已经开始模糊了，于是记录查考。">
+<meta property="og:site_name" content="拾叁妖">
+<meta property="og:description" content="最近在做IPC相关的东西，不可避免涉及到Service，进程线程这些知识点，研究过程中发现印象已经开始模糊了，于是记录查考。Service是Android中一个类，它是Android四大组件之一，使用Service可以在后台执行长时间的操作（ perform long-running operations in the background ），Service并不与用户产生UI交互。其他的应用组件">
 <meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/service20170310.png">
-<meta property="og:updated_time" content="2017-03-10T08:42:34.000Z">
+<meta property="og:updated_time" content="2017-04-26T02:37:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Service详解">
-<meta name="twitter:description" content="最近在做IPC相关的东西，不可避免涉及到Service，进程线程这些知识点，研究过程中发现印象已经开始模糊了，于是记录查考。">
+<meta name="twitter:description" content="最近在做IPC相关的东西，不可避免涉及到Service，进程线程这些知识点，研究过程中发现印象已经开始模糊了，于是记录查考。Service是Android中一个类，它是Android四大组件之一，使用Service可以在后台执行长时间的操作（ perform long-running operations in the background ），Service并不与用户产生UI交互。其他的应用组件">
 <meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/service20170310.png">
 
 
@@ -113,7 +113,7 @@
   };
 </script>
 
-  <title> Service详解 | Altman29's Home </title>
+  <title> Service详解 | 拾叁妖 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -144,7 +144,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">Altman29's Home</span>
+      <span class="site-title">拾叁妖</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -328,9 +328,7 @@
       
 
       
-        <blockquote>
-<p>最近在做IPC相关的东西，不可避免涉及到Service，进程线程这些知识点，研究过程中发现印象已经开始模糊了，于是记录查考。</p>
-</blockquote>
+        <p>最近在做IPC相关的东西，不可避免涉及到Service，进程线程这些知识点，研究过程中发现印象已经开始模糊了，于是记录查考。Service是Android中一个类，它是Android四大组件之一，使用Service可以在后台执行长时间的操作（ perform long-running operations in the background ），Service并不与用户产生UI交互。其他的应用组件可以启动Service，即便用户切换了其他应用，启动的Service仍可在后台运行。一个组件可以与Service绑定并与之交互，甚至是跨进程通信（IPC）。例如，一个Service可以在后台执行网络请求、播放音乐、执行文件读写操作或者与 content provider交互 等。</p>
 <a id="more"></a>
 <h3 id="什么是Service"><a href="#什么是Service" class="headerlink" title="什么是Service"></a>什么是Service</h3><p>Service是一个可以在后台执行长时间操作而不实用用户界面的应用组件。那么，问题来了，既然它不使用用户界面，那么它怎么知道应该什么时候开始执行什么操作呢？答案是：它可以与其他的引用组件形成一些联系，从而根据其传来的信息在合适的时候执行合适的操作。</p>
 <p>一般来讲，这种联系分为俩种：startService()以及bindService()。这俩种联系都可以使得一个service开始运行，但是在其他方面有很多不同。</p>
@@ -484,10 +482,6 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/06/有趣的AIDL/" rel="prev" title="有趣的AIDL">
-                有趣的AIDL <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
       
@@ -569,14 +563,14 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/ava.png"
-               alt="Altman29" />
-          <p class="site-author-name" itemprop="name">Altman29</p>
-          <p class="site-description motion-element" itemprop="description">生命就像，一条大河。</p>
+               alt="拾叁妖" />
+          <p class="site-author-name" itemprop="name">拾叁妖</p>
+          <p class="site-description motion-element" itemprop="description">奇变偶不变，符号看象限。</p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">11</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -593,7 +587,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -668,7 +662,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Altman29</span>
+  <span class="author" itemprop="copyrightHolder">拾叁妖</span>
 </div>
 
 <div class="powered-by">
