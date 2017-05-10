@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android构建分析," />
+  <meta name="keywords" content="Fragment," />
 
 
 
@@ -84,32 +84,19 @@
 
 
 
-<meta name="description" content="你简单的介绍下Android打包原理吧。
-哦…..
-当被问到这个”无聊至极”的问题的时候，其实我内心是拒绝的。不就先生成.class文件，再通过Android的什么东西生成.dex文件么，再融合无法编译的资源和编译好的资源文件生成.apk么。
-那你详细讲一下吧？
-你这是搞事情哦！！！">
+<meta name="description" content="在一个项目中使用了ViewPager+Fragment的组合，但是在实际使用中频繁的Crash，错误是在Fragment内部出现的NullPointException。
+经过仔细排查，发现是因为我在Fragment内有一些AsyncTask联网操作，在网络链接失败的时候会弹出Toast消息提示。而生成Toast时传入的Context参数是getActivity() ，这里就有可能会出现问题了，只有">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android App打包原理分析">
-<meta property="og:url" content="http://yoursite.com/2016/11/26/app打包原理/index.html">
+<meta property="og:title" content="Fragment中无故失踪的Context">
+<meta property="og:url" content="http://yoursite.com/2017/05/10/Fragment中无故失踪的Context/index.html">
 <meta property="og:site_name" content="拾叁妖">
-<meta property="og:description" content="你简单的介绍下Android打包原理吧。
-哦…..
-当被问到这个”无聊至极”的问题的时候，其实我内心是拒绝的。不就先生成.class文件，再通过Android的什么东西生成.dex文件么，再融合无法编译的资源和编译好的资源文件生成.apk么。
-那你详细讲一下吧？
-你这是搞事情哦！！！">
-<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/13485426.jpg">
-<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/71977170.jpg">
-<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/11329344.jpg">
-<meta property="og:updated_time" content="2017-04-26T02:39:04.000Z">
+<meta property="og:description" content="在一个项目中使用了ViewPager+Fragment的组合，但是在实际使用中频繁的Crash，错误是在Fragment内部出现的NullPointException。
+经过仔细排查，发现是因为我在Fragment内有一些AsyncTask联网操作，在网络链接失败的时候会弹出Toast消息提示。而生成Toast时传入的Context参数是getActivity() ，这里就有可能会出现问题了，只有">
+<meta property="og:updated_time" content="2017-05-10T07:48:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android App打包原理分析">
-<meta name="twitter:description" content="你简单的介绍下Android打包原理吧。
-哦…..
-当被问到这个”无聊至极”的问题的时候，其实我内心是拒绝的。不就先生成.class文件，再通过Android的什么东西生成.dex文件么，再融合无法编译的资源和编译好的资源文件生成.apk么。
-那你详细讲一下吧？
-你这是搞事情哦！！！">
-<meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/13485426.jpg">
+<meta name="twitter:title" content="Fragment中无故失踪的Context">
+<meta name="twitter:description" content="在一个项目中使用了ViewPager+Fragment的组合，但是在实际使用中频繁的Crash，错误是在Fragment内部出现的NullPointException。
+经过仔细排查，发现是因为我在Fragment内有一些AsyncTask联网操作，在网络链接失败的时候会弹出Toast消息提示。而生成Toast时传入的Context参数是getActivity() ，这里就有可能会出现问题了，只有">
 
 
 
@@ -127,7 +114,7 @@
   };
 </script>
 
-  <title> Android App打包原理分析 | 拾叁妖 </title>
+  <title> Fragment中无故失踪的Context | 拾叁妖 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -272,7 +259,7 @@
             
             
               
-                Android App打包原理分析
+                Fragment中无故失踪的Context
               
             
           </h1>
@@ -284,8 +271,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-26T17:18:47+08:00" content="2016-11-26">
-              2016-11-26
+            <time itemprop="dateCreated" datetime="2017-05-10T14:29:29+08:00" content="2017-05-10">
+              2017-05-10
             </time>
           </span>
 
@@ -318,7 +305,7 @@
           
           
           
-             <span id="/2016/11/26/app打包原理/" class="leancloud_visitors" data-flag-title="Android App打包原理分析">
+             <span id="/2017/05/10/Fragment中无故失踪的Context/" class="leancloud_visitors" data-flag-title="Fragment中无故失踪的Context">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -340,46 +327,19 @@
       
 
       
-        <p>你简单的介绍下Android打包原理吧。</p>
-<p>哦…..</p>
-<p>当被问到这个”无聊至极”的问题的时候，其实我内心是拒绝的。不就先生成.class文件，再通过Android的什么东西生成.dex文件么，再融合无法编译的资源和编译好的资源文件生成.apk么。</p>
-<p>那你详细讲一下吧？</p>
-<p>你这是搞事情哦！！！</p>
+        <p>在一个项目中使用了ViewPager+Fragment的组合，但是在实际使用中频繁的Crash，错误是在Fragment内部出现的NullPointException。</p>
+<p>经过仔细排查，发现是因为我在Fragment内有一些AsyncTask联网操作，在网络链接失败的时候会弹出Toast消息提示。而生成Toast时传入的Context参数是getActivity() ，这里就有可能会出现问题了，只有Fragment附着(onAttach)在Activity上时 getActivity() 函数才会返回正确的对象，否则的话返回null。</p>
+<p>因此，如果我正在联网，滑动ViewPager使得这个Fragment被销毁了或者点击Back键返回了，此时Fragment就会和Activity解除附着，当再试图弹出Toast的时候，getActivity() 返回null，于是就Crash了。</p>
 <a id="more"></a>
-<p><img src="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/13485426.jpg" alt=""></p>
-<h3 id="Apk文件结构"><a href="#Apk文件结构" class="headerlink" title="Apk文件结构"></a>Apk文件结构</h3><p>不是要说App打包原理么？先别急，先看一下apk文件的结构在来说打包原理，可以理解的更清晰哟~</p>
-<p>无图言X，不废话先上图：</p>
-<p><img src="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/71977170.jpg" alt=""></p>
-<p>红色标注部分的文件和文件夹都是Android爱普基本具备的，剩下的则是一些第三方库或代码生成的。对了，这个图片里的文件是怎么来的，再多嘴一句，其实就是apk文件修改后缀名为zip后，解压得到的，再其实你可以将apk看成一个特殊的压缩包。(Ps:无混淆，无加固，只为了解构建的过程。)</p>
-<h4 id="AndroidManifest-xml"><a href="#AndroidManifest-xml" class="headerlink" title="AndroidManifest.xml"></a>AndroidManifest.xml</h4><p>这个文件可以意为清单文件或者全局配置文件。里面有很多应用的配置信息，权限、版本号、四大组件的注册也在其中。</p>
-<h4 id="assets文件夹"><a href="#assets文件夹" class="headerlink" title="assets文件夹"></a>assets文件夹</h4><p>这个文件用于存储需要保持原始文件的资源文件，原始的意思就是打包之前里面东西什么样，打包之后还是那样。一般都是放一些音频，网页，字体等文件。</p>
-<h4 id="dex文件"><a href="#dex文件" class="headerlink" title="dex文件"></a>dex文件</h4><p>.dex文件是Android系统运行在Dalvik Virtual Machine上的可执行文件，也是Android爱普的核心。项目的Java源码通过javac生成class文件，在通过dx工具生成为classes.dex文件。</p>
-<h4 id="lib文件夹"><a href="#lib文件夹" class="headerlink" title="lib文件夹"></a>lib文件夹</h4><p>该目录存放着爱普需要的native库文件。比如so库以及底层实现的图片处理、音视频处理、数据库加密的库。该文件夹下常见多一个层次，根据不同的cpu型号划分为x86，ARM，ARM-v7a等。</p>
-<h4 id="META-INF文件夹"><a href="#META-INF文件夹" class="headerlink" title="META-INF文件夹"></a>META-INF文件夹</h4><p>该目录主要作用就是用于保证APK的完整性和安全性。主要有三个文件：</p>
-<p><img src="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/11329344.jpg" alt=""></p>
-<p>MANIFEST.MF：保存了整个apk文件中所有文件的文件名+SHA-1后的base64编码值。象征着apk的完整性。</p>
-<p>CERT.RSA：保存了公匙和加密方式的信息。</p>
-<p>CERT.SF：这个文件与MANIFEST.MF的结构一样，只是其编码会被私匙加密。每次安装时，通过该文件夹中的文件，就可以完成验证的过程。如果apk包被改变了，而篡改者没有私匙生成的CERT.SF，则无法完成校验。</p>
-<h4 id="res文件夹"><a href="#res文件夹" class="headerlink" title="res文件夹"></a>res文件夹</h4><p>这个就很清楚了，这是资源文件夹。什么anim，drawable，layout，values等等等等~</p>
-<h4 id="resource-arsc文件"><a href="#resource-arsc文件" class="headerlink" title="resource.arsc文件"></a>resource.arsc文件</h4><p>该文件是所有文件中结构最复杂的。</p>
-<p>它记录了资源文件，资源文件位置和资源id的映射关系。并且将所有的string都存放在了string pool中，节省了在查找资源时，字符串处理的开销。</p>
-<hr>
-<h3 id="Android打包流程"><a href="#Android打包流程" class="headerlink" title="Android打包流程"></a>Android打包流程</h3><p>在了解了 apk 文件的结构后，我们开始分析 Android 的打包流程。 </p>
-<h4 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h4><p>Android 打包流程的第一步，是处理资源文件。<br>在这个步骤中，起主要作用的是 aapt。<br>刚刚提及的 AndroidManifest.xml, res 文件夹，resource.arsc 文件的生成都与其有关，简单来说，aapt 解析项目代码中的 AndroidManifest.xml，收集项目中 res 文件夹的资源文件及 xml 文件，对其做压缩以及编译的处理。在此过程中，分配了资源 id 并生成了 R.java 文件 以及 arsc 文件。 </p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>上一步得到了 R.java 文件后，将其与项目代码一起编译得到 .class文件，然后打包为 jar 包。这个过程中，还会有混淆代码这一步骤。之后，再通过 dx 工具，将生成的 jar 包与第三方库的 jar 包一起编译为 dex 文件。这个过程中，如果是 5.0 以前的系统且超过了 65535 方法数的限制，需要人为的分 dex，5.0 以后则由 dx 工具包办。 </p>
-<p>到这一步，实际上 apk 所需要的主要内容已经大致齐全了。只需要把上面生成的 AndroidManifest.xml，classes.dex，res文件夹，resource.arsc 打包进 apk，并且将项目工程中的 assets 以及 lib 目录一并放入，就有了一个未经签名的 Android 安装包了。 </p>
-<h4 id="签名"><a href="#签名" class="headerlink" title="签名"></a>签名</h4><p>接下来还缺简单但是却关键的最后一步，那便是 apk 包的签名，这一步在之前对 META-INF 的介绍中，实际已有提及。只需要按步骤生成 MANIFEST.MF, CERT.RSA，CERT.SF 并放入META-INF 文件夹即可。 </p>
-<p>以上便是 Android 打包的基本流程，宏观来看实际并不复杂，但是其中的一些步骤展开来讲，却是很有内容的，比如 appt 对资源处理的那个部分，R.java 是如何生成的，resource.arsc 又是如何生成的，Android 是怎样完成对资源的获取的，这些我都不会，哈哈。以后慢慢补吧~</p>
-<hr>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li>aapt（Android Asset Packaging Tool）给你的Activity提供所需的资源文件,如 AndroidManifest.xml，XML文件,并编译它们。同时产生R.java文件，使你可以在java代码中引用这些资源。</li>
-<li>aidl工具把.aidl接口转换成Java接口。</li>
-<li>你所有的Java代码,包括 R.java和 .aidl文件,由Java编译器和编译输出.class文件。</li>
-<li>dex工具把.class文件转换成Dalvik字节文件，第三方的类和.class也被转换成.dex文件</li>
-<li>所有无法编译的资源（比如图片），编译好的资源文件和.dex都被送到apkbuilder工具中，生成最后的.apk</li>
-<li>生成.apk时必须制定是debug还是release，release还要提供相应的key</li>
-<li>如果选择release版本，还需要使用zipalign工具对apk对齐。齐处理即使得所有资源文件距离文件起始偏移为4字节的整数倍，这样通过内存映射访问apk文件时处理速度更快。</li>
-</ul>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>在Fragment附着在Activity上时用一个变量保存引用。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAttach</span><span class="params">(Activity activity)</span></span>&#123;</div><div class="line">  <span class="keyword">this</span>.mContext = activity;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>但是发现该方法在23已经标注过时。</p>
+<p>于是，修改为：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@TargetApi</span>(<span class="number">23</span>)</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAttach</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onAttach(context);</div><div class="line">        onAttachToContext(context);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/*</span></div><div class="line">     * Deprecated on API 23</div><div class="line">     * Use onAttachToContext instead</div><div class="line">     */</div><div class="line">    <span class="meta">@SuppressWarnings</span>(<span class="string">"deprecation"</span>)</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAttach</span><span class="params">(Activity activity)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onAttach(activity);</div><div class="line">        <span class="keyword">if</span> (Build.VERSION.SDK_INT &lt; Build.VERSION_CODES.M) &#123;</div><div class="line">            onAttachToContext(activity);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/*</span></div><div class="line">     * Called when the fragment attaches to the context</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onAttachToContext</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">        <span class="comment">//do something</span></div><div class="line">        <span class="keyword">this</span>.mContext = context;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDetach</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onDetach();</div><div class="line">        <span class="comment">//为了放置内存泄露 置位空</span></div><div class="line">        <span class="keyword">this</span>.mContext = <span class="keyword">null</span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>当时stackFlow查了一会，以为这是最优的解决方案，记录下。</p>
+<p>另，还看到另一种解决方案，使用全局Application获取Context：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword">extends</span> <span class="title">Application</span> </span>&#123;</div><div class="line">  <span class="keyword">private</span> <span class="keyword">static</span> MyApplication instance;</div><div class="line"></div><div class="line">  <span class="meta">@Override</span></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onCreate();</div><div class="line">    instance = <span class="keyword">this</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MyApplication <span class="title">getInstance</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="comment">// 因为我们程序运行后，Application是首先初始化的，如果在这里不用判断instance是否为空</span></div><div class="line">    <span class="keyword">return</span> instance;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在程序任何地方，都可以使用Application来获取Context也不用担心内存泄露。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Context context = MyApplication.getInstance();</div><div class="line">Toast.makeText(context, <span class="string">"Your Toast Message"</span>, Toast.SHORT_TOAST).show();</div></pre></td></tr></table></figure>
+<p>不过感觉前一种比较合适，毕竟这是全局的。</p>
 
       
     </div>
@@ -401,7 +361,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Android构建分析/" rel="tag">#Android构建分析</a>
+            <a href="/tags/Fragment/" rel="tag">#Fragment</a>
           
         </div>
       
@@ -410,17 +370,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/20/me/" rel="next" title="24岁的自个儿">
-                <i class="fa fa-chevron-left"></i> 24岁的自个儿
+              <a href="/2017/05/06/和世界分享我的秘密/" rel="next" title="旅行的意义">
+                <i class="fa fa-chevron-left"></i> 旅行的意义
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/12/09/design/" rel="prev" title="Java Design Patterns汇总">
-                Java Design Patterns汇总 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -552,7 +508,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Apk文件结构"><span class="nav-number">1.</span> <span class="nav-text">Apk文件结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AndroidManifest-xml"><span class="nav-number">1.1.</span> <span class="nav-text">AndroidManifest.xml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#assets文件夹"><span class="nav-number">1.2.</span> <span class="nav-text">assets文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dex文件"><span class="nav-number">1.3.</span> <span class="nav-text">dex文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lib文件夹"><span class="nav-number">1.4.</span> <span class="nav-text">lib文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#META-INF文件夹"><span class="nav-number">1.5.</span> <span class="nav-text">META-INF文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#res文件夹"><span class="nav-number">1.6.</span> <span class="nav-text">res文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#resource-arsc文件"><span class="nav-number">1.7.</span> <span class="nav-text">resource.arsc文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android打包流程"><span class="nav-number">2.</span> <span class="nav-text">Android打包流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#资源"><span class="nav-number">2.1.</span> <span class="nav-text">资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">2.2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#签名"><span class="nav-number">2.3.</span> <span class="nav-text">签名</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方案"><span class="nav-number">1.</span> <span class="nav-text">解决方案</span></a></li></ol></div>
             
           </div>
         </section>
