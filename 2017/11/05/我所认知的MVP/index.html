@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android构建分析," />
+  <meta name="keywords" content="MVP," />
 
 
 
@@ -84,32 +84,21 @@
 
 
 
-<meta name="description" content="你简单的介绍下Android打包原理吧。
-哦…..
-当被问到这个”无聊至极”的问题的时候，其实我内心是拒绝的。不就先生成.class文件，再通过Android的什么东西生成.dex文件么，再融合无法编译的资源和编译好的资源文件生成.apk么。
-那你详细讲一下吧？
-你这是搞事情哦！！！">
+<meta name="description" content="MVP已经流行很久了，但是确实没有在工作中使用过，一直只是了解、知道，如何具体应用在日常开发工作中，没有具体操作过。一是时间确实不富裕，二也是因为自己懒，我猜是懒占大头，哈哈。这次决定写点自己的理解和想法，复习复习之前学到东西，毕竟好记性不如写blog，四吧~ 之前看过很多开源项目软件实现都是各种MVP，看起来很有比格，但是毕竟是一种编程思想、框架思想，感觉是个大脑腐，就很抵触。而且没有固定的写法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android App打包原理分析">
-<meta property="og:url" content="http://yoursite.com/2016/11/26/app打包原理/index.html">
+<meta property="og:title" content="我所认知的MVP 上">
+<meta property="og:url" content="http://yoursite.com/2017/11/05/我所认知的MVP/index.html">
 <meta property="og:site_name" content="拾叁妖">
-<meta property="og:description" content="你简单的介绍下Android打包原理吧。
-哦…..
-当被问到这个”无聊至极”的问题的时候，其实我内心是拒绝的。不就先生成.class文件，再通过Android的什么东西生成.dex文件么，再融合无法编译的资源和编译好的资源文件生成.apk么。
-那你详细讲一下吧？
-你这是搞事情哦！！！">
-<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/13485426.jpg">
-<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/71977170.jpg">
-<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/11329344.jpg">
-<meta property="og:updated_time" content="2017-04-26T02:39:04.000Z">
+<meta property="og:description" content="MVP已经流行很久了，但是确实没有在工作中使用过，一直只是了解、知道，如何具体应用在日常开发工作中，没有具体操作过。一是时间确实不富裕，二也是因为自己懒，我猜是懒占大头，哈哈。这次决定写点自己的理解和想法，复习复习之前学到东西，毕竟好记性不如写blog，四吧~ 之前看过很多开源项目软件实现都是各种MVP，看起来很有比格，但是毕竟是一种编程思想、框架思想，感觉是个大脑腐，就很抵触。而且没有固定的写法">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/%E6%83%8A%E5%96%9C.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/222.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/111.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/3idiots.png">
+<meta property="og:updated_time" content="2017-11-05T17:56:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android App打包原理分析">
-<meta name="twitter:description" content="你简单的介绍下Android打包原理吧。
-哦…..
-当被问到这个”无聊至极”的问题的时候，其实我内心是拒绝的。不就先生成.class文件，再通过Android的什么东西生成.dex文件么，再融合无法编译的资源和编译好的资源文件生成.apk么。
-那你详细讲一下吧？
-你这是搞事情哦！！！">
-<meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/13485426.jpg">
+<meta name="twitter:title" content="我所认知的MVP 上">
+<meta name="twitter:description" content="MVP已经流行很久了，但是确实没有在工作中使用过，一直只是了解、知道，如何具体应用在日常开发工作中，没有具体操作过。一是时间确实不富裕，二也是因为自己懒，我猜是懒占大头，哈哈。这次决定写点自己的理解和想法，复习复习之前学到东西，毕竟好记性不如写blog，四吧~ 之前看过很多开源项目软件实现都是各种MVP，看起来很有比格，但是毕竟是一种编程思想、框架思想，感觉是个大脑腐，就很抵触。而且没有固定的写法">
+<meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/%E6%83%8A%E5%96%9C.png">
 
 
 
@@ -127,7 +116,7 @@
   };
 </script>
 
-  <title> Android App打包原理分析 | 拾叁妖 </title>
+  <title> 我所认知的MVP 上 | 拾叁妖 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -272,7 +261,7 @@
             
             
               
-                Android App打包原理分析
+                我所认知的MVP 上
               
             
           </h1>
@@ -284,8 +273,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-26T17:18:47+08:00" content="2016-11-26">
-              2016-11-26
+            <time itemprop="dateCreated" datetime="2017-11-05T11:33:30+08:00" content="2017-11-05">
+              2017-11-05
             </time>
           </span>
 
@@ -318,7 +307,7 @@
           
           
           
-             <span id="/2016/11/26/app打包原理/" class="leancloud_visitors" data-flag-title="Android App打包原理分析">
+             <span id="/2017/11/05/我所认知的MVP/" class="leancloud_visitors" data-flag-title="我所认知的MVP 上">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -340,46 +329,35 @@
       
 
       
-        <p>你简单的介绍下Android打包原理吧。</p>
-<p>哦…..</p>
-<p>当被问到这个”无聊至极”的问题的时候，其实我内心是拒绝的。不就先生成.class文件，再通过Android的什么东西生成.dex文件么，再融合无法编译的资源和编译好的资源文件生成.apk么。</p>
-<p>那你详细讲一下吧？</p>
-<p>你这是搞事情哦！！！</p>
+        <p>MVP已经流行很久了，但是确实没有在工作中使用过，一直只是了解、知道，如何具体应用在日常开发工作中，没有具体操作过。一是时间确实不富裕，二也是因为自己懒，我猜是懒占大头，哈哈。这次决定写点自己的理解和想法，复习复习之前学到东西，毕竟好记性不如写blog，四吧~ 之前看过很多开源项目软件实现都是各种MVP，看起来很有比格，但是毕竟是一种编程思想、框架思想，感觉是个大脑腐，就很抵触。而且没有固定的写法，每个人的写法都有差，总感觉自己的不是完美的，现在想来，我OK啊。经过这些天的准备(PS:写一篇质量好点的blog真是脑子都快瓦特了…),再学习MVP之前，得清楚MVP怎么来的吧，为什么MVC用的好好的会有人提出MVP，那MVC又是什么？接触这些概念的时候又得看懂UML，又把UML补了补…算了，不提了，下面请观众老爷们准备好瓜子和饮料，我要开始表演了~</p>
 <a id="more"></a>
-<p><img src="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/13485426.jpg" alt=""></p>
-<h3 id="Apk文件结构"><a href="#Apk文件结构" class="headerlink" title="Apk文件结构"></a>Apk文件结构</h3><p>不是要说App打包原理么？先别急，先看一下apk文件的结构在来说打包原理，可以理解的更清晰哟~</p>
-<p>无图言X，不废话先上图：</p>
-<p><img src="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/71977170.jpg" alt=""></p>
-<p>红色标注部分的文件和文件夹都是Android爱普基本具备的，剩下的则是一些第三方库或代码生成的。对了，这个图片里的文件是怎么来的，再多嘴一句，其实就是apk文件修改后缀名为zip后，解压得到的，再其实你可以将apk看成一个特殊的压缩包。(Ps:无混淆，无加固，只为了解构建的过程。)</p>
-<h4 id="AndroidManifest-xml"><a href="#AndroidManifest-xml" class="headerlink" title="AndroidManifest.xml"></a>AndroidManifest.xml</h4><p>这个文件可以意为清单文件或者全局配置文件。里面有很多应用的配置信息，权限、版本号、四大组件的注册也在其中。</p>
-<h4 id="assets文件夹"><a href="#assets文件夹" class="headerlink" title="assets文件夹"></a>assets文件夹</h4><p>这个文件用于存储需要保持原始文件的资源文件，原始的意思就是打包之前里面东西什么样，打包之后还是那样。一般都是放一些音频，网页，字体等文件。</p>
-<h4 id="dex文件"><a href="#dex文件" class="headerlink" title="dex文件"></a>dex文件</h4><p>.dex文件是Android系统运行在Dalvik Virtual Machine上的可执行文件，也是Android爱普的核心。项目的Java源码通过javac生成class文件，在通过dx工具生成为classes.dex文件。</p>
-<h4 id="lib文件夹"><a href="#lib文件夹" class="headerlink" title="lib文件夹"></a>lib文件夹</h4><p>该目录存放着爱普需要的native库文件。比如so库以及底层实现的图片处理、音视频处理、数据库加密的库。该文件夹下常见多一个层次，根据不同的cpu型号划分为x86，ARM，ARM-v7a等。</p>
-<h4 id="META-INF文件夹"><a href="#META-INF文件夹" class="headerlink" title="META-INF文件夹"></a>META-INF文件夹</h4><p>该目录主要作用就是用于保证APK的完整性和安全性。主要有三个文件：</p>
-<p><img src="http://ogo6z0ylk.bkt.clouddn.com/public/16-11-26/11329344.jpg" alt=""></p>
-<p>MANIFEST.MF：保存了整个apk文件中所有文件的文件名+SHA-1后的base64编码值。象征着apk的完整性。</p>
-<p>CERT.RSA：保存了公匙和加密方式的信息。</p>
-<p>CERT.SF：这个文件与MANIFEST.MF的结构一样，只是其编码会被私匙加密。每次安装时，通过该文件夹中的文件，就可以完成验证的过程。如果apk包被改变了，而篡改者没有私匙生成的CERT.SF，则无法完成校验。</p>
-<h4 id="res文件夹"><a href="#res文件夹" class="headerlink" title="res文件夹"></a>res文件夹</h4><p>这个就很清楚了，这是资源文件夹。什么anim，drawable，layout，values等等等等~</p>
-<h4 id="resource-arsc文件"><a href="#resource-arsc文件" class="headerlink" title="resource.arsc文件"></a>resource.arsc文件</h4><p>该文件是所有文件中结构最复杂的。</p>
-<p>它记录了资源文件，资源文件位置和资源id的映射关系。并且将所有的string都存放在了string pool中，节省了在查找资源时，字符串处理的开销。</p>
-<hr>
-<h3 id="Android打包流程"><a href="#Android打包流程" class="headerlink" title="Android打包流程"></a>Android打包流程</h3><p>在了解了 apk 文件的结构后，我们开始分析 Android 的打包流程。 </p>
-<h4 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h4><p>Android 打包流程的第一步，是处理资源文件。<br>在这个步骤中，起主要作用的是 aapt。<br>刚刚提及的 AndroidManifest.xml, res 文件夹，resource.arsc 文件的生成都与其有关，简单来说，aapt 解析项目代码中的 AndroidManifest.xml，收集项目中 res 文件夹的资源文件及 xml 文件，对其做压缩以及编译的处理。在此过程中，分配了资源 id 并生成了 R.java 文件 以及 arsc 文件。 </p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>上一步得到了 R.java 文件后，将其与项目代码一起编译得到 .class文件，然后打包为 jar 包。这个过程中，还会有混淆代码这一步骤。之后，再通过 dx 工具，将生成的 jar 包与第三方库的 jar 包一起编译为 dex 文件。这个过程中，如果是 5.0 以前的系统且超过了 65535 方法数的限制，需要人为的分 dex，5.0 以后则由 dx 工具包办。 </p>
-<p>到这一步，实际上 apk 所需要的主要内容已经大致齐全了。只需要把上面生成的 AndroidManifest.xml，classes.dex，res文件夹，resource.arsc 打包进 apk，并且将项目工程中的 assets 以及 lib 目录一并放入，就有了一个未经签名的 Android 安装包了。 </p>
-<h4 id="签名"><a href="#签名" class="headerlink" title="签名"></a>签名</h4><p>接下来还缺简单但是却关键的最后一步，那便是 apk 包的签名，这一步在之前对 META-INF 的介绍中，实际已有提及。只需要按步骤生成 MANIFEST.MF, CERT.RSA，CERT.SF 并放入META-INF 文件夹即可。 </p>
-<p>以上便是 Android 打包的基本流程，宏观来看实际并不复杂，但是其中的一些步骤展开来讲，却是很有内容的，比如 appt 对资源处理的那个部分，R.java 是如何生成的，resource.arsc 又是如何生成的，Android 是怎样完成对资源的获取的，这些我都不会，哈哈。以后慢慢补吧~</p>
-<hr>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li>aapt（Android Asset Packaging Tool）给你的Activity提供所需的资源文件,如 AndroidManifest.xml，XML文件,并编译它们。同时产生R.java文件，使你可以在java代码中引用这些资源。</li>
-<li>aidl工具把.aidl接口转换成Java接口。</li>
-<li>你所有的Java代码,包括 R.java和 .aidl文件,由Java编译器和编译输出.class文件。</li>
-<li>dex工具把.class文件转换成Dalvik字节文件，第三方的类和.class也被转换成.dex文件</li>
-<li>所有无法编译的资源（比如图片），编译好的资源文件和.dex都被送到apkbuilder工具中，生成最后的.apk</li>
-<li>生成.apk时必须制定是debug还是release，release还要提供相应的key</li>
-<li>如果选择release版本，还需要使用zipalign工具对apk对齐。齐处理即使得所有资源文件距离文件起始偏移为4字节的整数倍，这样通过内存映射访问apk文件时处理速度更快。</li>
-</ul>
+<h3 id="What’s-MVC"><a href="#What’s-MVC" class="headerlink" title="What’s MVC ."></a>What’s MVC .</h3><p>Android日常开发就是MVC的应用，其实每个Android coder如果不用什么框架模式正常写，就是MVC的运用，没错，不管你知不知道MVC，你已经熟练使用MVC模式开发啦，意外不意外，惊喜不惊喜~~ </p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/%E6%83%8A%E5%96%9C.png" alt=""></p>
+<p>来波定义：MVC全名Model View Controller，是模型(model)视图(view)控制器(controller)的缩写，一种软件设计典范，用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里，在改进和个性化定制界面及用户交互的同时，不需要重写业务逻辑，MVC被独特的发展起来用于映射传统的输入、处理和输出功能再一个逻辑的图形化用户界面的结构中。(#24)</p>
+<p>还是说人话吧：其中View层其实就是程序的UI界面，用于向用户展示数据以及接收用户的输入；而Model层可以当做就是JavaBean实体类，用于保存数据；Controller控制器用于更新UI界面和数据处理。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/222.png" alt=""></p>
+<p>例如：要实现一个注册用户功能，得定义一个User实体类，里面存放用户name和pwd等数据，View层就是俩个输入框了，供用户输入信息，为了实现注册，在点击注册按钮时候，Controller保存用户信息到服务器，保存成功后，更新UI提示用户注册是否成功。just like this . 这就是MVC的运用，日常开发中大部分就酱紫用的。</p>
+<p>MVC就不多说了，大家都明白人儿~</p>
+<h3 id="Why-MVP"><a href="#Why-MVP" class="headerlink" title="Why MVP ."></a>Why MVP .</h3><p>上面提到的登录功能，很简单就实现了，但是再复杂的功能呢，还这么做点话，耦合度就很大。举个栗子，如果不使用什么框架思想，有时候会发现一个Activity里面可能有几百甚至1000行代码，找东西的时候老费劲吧，想看一下执行顺序头大吧，测试某一个功能的时候得有很长的路执行吧，重构？对不起，Activity1000行以上的，本人严重拒绝重构。~ 对， 我猜这就是MVC的升级版MVP出来的原因。那么问题来了！ MVP 怎么就避免前面提到的问题了呢？</p>
+<h3 id="What’s-MVP"><a href="#What’s-MVP" class="headerlink" title="What’s MVP ."></a>What’s MVP .</h3><p>MVP基于MVC，是MVC的升级版，让Modler和View完全解耦(MVC是Model和View低耦合),代码清晰，看的时候会很爽。(定义什么的不重要,你懂的)</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/111.png" alt=""></p>
+<p>为什么会很爽呢，因为之前View对应的布局文件，能做的甚少，数据处理、事件处理传递都是写在Activity里面，使得Activity即像View又像Controller，而MVP运用之后，Activity视为View层，Presenter(理解为调度者)负责View层和Model层的交互操作。</p>
+<p>MVP的特点</p>
+<p>1.分离视图逻辑和业务逻辑，降低耦合;</p>
+<p>2.Activity只处理生命周期的任务，代码简捷;</p>
+<p>3.视图逻辑和业务逻辑分别抽象到了View和Presenter接口中，提高代码可读性;</p>
+<p>4.Presenter被抽象成接口，可以有多种具体的实现，方便单元测试;</p>
+<p>其中三点很重要：</p>
+<p>Activity的简洁，对于1000行代码的Activity表示不感动。</p>
+<p>方便单元测试，不在因为要测试某一块代码时，要疯狂Log，或者调试的时机需要先写一些测试代码或者暂时注释什么鬼的。</p>
+<p>避免Activity内存泄露，你想啊，Activity里面都是一些生命周期方法，具体的业务逻辑已经单独抽到了Presenter层里面，哪有问题还不是一眼就找到了。还是举个栗子吧，传统的开发模式，一个Activity里面可能这一个Handle send一个msg，那一个AsyncTask的执行获取点东西，比如加载图片，加载完成后，显示在ImageView里面，此时异步任务保留着Activity的引用，即使Activity切换到后台，这些异步任务仍保留着Activity实例的引用，系统无法回收这个Activity实例，结果就是一个大Leak。再比如广播，切换到后台后，仍发送或者监听着，这也造成系统无法正常回收Activity实例。Android组件中，Activity对象一般都是最占内存的，当内存不足时，系统会优先回收Activity，如果Activity有Leak，很容易造成OOM。</p>
+<p>Q：记录，分析，总结，整理的工具；讨论并解释知识，有图片的和没图片的；硬皮的，软装订的，护封的，没护封的；有前言，简介，目录，索引；用于人类大脑的启示，理解，改进，加强和教育；通过视觉实现，有时也用触觉。<br>A：书。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/3idiots.png" alt=""></p>
+<p>哈哈，三傻经典桥段。网上MVP介绍看了辣么多，码了这么多字，然而没什么太大卵用，还是上代码吧。</p>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><p>这里推荐一个学习的案例得了，我就是通过这个案列大概学会了这种开发模式的运用(照着抄了一遍)。。</p>
+<p><a href="https://github.com/TonnyL/PaperPlane" target="_blank" rel="external">https://github.com/TonnyL/PaperPlane</a></p>
+<p>剧本暂无，演员未定，代码很忙，正在赶来的路上….(待更，下次补上)</p>
+<p>See u.</p>
 
       
     </div>
@@ -401,7 +379,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Android构建分析/" rel="tag">#Android构建分析</a>
+            <a href="/tags/MVP/" rel="tag">#MVP</a>
           
         </div>
       
@@ -410,17 +388,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/20/me/" rel="next" title="24岁的自个儿">
-                <i class="fa fa-chevron-left"></i> 24岁的自个儿
+              <a href="/2017/10/22/9一例/" rel="next" title=".9一例">
+                <i class="fa fa-chevron-left"></i> .9一例
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/12/09/design/" rel="prev" title="Java Design Patterns汇总">
-                Java Design Patterns汇总 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -552,7 +526,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Apk文件结构"><span class="nav-number">1.</span> <span class="nav-text">Apk文件结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AndroidManifest-xml"><span class="nav-number">1.1.</span> <span class="nav-text">AndroidManifest.xml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#assets文件夹"><span class="nav-number">1.2.</span> <span class="nav-text">assets文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dex文件"><span class="nav-number">1.3.</span> <span class="nav-text">dex文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lib文件夹"><span class="nav-number">1.4.</span> <span class="nav-text">lib文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#META-INF文件夹"><span class="nav-number">1.5.</span> <span class="nav-text">META-INF文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#res文件夹"><span class="nav-number">1.6.</span> <span class="nav-text">res文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#resource-arsc文件"><span class="nav-number">1.7.</span> <span class="nav-text">resource.arsc文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android打包流程"><span class="nav-number">2.</span> <span class="nav-text">Android打包流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#资源"><span class="nav-number">2.1.</span> <span class="nav-text">资源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码"><span class="nav-number">2.2.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#签名"><span class="nav-number">2.3.</span> <span class="nav-text">签名</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#What’s-MVC"><span class="nav-number">1.</span> <span class="nav-text">What’s MVC .</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-MVP"><span class="nav-number">2.</span> <span class="nav-text">Why MVP .</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What’s-MVP"><span class="nav-number">3.</span> <span class="nav-text">What’s MVP .</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例"><span class="nav-number">4.</span> <span class="nav-text">案例</span></a></li></ol></div>
             
           </div>
         </section>
