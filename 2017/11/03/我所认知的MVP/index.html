@@ -1,0 +1,798 @@
+<!doctype html>
+
+
+
+  
+
+<html class="theme-next mist use-motion">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="MVP," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="MVP已经流行很久了，但是确实没有在工作中使用过，一直只是了解、知道，如何具体应用在日常开发工作中，没有具体操作过。一是时间确实不富裕，二也是因为自己懒，我猜是懒占大头，哈哈。这次决定写点自己的理解和想法，复习复习之前学到东西，毕竟好记性不如写blog，四吧~ 之前看过很多开源项目软件实现都是各种MVP，看起来很有比格，但是毕竟是一种编程思想、框架思想，感觉是个大脑腐，就很抵触。而且没有固定的写法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我所认知的MVP">
+<meta property="og:url" content="http://yoursite.com/2017/11/03/我所认知的MVP/index.html">
+<meta property="og:site_name" content="拾叁妖">
+<meta property="og:description" content="MVP已经流行很久了，但是确实没有在工作中使用过，一直只是了解、知道，如何具体应用在日常开发工作中，没有具体操作过。一是时间确实不富裕，二也是因为自己懒，我猜是懒占大头，哈哈。这次决定写点自己的理解和想法，复习复习之前学到东西，毕竟好记性不如写blog，四吧~ 之前看过很多开源项目软件实现都是各种MVP，看起来很有比格，但是毕竟是一种编程思想、框架思想，感觉是个大脑腐，就很抵触。而且没有固定的写法">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/googlemvp">
+<meta property="og:updated_time" content="2017-11-06T06:17:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="我所认知的MVP">
+<meta name="twitter:description" content="MVP已经流行很久了，但是确实没有在工作中使用过，一直只是了解、知道，如何具体应用在日常开发工作中，没有具体操作过。一是时间确实不富裕，二也是因为自己懒，我猜是懒占大头，哈哈。这次决定写点自己的理解和想法，复习复习之前学到东西，毕竟好记性不如写blog，四吧~ 之前看过很多开源项目软件实现都是各种MVP，看起来很有比格，但是毕竟是一种编程思想、框架思想，感觉是个大脑腐，就很抵触。而且没有固定的写法">
+<meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/googlemvp">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 我所认知的MVP | 拾叁妖 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+    <script type="text/javascript"
+    color="25,25,112" opacity='0.6' zIndex="-2" count="129" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">拾叁妖</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                我所认知的MVP
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-11-03T11:33:30+08:00" content="2017-11-03">
+              2017-11-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+          
+          
+             <span id="/2017/11/03/我所认知的MVP/" class="leancloud_visitors" data-flag-title="我所认知的MVP">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>MVP已经流行很久了，但是确实没有在工作中使用过，一直只是了解、知道，如何具体应用在日常开发工作中，没有具体操作过。一是时间确实不富裕，二也是因为自己懒，我猜是懒占大头，哈哈。这次决定写点自己的理解和想法，复习复习之前学到东西，毕竟好记性不如写blog，四吧~ 之前看过很多开源项目软件实现都是各种MVP，看起来很有比格，但是毕竟是一种编程思想、框架思想，感觉是个大脑腐，就很抵触。而且没有固定的写法，每个人的写法都有差，总感觉自己的不是完美的，现在想来，我OK啊。经过这些天的准备(PS:写一篇质量好点的blog真是脑子都快瓦特了…),再学习MVP之前，得清楚MVP怎么来的吧，为什么MVC用的好好的会有人提出MVP，那MVC又是什么？接触这些概念的时候又得看懂UML，又把UML补了补…算了，不提了，下面请观众老爷们准备好瓜子和饮料，我要开始表演了~</p>
+<a id="more"></a>
+<h3 id="What’s-MVC"><a href="#What’s-MVC" class="headerlink" title="What’s MVC ."></a>What’s MVC .</h3><p>Android日常开发就是MVC的应用，其实每个Android coder如果不用什么框架模式正常写，就是MVC的运用，没错，不管你知不知道MVC，你已经熟练使用MVC模式开发啦，意外不意外，惊喜不惊喜~~ </p>
+<p>来波定义：MVC全名Model View Controller，是模型(model)视图(view)控制器(controller)的缩写，一种软件设计典范，用一种业务逻辑、数据、界面显示分离的方法组织代码，将业务逻辑聚集到一个部件里，在改进和个性化定制界面及用户交互的同时，不需要重写业务逻辑，MVC被独特的发展起来用于映射传统的输入、处理和输出功能再一个逻辑的图形化用户界面的结构中。(#24)</p>
+<p>还是说人话吧：其中View层其实就是程序的UI界面，用于向用户展示数据以及接收用户的输入；而Model层可以当做就是JavaBean实体类，用于保存数据；Controller控制器用于更新UI界面和数据处理。</p>
+<p>例如：要实现一个注册用户功能，得定义一个User实体类，里面存放用户name和pwd等数据，View层就是俩个输入框了，供用户输入信息，为了实现注册，在点击注册按钮时候，Controller保存用户信息到服务器，保存成功后，更新UI提示用户注册是否成功。just like this . 这就是MVC的运用，日常开发中大部分就酱紫用的。</p>
+<p>MVC就不多说了，大家都明白人儿~</p>
+<h3 id="Why-MVP"><a href="#Why-MVP" class="headerlink" title="Why MVP ."></a>Why MVP .</h3><p>上面提到的登录功能，很简单就实现了，但是再复杂的功能呢，还这么做点话，耦合度就很大。举个栗子，如果不使用什么框架思想，有时候会发现一个Activity里面可能有几百甚至1000行代码，找东西的时候老费劲吧，想看一下执行顺序头大吧，测试某一个功能的时候得有很长的路执行吧，重构？对不起，Activity1000行以上的，本人严重拒绝重构。~ 对， 我猜这就是MVC的升级版MVP出来的原因。那么问题来了！ MVP 怎么就避免前面提到的问题了呢？</p>
+<h3 id="What’s-MVP"><a href="#What’s-MVP" class="headerlink" title="What’s MVP ."></a>What’s MVP .</h3><p>MVP基于MVC，是MVC的升级版，让Modler和View完全解耦(MVC是Model和View低耦合),代码清晰，看的时候会很爽。(定义什么的不重要,你懂的)</p>
+<p>为什么会很爽呢，因为之前View对应的布局文件，能做的甚少，数据处理、事件处理传递都是写在Activity里面，使得Activity即像View又像Controller，而MVP运用之后，Activity视为View层，Presenter(理解为调度者)负责View层和Model层的交互操作。</p>
+<p>MVP的特点</p>
+<p>1.分离视图逻辑和业务逻辑，降低耦合;</p>
+<p>2.Activity只处理生命周期的任务，代码简捷;</p>
+<p>3.视图逻辑和业务逻辑分别抽象到了View和Presenter接口中，提高代码可读性;</p>
+<p>4.Presenter被抽象成接口，可以有多种具体的实现，方便单元测试;</p>
+<p>其中三点很重要：</p>
+<p>Activity的简洁，对于1000行代码的Activity表示不感动。</p>
+<p>方便单元测试，不在因为要测试某一块代码时，要疯狂Log，或者调试的时机需要先写一些测试代码或者暂时注释什么鬼的。</p>
+<p>避免Activity内存泄露，你想啊，Activity里面都是一些生命周期方法，具体的业务逻辑已经单独抽到了Presenter层里面，哪有问题还不是一眼就找到了。还是举个栗子吧，传统的开发模式，一个Activity里面可能这一个Handle send一个msg，那一个AsyncTask的执行获取点东西，比如加载图片，加载完成后，显示在ImageView里面，此时异步任务保留着Activity的引用，即使Activity切换到后台，这些异步任务仍保留着Activity实例的引用，系统无法回收这个Activity实例，结果就是一个大Leak。再比如广播，切换到后台后，仍发送或者监听着，这也造成系统无法正常回收Activity实例。Android组件中，Activity对象一般都是最占内存的，当内存不足时，系统会优先回收Activity，如果Activity有Leak，很容易造成OOM。</p>
+<p>Q：记录，分析，总结，整理的工具；讨论并解释知识，有图片的和没图片的；硬皮的，软装订的，护封的，没护封的；有前言，简介，目录，索引；用于人类大脑的启示，理解，改进，加强和教育；通过视觉实现，有时也用触觉。<br>A：书。</p>
+<p>哈哈，三傻经典桥段。网上MVP介绍看了辣么多，码了这么多字，然而没什么太大卵用，还是上代码吧。</p>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><p>这里推荐一个学习的案例得了，我就是通过这个案列大概学会了这种开发模式的运用(照着抄了一遍)。。</p>
+<p><a href="https://github.com/TonnyL/PaperPlane" target="_blank" rel="external">https://github.com/TonnyL/PaperPlane</a></p>
+<p>剧本暂无，演员未定，代码很忙，正在赶来的路上….(待更，下次补上)</p>
+<p>See u.</p>
+<p>====================================================================帅气的分隔符===============================================================================</p>
+<p>Surprise！ I’m back.</p>
+<p>上次没写完呢，今天继续。</p>
+<h3 id="真的案例"><a href="#真的案例" class="headerlink" title="真的案例!"></a>真的案例!</h3><p>之前提到过，MVP没有固定的写法，但是突然想起来，Google官方其实给出过MVP架构示例的, 是一个备忘录App 。学习东西当然是Google大大的好了。</p>
+<p>项目地址: <a href="https://github.com/googlesamples/android-architecture" target="_blank" rel="external">https://github.com/googlesamples/android-architecture</a></p>
+<p>当时只看了todo-mv sample , 时间久的有点淡忘了。现在回过头来看，还是那么的赏心悦目，看一下项目结构:</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/googlemvp" alt=""></p>
+<p>项目整体是按照功能分包的，分别是任务的添加编辑Addedittask, 任务完成情况Statistics，任务的详情Taskdetail, 任务列表的显示Tasks。而剩下的data包是项目中的数据源，执行数据库的读写、网络请求的操作等，属于MVP架构中的Model层。util存放了一些工具类。最外层是Presenter和View的基类，所有Presenter和View都继承自这俩个接口。</p>
+<p>而功能模块内部分做Activity、Fragment、Presenter、Contract(理解为契约类)。属于Presenter层和View层。</p>
+<p>下面就具体分析一下代码吧。</p>
+<h4 id="Model层的实现"><a href="#Model层的实现" class="headerlink" title="Model层的实现"></a>Model层的实现</h4><p>data报下，是一些数据库的封装，对于Presenter层提供了TasksDataSource接口提供数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TasksDataSource</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">LoadTasksCallback</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">onTasksLoaded</span><span class="params">(List&lt;Task&gt; tasks)</span></span>;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">onDataNotAvailable</span><span class="params">()</span></span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">GetTaskCallback</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">onTaskLoaded</span><span class="params">(Task task)</span></span>;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">onDataNotAvailable</span><span class="params">()</span></span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">getTasks</span><span class="params">(@NonNull LoadTasksCallback callback)</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">getTask</span><span class="params">(@NonNull String taskId, @NonNull GetTaskCallback callback)</span></span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">saveTask</span><span class="params">(@NonNull Task task)</span></span>;</div><div class="line"></div><div class="line">    ......</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>TasksDataSource接口的实现是TasksLocalDataSource，在TasksDataSource中的方法也就是一些对数据库的增删改查的操作。而在TasksDataSource的两个内部接口LoadTasksCallback和GetTaskCallback是Model层的回调接口。它们的真正实现是在Presenter层。对于成功获取到数据后变或通过这个回调接口将数据传递Presenter层。同样，若是获取失败同样也会通过回调接口来通知Presenter层。下面来看一下TasksDataSource的实现类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TasksLocalDataSource</span> <span class="keyword">implements</span> <span class="title">TasksDataSource</span> </span>&#123;</div><div class="line"></div><div class="line">    ......</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getTask</span><span class="params">(@NonNull String taskId, @NonNull GetTaskCallback callback)</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="comment">//根据taskId查训出相对应的task</span></div><div class="line">        ......</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (task != <span class="keyword">null</span>) &#123;</div><div class="line">            callback.onTaskLoaded(task);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            callback.onDataNotAvailable();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">saveTask</span><span class="params">(@NonNull Task task)</span> </span>&#123;</div><div class="line">        checkNotNull(task);</div><div class="line">        SQLiteDatabase db = mDbHelper.getWritableDatabase();</div><div class="line"></div><div class="line">        ContentValues values = <span class="keyword">new</span> ContentValues();</div><div class="line">        values.put(TaskEntry.COLUMN_NAME_ENTRY_ID, task.getId());</div><div class="line">        values.put(TaskEntry.COLUMN_NAME_TITLE, task.getTitle());</div><div class="line">        values.put(TaskEntry.COLUMN_NAME_DESCRIPTION, task.getDescription());</div><div class="line">        values.put(TaskEntry.COLUMN_NAME_COMPLETED, task.isCompleted());</div><div class="line"></div><div class="line">        db.insert(TaskEntry.TABLE_NAME, <span class="keyword">null</span>, values);</div><div class="line"></div><div class="line">        db.close();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    ......</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看出在TasksLocalDataSource中实现的getTask方法，在这个方法中传入TasksDataSource内的GetTaskCallback回调接口。在getTask方法的实现可以看出在查询到Task以后调用回调方法，若是在Presenter层中实现了这两个回调方法，便将数据传递到Presenter层。而对于查询到的Task为空的时候也是通过回调方法执行对应的操作。 </p>
+<h4 id="Presenter与View层接口"><a href="#Presenter与View层接口" class="headerlink" title="Presenter与View层接口"></a>Presenter与View层接口</h4><p>在Google这一官方mvp demo出来之前，MVP好像没有契约一说，执子之手，与子白头.. 之前Presenter要不直接就是一个具体的类里面有实现，要不就是Presenter继承自一个Presenter接口、View继承自一个View接口，这种写法类的数量更会增加好多。现在Google这一Demo里，Presenter和View接口都被统一在Contract里面了，强化了一一对应关系，方便管理。</p>
+<p>先看一下俩个Base接口：</p>
+<p>BasePresenter：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.example.android.architecture.blueprints.todoapp;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BasePresenter</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">start</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在BasePresenter中只存在一个start方法。这个方法一般所执行的任务是在Presenter中从Model层获取数据。并调用View接口显示。这个方法一般是在Fragment中的onResume方法中调用。</p>
+<p>BaseView</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.example.android.architecture.blueprints.todoapp;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BaseView</span>&lt;<span class="title">T</span>&gt; </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">setPresenter</span><span class="params">(T presenter)</span></span>;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在BaseView中只有一个setPresenter方法，对于View层会存在一个Presenter对象。而setPresenter正是对View中的Presenter进行初始化。</p>
+<p>AddEditTaskContract</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AddEditTaskContract</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">View</span> <span class="keyword">extends</span> <span class="title">BaseView</span>&lt;<span class="title">Presenter</span>&gt; </span>&#123;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showEmptyTaskError</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">showTasksList</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">setTitle</span><span class="params">(String title)</span></span>;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">setDescription</span><span class="params">(String description)</span></span>;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">boolean</span> <span class="title">isActive</span><span class="params">()</span></span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">Presenter</span> <span class="keyword">extends</span> <span class="title">BasePresenter</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">createTask</span><span class="params">(String title, String description)</span></span>;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">updateTask</span><span class="params">( String title, String description)</span></span>;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">populateTask</span><span class="params">()</span></span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在其中封装了模块下的View接口和Presenter接口，同时给View设定了泛型，就是当前协议类中Presenter。<br>很清晰有木有，一下就能看出有哪些功能，方便以后维护。</p>
+<h4 id="Presenter层"><a href="#Presenter层" class="headerlink" title="Presenter层"></a>Presenter层</h4><p>继续看Presenter层的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AddEditTaskPresenter</span> <span class="keyword">implements</span> <span class="title">AddEditTaskContract</span>.<span class="title">Presenter</span>,</span></div><div class="line">        <span class="title">TasksDataSource</span>.<span class="title">GetTaskCallback</span> &#123;</div><div class="line"></div><div class="line">    ......</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AddEditTaskPresenter</span><span class="params">(@Nullable String taskId, @NonNull TasksDataSource tasksRepository,</span></span></div><div class="line">            @NonNull AddEditTaskContract.View addTaskView) &#123;</div><div class="line">        mTaskId = taskId;</div><div class="line">        mTasksRepository = checkNotNull(tasksRepository);</div><div class="line">        mAddTaskView = checkNotNull(addTaskView);</div><div class="line"></div><div class="line">        mAddTaskView.setPresenter(<span class="keyword">this</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (mTaskId != <span class="keyword">null</span>) &#123;</div><div class="line">            populateTask();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    ......</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">populateTask</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (mTaskId == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"populateTask() was called but task is new."</span>);</div><div class="line">        &#125;</div><div class="line">        mTasksRepository.getTask(mTaskId, <span class="keyword">this</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTaskLoaded</span><span class="params">(Task task)</span> </span>&#123;</div><div class="line">        <span class="comment">// The view may not be able to handle UI updates anymore</span></div><div class="line">        <span class="keyword">if</span> (mAddTaskView.isActive()) &#123;</div><div class="line">            mAddTaskView.setTitle(task.getTitle());</div><div class="line">            mAddTaskView.setDescription(task.getDescription());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    ......</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看到在AddEditTaskPresenter中它不仅实现了自己的Presenter接口，也实现了GetTaskCallback的回调接口。并且在Presenter中包含了Model层TasksDataSource的对象mTasksRepository和View层AddEditTaskContract.View的对象mAddTaskView。于是整个业务逻辑的处理就担负在Presenter的身上。 这时候在Presenter层中就通过onTaskLoaded方法获取到Task对象，最后通过调用View层接口实现了数据的展示。</p>
+<h4 id="View层"><a href="#View层" class="headerlink" title="View层"></a>View层</h4><p>View层的实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AddEditTaskActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.addtask_act);</div><div class="line"></div><div class="line">        ......</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (addEditTaskFragment == <span class="keyword">null</span>) &#123;</div><div class="line">            addEditTaskFragment = AddEditTaskFragment.newInstance();</div><div class="line">            ......</div><div class="line">            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(),</div><div class="line">                    addEditTaskFragment, R.id.contentFrame);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// Create the presenter</span></div><div class="line">        <span class="keyword">new</span> AddEditTaskPresenter(</div><div class="line">                taskId,</div><div class="line">                Injection.provideTasksRepository(getApplicationContext()),</div><div class="line">                addEditTaskFragment);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    ......</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当然Activity不属于View ，应该更像一个Injector。负责对Fragment的添加，Presenter创建操作等。对于View的实现在Fragment：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AddEditTaskFragment</span> <span class="keyword">extends</span> <span class="title">Fragment</span> <span class="keyword">implements</span> <span class="title">AddEditTaskContract</span>.<span class="title">View</span> </span>&#123;</div><div class="line"></div><div class="line">    ......</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onResume();</div><div class="line">        mPresenter.start();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPresenter</span><span class="params">(@NonNull AddEditTaskContract.Presenter presenter)</span> </span>&#123;</div><div class="line">        mPresenter = checkNotNull(presenter);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    ......</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTitle</span><span class="params">(String title)</span> </span>&#123;</div><div class="line">        mTitle.setText(title);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    ......</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>通过setPresenter获取到Presenter对象。并通过调用Presenter中的方法来实现业务的处理。而在Fragment中则只是对UI的一些操作。这样一来对于Fragment类型的代码减少了很多，并且逻辑更加清晰。 </p>
+<p>至于为什么采用Fragment作为View的原因，Google官方给出过俩个解释</p>
+<p>通过Activity和Fragment分离非常适合对于MVP架构的实现。在这里将Activity作为全局的控制者将Presenter于View联系在一起。<br>采用Fragment更有利于平板电脑的布局或者是多视图屏幕。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Google的todo系列MVP案例还是很不错的，简洁明了，不太建议初学者通过一些第三方开源项目学习MVP，因为或多或少都会封装一些东西。网上很多教程，但是还是用自己的话去讲清楚掌握的更快些。最后还是那句话MVP是一种思想，别太死板的一味搬别人的框架结构，要有解耦的概念，还要了解依赖原则还什么开闭原则，虽然我也是半吊子，哈哈。但是我大致有思路怎么写，简单点说，就是看。根据View层分析，就是更具UI界面分析，俩个点！一是数据，二是展示，数据决定Model接口怎么写，展示(就是UI界面上的按钮了，返回键了什么的)决定View接口怎么写，想怎么展示数据，就怎么怎样的处理那Presenter接口也有了。接口都有了，不就剩下实现了么~大概这些吧，关于MVP的大概就到这吧， 还是值得学习的，希望大家看完觉得有收获<del>~</del><del>~</del>~</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/MVP/" rel="tag">#MVP</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/22/9一例/" rel="next" title=".9一例">
+                <i class="fa fa-chevron-left"></i> .9一例
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/ava.png"
+               alt="拾叁妖" />
+          <p class="site-author-name" itemprop="name">拾叁妖</p>
+          <p class="site-description motion-element" itemprop="description">奇变偶不变，符号看象限。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Altman29" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/5866547818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#What’s-MVC"><span class="nav-number">1.</span> <span class="nav-text">What’s MVC .</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-MVP"><span class="nav-number">2.</span> <span class="nav-text">Why MVP .</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What’s-MVP"><span class="nav-number">3.</span> <span class="nav-text">What’s MVP .</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例"><span class="nav-number">4.</span> <span class="nav-text">案例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#真的案例"><span class="nav-number">5.</span> <span class="nav-text">真的案例!</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Model层的实现"><span class="nav-number">5.1.</span> <span class="nav-text">Model层的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Presenter与View层接口"><span class="nav-number">5.2.</span> <span class="nav-text">Presenter与View层接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Presenter层"><span class="nav-number">5.3.</span> <span class="nav-text">Presenter层</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#View层"><span class="nav-number">5.4.</span> <span class="nav-text">View层</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">拾叁妖</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+  &nbsp;丨&nbsp;
+  <!-- 不蒜统计 -->
+  <span style="display: inline;" id="busuanzi_container_site_uv">本站总访客数 <span id="busuanzi_value_site_uv" font="微软雅黑"></span> 次</span>
+  &nbsp;丨&nbsp;
+  <span style="display: inline;" id="busuanzi_container_site_pv">本站总访问量 <span id="busuanzi_value_site_pv" font="微软雅黑"></span> 次</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("nfQNU5dFwiltiHNWVEeJeuFp-gzGzoHsz", "oANzCtO0CzmnL1JmWkHda5Dp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
