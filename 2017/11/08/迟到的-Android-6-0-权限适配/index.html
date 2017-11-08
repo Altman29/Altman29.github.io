@@ -1,0 +1,816 @@
+<!doctype html>
+
+
+
+  
+
+<html class="theme-next mist use-motion">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="6.0权限适配," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="其实Android 6.0权限适配已经了解很久了，刚出的时候也埋怨过，不过想想也是，之前的权限方案太草率了。不知道大家有没有遇到过莫名其妙扣费的情况，我就遇到过，好久之前用Android上一款单机游戏App需要联网，需要联系人，需要发短信的权限，然后玩了几关后，疯狂的收到扣费短信，玩了一会八十大洋就没了。。也是印象深刻。Android 6.0推出的动态权限管理就是为了解决这一问题，提升用户体验，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="谈Android 6.0 权限适配">
+<meta property="og:url" content="http://yoursite.com/2017/11/08/迟到的-Android-6-0-权限适配/index.html">
+<meta property="og:site_name" content="拾叁妖">
+<meta property="og:description" content="其实Android 6.0权限适配已经了解很久了，刚出的时候也埋怨过，不过想想也是，之前的权限方案太草率了。不知道大家有没有遇到过莫名其妙扣费的情况，我就遇到过，好久之前用Android上一款单机游戏App需要联网，需要联系人，需要发短信的权限，然后玩了几关后，疯狂的收到扣费短信，玩了一会八十大洋就没了。。也是印象深刻。Android 6.0推出的动态权限管理就是为了解决这一问题，提升用户体验，">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/title.jpg">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/fenzu.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/zhujie.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/main.png">
+<meta property="og:updated_time" content="2017-11-08T06:05:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="谈Android 6.0 权限适配">
+<meta name="twitter:description" content="其实Android 6.0权限适配已经了解很久了，刚出的时候也埋怨过，不过想想也是，之前的权限方案太草率了。不知道大家有没有遇到过莫名其妙扣费的情况，我就遇到过，好久之前用Android上一款单机游戏App需要联网，需要联系人，需要发短信的权限，然后玩了几关后，疯狂的收到扣费短信，玩了一会八十大洋就没了。。也是印象深刻。Android 6.0推出的动态权限管理就是为了解决这一问题，提升用户体验，">
+<meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/title.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 谈Android 6.0 权限适配 | 拾叁妖 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+    <script type="text/javascript"
+    color="25,25,112" opacity='0.6' zIndex="-2" count="129" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">拾叁妖</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                谈Android 6.0 权限适配
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-11-08T09:23:59+08:00" content="2017-11-08">
+              2017-11-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+          
+          
+             <span id="/2017/11/08/迟到的-Android-6-0-权限适配/" class="leancloud_visitors" data-flag-title="谈Android 6.0 权限适配">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://ogo6z0ylk.bkt.clouddn.com/title.jpg" alt=""></p>
+<p>其实Android 6.0权限适配已经了解很久了，刚出的时候也埋怨过，不过想想也是，之前的权限方案太草率了。不知道大家有没有遇到过莫名其妙扣费的情况，我就遇到过，好久之前用Android上一款单机游戏App需要联网，需要联系人，需要发短信的权限，然后玩了几关后，疯狂的收到扣费短信，玩了一会八十大洋就没了。。也是印象深刻。Android 6.0推出的动态权限管理就是为了解决这一问题，提升用户体验，当然也为了程序员增加了些负担。</p>
+<p>日常开发中，为了规避权限适配所增加的额外工作量，之前都采用的是targetSdkVersion设置为22，其实想来，一些事情无法避免，该来总要来。难道针对设置22就万事大吉了么，其实不然，国内手机厂商多如牛毛，不知道那款机型就不乐意配合给挂掉了，比如某米..虽然设置的是22但是，但是通过设置进入应用查看所需权限并没有赋予，当然不是不好，我感觉是好的，安全性高，该怎么搞就怎么搞，通过动态权限适配，还是能解决问题的。下面就开始权限适配之旅吧。</p>
+<a id="more"></a>
+<h3 id="权限分组"><a href="#权限分组" class="headerlink" title="权限分组"></a>权限分组</h3><ul>
+<li>正常权限(Normal)</li>
+<li>危险权限(Dangerous)</li>
+<li>特殊权限</li>
+<li>其他权限</li>
+</ul>
+<h4 id="特殊权限"><a href="#特殊权限" class="headerlink" title="特殊权限"></a>特殊权限</h4><p>这个简单提一下，用的少，也相对简单。<br>在Android系统中，主要有俩个特殊权限：</p>
+<ul>
+<li>SYSTEM_ALERT_WINDOW 设置悬浮窗</li>
+<li>WRITE_SETTINGS 修改系统设置</li>
+</ul>
+<p>这个权限的授权是指定Intent使用startActivityForResult启动授权页面来完成的。</p>
+<p>请求SYSTEM_ALERT_WINDOW</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> REQUEST_CODE = <span class="number">1</span>;</div><div class="line"><span class="function"><span class="keyword">private</span>  <span class="keyword">void</span> <span class="title">requestAlertWindowPermission</span><span class="params">()</span> </span>&#123;</div><div class="line">    Intent intent = <span class="keyword">new</span> Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);</div><div class="line">    intent.setData(Uri.parse(<span class="string">"package:"</span> + getPackageName()));<span class="comment">//携带App的包名信息</span></div><div class="line">    startActivityForResult(intent, REQUEST_CODE);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onActivityResult</span><span class="params">(<span class="keyword">int</span> requestCode, <span class="keyword">int</span> resultCode, Intent data)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onActivityResult(requestCode, resultCode, data);</div><div class="line">    <span class="keyword">if</span> (requestCode == REQUEST_CODE) &#123;</div><div class="line">        <span class="keyword">if</span> (Settings.canDrawOverlays(<span class="keyword">this</span>)) &#123;<span class="comment">//Granted</span></div><div class="line">          Log.i(LOGTAG, <span class="string">"onActivityResult granted"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>请求WRITE_SETTINGS</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> REQUEST_CODE_WRITE_SETTINGS = <span class="number">2</span>;</div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">requestWriteSettings</span><span class="params">()</span> </span>&#123;</div><div class="line">    Intent intent = <span class="keyword">new</span> Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);</div><div class="line">    intent.setData(Uri.parse(<span class="string">"package:"</span> + getPackageName()));<span class="comment">//App包名信息</span></div><div class="line">    startActivityForResult(intent, REQUEST_CODE_WRITE_SETTINGS );</div><div class="line">&#125;</div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onActivityResult</span><span class="params">(<span class="keyword">int</span> requestCode, <span class="keyword">int</span> resultCode, Intent data)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onActivityResult(requestCode, resultCode, data);</div><div class="line">    <span class="keyword">if</span> (requestCode == REQUEST_CODE_WRITE_SETTINGS) &#123;</div><div class="line">        <span class="keyword">if</span> (Settings.System.canWrite(<span class="keyword">this</span>)) &#123;</div><div class="line">            Log.i(LOGTAG, <span class="string">"onActivityResult write settings granted"</span> );</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="正常权限"><a href="#正常权限" class="headerlink" title="正常权限"></a>正常权限</h4><p>正常权限对用户隐私没有较大影响或者不会带来安全问题，只要在清单文件指定了这些权限，安装后就赋予不需要提示，也不能取消。</p>
+<p>正常权限列表(列出来，不熟练的可以command+F查看是正常权限还是危险权限，哈哈)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">ACCESS_LOCATION_EXTRA_COMMANDS</div><div class="line">ACCESS_NETWORK_STATE</div><div class="line">ACCESS_NOTIFICATION_POLICY</div><div class="line">ACCESS_WIFI_STATE</div><div class="line">BLUETOOTH</div><div class="line">BLUETOOTH_ADMIN</div><div class="line">BROADCAST_STICKY</div><div class="line">CHANGE_NETWORK_STATE</div><div class="line">CHANGE_WIFI_MULTICAST_STATE</div><div class="line">CHANGE_WIFI_STATE</div><div class="line">DISABLE_KEYGUARD</div><div class="line">EXPAND_STATUS_BAR</div><div class="line">GET_PACKAGE_SIZE</div><div class="line">INTERNET</div><div class="line">KILL_BACKGROUND_PROCESSES</div><div class="line">MODIFY_AUDIO_SETTINGS</div><div class="line">NFC</div><div class="line">READ_SYNC_SETTINGS</div><div class="line">READ_SYNC_STATS</div><div class="line">RECEIVE_BOOT_COMPLETED</div><div class="line">REORDER_TASKS</div><div class="line">REQUEST_INSTALL_PACKAGES</div><div class="line">SET_TIME_ZONE</div><div class="line">SET_WALLPAPER</div><div class="line">SET_WALLPAPER_HINTS</div><div class="line">TRANSMIT_IR</div><div class="line">USE_FINGERPRINT</div><div class="line">VIBRATE</div><div class="line">WAKE_LOCK</div><div class="line">WRITE_SYNC_SETTINGS</div><div class="line">SET_ALARM</div><div class="line">INSTALL_SHORTCUT</div><div class="line">UNINSTALL_SHORTCUT</div></pre></td></tr></table></figure>
+<h4 id="危险权限"><a href="#危险权限" class="headerlink" title="危险权限"></a>危险权限</h4><p>危险权限会涉及用户隐私信息的数据或资源，例如读取联系人，读取短信等。这些是需要做特殊处理的。</p>
+<p>权限组概念：系统根据权限用途又定义了权限组，每个权限都可属于一个权限组，每个权限组可以包含多个权限。例如联系人权限组，包含读取联系人、修改联系人和获取账户三个权限。</p>
+<p>如果用户申请访问一个危险权限，而应用已经授权同权限组的其他权限，则系统会直接授权，不会再与用户有交互。如果应用申请访问一个危险权限，而此应用目前没有对应的权限组内的任何权限，系统会弹窗提示用户要访问的权限组(注意不是权限)。</p>
+<p>如图：</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/fenzu.png" alt=""></p>
+<h3 id="动态申请申请"><a href="#动态申请申请" class="headerlink" title="动态申请申请"></a>动态申请申请</h3><p>好吧，接下来，就是6.0权限适配的额外代码工作了。一般使用如下的API，检查-请求-响应三步走~</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">checkSelfPermission</span><span class="params">(String permission)</span> 用来检测应用是否已经具有权限</span></div><div class="line"><span class="keyword">void</span> <span class="title">requestPermissions</span><span class="params">(String[] permissions, <span class="keyword">int</span> requestCode)</span> 进行请求单个或多个权限</div><div class="line"><span class="keyword">void</span> <span class="title">onRequestPermissionsResult</span><span class="params">(<span class="keyword">int</span> requestCode, String[] permissions, <span class="keyword">int</span>[] grantResults)</span> 用户对请求作出响应后的回调</div></pre></td></tr></table></figure>
+<p>举个READ_CONTACTS的栗子</p>
+<h4 id="检查权限"><a href="#检查权限" class="headerlink" title="检查权限"></a>检查权限</h4><p>应用每次需要危险权限时，都要判断应用目前是否有该权限。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> permissionCheck = ContextCompat.checkSelfPermission(thisActivity,</div><div class="line">        Manifest.permission.READ_CONTACTS);</div></pre></td></tr></table></figure>
+<p>如果有权限则返回PackageManager.PERMISSION_GRANTED，否则返回PackageManager。PERMISSION_DENIED。</p>
+<h4 id="请求权限"><a href="#请求权限" class="headerlink" title="请求权限"></a>请求权限</h4><p>当应用需要某个权限时，可以申请获取权限，这时会有弹出一个系统标准Dialog提示申请权限，此Diolog不能定制，用户同意或者拒绝后会通过方法<b>onRequestPermissionsResult()</b>返回结果。当用户拒绝过此权限申请时，再次申请Dialog上可以勾选不再提示，这种情况下，以后再申请权限不会弹Dialog直接返回拒绝。所以一些依赖某些敏感权限的应用，需要自己去处理，向用户解释 为什么需要此权限，说服用户授予权限。请求权限代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ActivityCompat.requestPermissions(thisActivity,</div><div class="line">                <span class="keyword">new</span> String[]&#123;Manifest.permission.READ_CONTACTS&#125;, REQUEST_CODE);</div></pre></td></tr></table></figure>
+<h4 id="处理权限请求响应"><a href="#处理权限请求响应" class="headerlink" title="处理权限请求响应"></a>处理权限请求响应</h4><p>当用户处理权限请求后，系统会回调申请权限的Activity的onRequestPermissionsResult()方法，只需要覆盖此方法，就能获得返回结果。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRequestPermissionsResult</span><span class="params">(<span class="keyword">int</span> requestCode,</span></span></div><div class="line">        String permissions[], <span class="keyword">int</span>[] grantResults) &#123;</div><div class="line">    <span class="keyword">switch</span> (requestCode) &#123;</div><div class="line">        <span class="keyword">case</span> REQUEST_CODE: &#123;</div><div class="line">            <span class="comment">// If request is cancelled, the result arrays are empty.</span></div><div class="line">            <span class="keyword">if</span> (grantResults.length &gt; <span class="number">0</span></div><div class="line">                &amp;&amp; grantResults[<span class="number">0</span>] == PackageManager.PERMISSION_GRANTED) &#123;</div><div class="line">                <span class="comment">// permission was granted</span></div><div class="line"></div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line"></div><div class="line">                <span class="comment">// permission denied</span></div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="批量申请"><a href="#批量申请" class="headerlink" title="批量申请"></a>批量申请</h4><p>这个简单，定义字符串数组多写几个权限即可~~~</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">String[] permissions = &#123;Manifest.permission.WRITE_EXTERNAL_STORAGE</div><div class="line">			 Manifest.permission.READ_PHONE_STATE&#125;;</div></pre></td></tr></table></figure>
+<p>其实批量申请权限也是有技巧的，不需要每一个所需的权限都去显示申请，比如应用授权了读取联系人的权限，那么应用也同时被授予了写入联系人的权限。因为这里个权限都属于联系人权限分组。</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>仔细想一下，权限适配要做的工作量还是挺大的，而且会影响代码结构，因为不像23之前所需权限写在清单文件里，代码实现方面是默认再授予所需权限的情况下写的，要加很多前置判断的。再比如应用支持多系统的情况，需要做俩套处理，一种是23以上，检测-请求-响应三步走，另一种低于6.0的直接method()。所以清单文件指定权限的时候，一定慎重，不要使用多余的权限。还有由于用户可以手动撤销某些授权的权限，所以不能使用本地的标志位来记录权限是否被授予，不然找bug的时候又要绕很远了..当然即使支持了运行时权限，也要在清单文件中指定。个人觉得Marshmallow的运行时权限对于用户来说绝对是一个好东西，但是目前想要支持需要做的事情还是比较多的。动态权限增加安全性，改变了代码逻辑， 即使权限封装了，感觉还是有种臃肿的感觉。</p>
+<p>幸好，现在已经有了很多有优秀的简单易用的第三方库。</p>
+<h3 id="PermissionsDispatcher"><a href="#PermissionsDispatcher" class="headerlink" title="PermissionsDispatcher"></a>PermissionsDispatcher</h3><p>一个基于注解、帮助开发者简单处理An 6.0 系统中运行时权限的开源库。<a href="https://github.com/hotchemi/PermissionsDispatcher" target="_blank" rel="external">开源库传送门</a>。</p>
+<p>简单介绍一下如何使用~</p>
+<h4 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h4><p>在项目根目录下的 build.gradle 文件中加入maven仓库依赖引入。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">allprojects &#123;</div><div class="line">    repositories &#123;</div><div class="line">        jcenter()</div><div class="line">        mavenCentral()</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>之后在app下的 build.gradle 文件中添加依赖：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">compile <span class="string">'com.github.hotchemi:permissionsdispatcher:2.3.1'</span></div><div class="line">annotationProcessor <span class="string">'com.github.hotchemi:permissionsdispatcher-processor:2.3.1'</span></div></pre></td></tr></table></figure></p>
+<h4 id="在Activity-Fragment中使用"><a href="#在Activity-Fragment中使用" class="headerlink" title="在Activity/Fragment中使用"></a>在Activity/Fragment中使用</h4><p>使用注解：</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/zhujie.png" alt=""></p>
+<p>被注解的方法不能是私有方法。只有只有@RuntimePermissions和@NeedsPermission是必须的，其余注解均为可选。</p>
+<p>step1：使用@RuntimePermissions和@NeedsPermission之后，需要点击菜单栏中Build菜单下的Make Project，AS会在build目录下与被注解的Activity同一个包下生成一个辅助类，名称为 被注解的Activity名称+PermissionsDispatcher.class，如图所示：</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/main.png" alt=""></p>
+<p>step2：生成辅助类之后，就可以使用了。在需要调用权限的位置调用辅助类里面的xxxWithCheck方法，xxx是被@NeedsPermission注解的方法名。 如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">MainActivityPermissionsDispatcher.createGroupWithCheck(MainActivity.<span class="keyword">this</span>);</div></pre></td></tr></table></figure>
+<p>step3：重写Activity的onRequestPermissionsResult()方法，其方法内部调用辅助类的onRequestPermissionsResult()放。如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRequestPermissionsResult</span><span class="params">(<span class="keyword">int</span> requestCode, @NonNull String[] permissions, @NonNull <span class="keyword">int</span>[] grantResults)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onRequestPermissionsResult(requestCode, permissions, grantResults);</div><div class="line">        MainActivityPermissionsDispatcher.onRequestPermissionsResult(<span class="keyword">this</span>, requestCode, grantResults);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>完整的代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RuntimePermissions</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">BaseActivity</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> Button btCreate;</div><div class="line">    <span class="keyword">private</span> Button btJoin;</div><div class="line">    <span class="keyword">private</span> TextView tvInstructions;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        Firebase.getInstance(getApplicationContext()).logEvent(<span class="string">"屏幕浏览"</span>, <span class="string">"群组页面"</span>);</div><div class="line"></div><div class="line">        <span class="comment">//创建群组</span></div><div class="line">        btCreate.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">                <span class="comment">//1，开启热点，</span></div><div class="line">                MainActivityPermissionsDispatcher.createGroupWithCheck(MainActivity.<span class="keyword">this</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">        <span class="comment">//加入群组</span></div><div class="line">        btJoin.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">                MainActivityPermissionsDispatcher.joinGroupWithCheck(MainActivity.<span class="keyword">this</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRequestPermissionsResult</span><span class="params">(<span class="keyword">int</span> requestCode, @NonNull String[] permissions, @NonNull <span class="keyword">int</span>[] grantResults)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onRequestPermissionsResult(requestCode, permissions, grantResults);</div><div class="line">        MainActivityPermissionsDispatcher.onRequestPermissionsResult(<span class="keyword">this</span>, requestCode, grantResults);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * &gt;&gt;&gt;&gt;创建群组&lt;&lt;&lt;&lt;&lt;</div><div class="line">     */</div><div class="line">    <span class="meta">@NeedsPermission</span>(&#123;Manifest.permission.ACCESS_WIFI_STATE&#125;)</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">createGroup</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">boolean</span> wifiDisable = !WifiMgr.getInstance(<span class="keyword">this</span>).isWifiEnable();</div><div class="line">        <span class="comment">//wifi没有开启</span></div><div class="line">        <span class="keyword">if</span> (wifiDisable) &#123;</div><div class="line">            <span class="comment">//跳转到开启热点</span></div><div class="line">            pushActivity(WaitingJoinActivity.class);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            WifiMgr.getInstance(MainActivity.<span class="keyword">this</span>).closeWifi();</div><div class="line">            pushActivity(WaitingJoinActivity.class);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * &gt;&gt;&gt;&gt;&gt;加入群组&lt;&lt;&lt;&lt;&lt;&lt;</div><div class="line">     */</div><div class="line">    <span class="meta">@NeedsPermission</span>(&#123;Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION&#125;)</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">joinGroup</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//如果热点开着就关闭</span></div><div class="line">        <span class="keyword">if</span> (ApMgr.isApOn(<span class="keyword">this</span>)) &#123;</div><div class="line">            ApMgr.disableAp(<span class="keyword">this</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">boolean</span> wifiEnable = WifiMgr.getInstance(<span class="keyword">this</span>).isWifiEnable();</div><div class="line">        <span class="keyword">if</span> (wifiEnable) &#123;</div><div class="line">            pushActivity(ScanWiFiActivity.class);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            WifiMgr.getInstance(MainActivity.<span class="keyword">this</span>).openWifi();</div><div class="line">            <span class="comment">//跳转到扫描附近热点界面</span></div><div class="line">            pushActivity(ScanWiFiActivity.class);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 解释</div><div class="line">     */</div><div class="line">    <span class="meta">@OnShowRationale</span>(&#123;Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION&#125;)</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">showRationaleForJoingGroup</span><span class="params">(<span class="keyword">final</span> PermissionRequest request)</span> </span>&#123;</div><div class="line">        showRationaleDialog((R.string.permission_joingroup), request);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@OnShowRationale</span>(&#123;Manifest.permission.ACCESS_WIFI_STATE&#125;)</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">showRationaleForCreateGroup</span><span class="params">(PermissionRequest request)</span> </span>&#123;</div><div class="line">        showRationaleDialog((R.string.permission_creategroup), request);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 权限被拒绝</div><div class="line">     */</div><div class="line">    <span class="meta">@OnPermissionDenied</span>(&#123;Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION&#125;)</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onJoinGroupDenied</span><span class="params">()</span> </span>&#123;</div><div class="line">        Toast.makeText(<span class="keyword">this</span>, R.string.permission_denied_toast, Toast.LENGTH_SHORT).show();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@OnPermissionDenied</span>(&#123;Manifest.permission.ACCESS_WIFI_STATE&#125;)</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onCreateGroupDenied</span><span class="params">()</span> </span>&#123;</div><div class="line">        Toast.makeText(<span class="keyword">this</span>, R.string.permission_denied_toast, Toast.LENGTH_SHORT).show();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">     * 权限被拒绝，并勾选不在询问</div><div class="line">     */</div><div class="line">    <span class="meta">@OnNeverAskAgain</span>(&#123;Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION&#125;)</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onJoinGroupNeverAskAgain</span><span class="params">()</span> </span>&#123;</div><div class="line">        Toast.makeText(<span class="keyword">this</span>, R.string.permission_denied_toast, Toast.LENGTH_SHORT).show();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@OnNeverAskAgain</span>(&#123;Manifest.permission.ACCESS_WIFI_STATE&#125;)</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onCreateGroupNeverAskAgain</span><span class="params">()</span> </span>&#123;</div><div class="line">        Toast.makeText(<span class="keyword">this</span>, R.string.permission_denied_toast, Toast.LENGTH_SHORT).show();</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">	<span class="comment">/**</span></div><div class="line">     * dialog</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">showRationaleDialog</span><span class="params">(@StringRes <span class="keyword">int</span> messageResId, <span class="keyword">final</span> PermissionRequest request)</span> </span>&#123;</div><div class="line">        <span class="keyword">new</span> AlertDialog.Builder(<span class="keyword">this</span>)</div><div class="line">                .setPositiveButton(<span class="string">"允许"</span>, <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</div><div class="line">                    <span class="meta">@Override</span></div><div class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(@NonNull DialogInterface dialog, <span class="keyword">int</span> which)</span> </span>&#123;</div><div class="line">                        request.proceed();</div><div class="line">                    &#125;</div><div class="line">                &#125;)</div><div class="line">                .setNegativeButton(<span class="string">"拒绝"</span>, <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;</div><div class="line">                    <span class="meta">@Override</span></div><div class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(@NonNull DialogInterface dialog, <span class="keyword">int</span> which)</span> </span>&#123;</div><div class="line">                        request.cancel();</div><div class="line">                    &#125;</div><div class="line">                &#125;)</div><div class="line">                .setCancelable(<span class="keyword">false</span>)</div><div class="line">                .setMessage(messageResId)</div><div class="line">                .show();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    ......</div></pre></td></tr></table></figure>
+<h3 id="The-end"><a href="#The-end" class="headerlink" title="The end"></a>The end</h3><p>打完收工。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/6-0权限适配/" rel="tag">#6.0权限适配</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/03/我所认知的MVP/" rel="next" title="我所认知的MVP">
+                <i class="fa fa-chevron-left"></i> 我所认知的MVP
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcxMS84Mjc1">
+  <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+  </script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/ava.png"
+               alt="拾叁妖" />
+          <p class="site-author-name" itemprop="name">拾叁妖</p>
+          <p class="site-description motion-element" itemprop="description">奇变偶不变，符号看象限。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Altman29" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/5866547818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#权限分组"><span class="nav-number">1.</span> <span class="nav-text">权限分组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊权限"><span class="nav-number">1.1.</span> <span class="nav-text">特殊权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正常权限"><span class="nav-number">1.2.</span> <span class="nav-text">正常权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#危险权限"><span class="nav-number">1.3.</span> <span class="nav-text">危险权限</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态申请申请"><span class="nav-number">2.</span> <span class="nav-text">动态申请申请</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#检查权限"><span class="nav-number">2.1.</span> <span class="nav-text">检查权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求权限"><span class="nav-number">2.2.</span> <span class="nav-text">请求权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#处理权限请求响应"><span class="nav-number">2.3.</span> <span class="nav-text">处理权限请求响应</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#批量申请"><span class="nav-number">2.4.</span> <span class="nav-text">批量申请</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析"><span class="nav-number">3.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PermissionsDispatcher"><span class="nav-number">4.</span> <span class="nav-text">PermissionsDispatcher</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加依赖"><span class="nav-number">4.1.</span> <span class="nav-text">添加依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在Activity-Fragment中使用"><span class="nav-number">4.2.</span> <span class="nav-text">在Activity/Fragment中使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-end"><span class="nav-number">5.</span> <span class="nav-text">The end</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">拾叁妖</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+  &nbsp;丨&nbsp;
+  <!-- 不蒜统计 -->
+  <span style="display: inline;" id="busuanzi_container_site_uv">本站总访客数 <span id="busuanzi_value_site_uv" font="微软雅黑"></span> 次</span>
+  &nbsp;丨&nbsp;
+  <span style="display: inline;" id="busuanzi_container_site_pv">本站总访问量 <span id="busuanzi_value_site_pv" font="微软雅黑"></span> 次</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("nfQNU5dFwiltiHNWVEeJeuFp-gzGzoHsz", "oANzCtO0CzmnL1JmWkHda5Dp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
