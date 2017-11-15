@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="线程池," />
+  <meta name="keywords" content="9patch," />
 
 
 
@@ -84,28 +84,25 @@
 
 
 
-<meta name="description" content="看源码，看blog，发现线程池使用简单，但真正理解透，好像还差点火候。所以没有下笔，只是仔细看了源码，画了张图，以供后用。
-且UML图，好久没画过了，差点都忘了怎么画的了，这里备注下，方便记忆：
-
-目前先把源码多看几遍，看看图，熟悉线程池常用接口和类，恩。先酱紫。以后填这个坑。">
+<meta name="description" content="当前开发的项目使用Socket做数据传输，其中一个不相关的小点困扰我了一下午，就是.9图的使用。一个聊天页面，发送和接收消息，每个消息有一个背景框，有大有小，当时就知道是.9图，可是由于好久没用过了，有点生疏了，不知道是AndroidStudio新版本的原因还是个人操作有问题，饶了点弯路，这里记录下，供参考。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="线程池分析(暂缓)">
-<meta property="og:url" content="http://yoursite.com/2017/11/09/线程池分析-暂缓/index.html">
+<meta property="og:title" content=".9一例">
+<meta property="og:url" content="http://yoursite.com/2017/06/02/9一例/index.html">
 <meta property="og:site_name" content="拾叁妖">
-<meta property="og:description" content="看源码，看blog，发现线程池使用简单，但真正理解透，好像还差点火候。所以没有下笔，只是仔细看了源码，画了张图，以供后用。
-且UML图，好久没画过了，差点都忘了怎么画的了，这里备注下，方便记忆：
-
-目前先把源码多看几遍，看看图，熟悉线程池常用接口和类，恩。先酱紫。以后填这个坑。">
-<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/ExecutorFramework.png">
-<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/uml-0.jpg">
-<meta property="og:updated_time" content="2017-11-09T12:37:46.000Z">
+<meta property="og:description" content="当前开发的项目使用Socket做数据传输，其中一个不相关的小点困扰我了一下午，就是.9图的使用。一个聊天页面，发送和接收消息，每个消息有一个背景框，有大有小，当时就知道是.9图，可是由于好久没用过了，有点生疏了，不知道是AndroidStudio新版本的原因还是个人操作有问题，饶了点弯路，这里记录下，供参考。">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/with9patch.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/no9patch.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/contentarea.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/step1.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/step2.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/xiaoguo.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/step3.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/step4.png">
+<meta property="og:updated_time" content="2017-11-15T06:48:47.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="线程池分析(暂缓)">
-<meta name="twitter:description" content="看源码，看blog，发现线程池使用简单，但真正理解透，好像还差点火候。所以没有下笔，只是仔细看了源码，画了张图，以供后用。
-且UML图，好久没画过了，差点都忘了怎么画的了，这里备注下，方便记忆：
-
-目前先把源码多看几遍，看看图，熟悉线程池常用接口和类，恩。先酱紫。以后填这个坑。">
-<meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/ExecutorFramework.png">
+<meta name="twitter:title" content=".9一例">
+<meta name="twitter:description" content="当前开发的项目使用Socket做数据传输，其中一个不相关的小点困扰我了一下午，就是.9图的使用。一个聊天页面，发送和接收消息，每个消息有一个背景框，有大有小，当时就知道是.9图，可是由于好久没用过了，有点生疏了，不知道是AndroidStudio新版本的原因还是个人操作有问题，饶了点弯路，这里记录下，供参考。">
+<meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/with9patch.png">
 
 
 
@@ -123,7 +120,7 @@
   };
 </script>
 
-  <title> 线程池分析(暂缓) | 拾叁妖 </title>
+  <title> .9一例 | 拾叁妖 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -268,7 +265,7 @@
             
             
               
-                线程池分析(暂缓)
+                .9一例
               
             
           </h1>
@@ -280,8 +277,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-11-09T20:22:35+08:00" content="2017-11-09">
-              2017-11-09
+            <time itemprop="dateCreated" datetime="2017-06-02T11:23:10+08:00" content="2017-06-02">
+              2017-06-02
             </time>
           </span>
 
@@ -314,7 +311,7 @@
           
           
           
-             <span id="/2017/11/09/线程池分析-暂缓/" class="leancloud_visitors" data-flag-title="线程池分析(暂缓)">
+             <span id="/2017/06/02/9一例/" class="leancloud_visitors" data-flag-title=".9一例">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -336,11 +333,48 @@
       
 
       
-        <p><img src="http://ogo6z0ylk.bkt.clouddn.com/ExecutorFramework.png" alt=""></p>
-<p>看源码，看blog，发现线程池使用简单，但真正理解透，好像还差点火候。所以没有下笔，只是仔细看了源码，画了张图，以供后用。</p>
-<p>且UML图，好久没画过了，差点都忘了怎么画的了，这里备注下，方便记忆：</p>
-<p><img src="http://ogo6z0ylk.bkt.clouddn.com/uml-0.jpg" alt=""></p>
-<p>目前先把源码多看几遍，看看图，熟悉线程池常用接口和类，恩。先酱紫。以后填这个坑。</p>
+        <p>当前开发的项目使用Socket做数据传输，其中一个不相关的小点困扰我了一下午，就是.9图的使用。一个聊天页面，发送和接收消息，每个消息有一个背景框，有大有小，当时就知道是.9图，可是由于好久没用过了，有点生疏了，不知道是AndroidStudio新版本的原因还是个人操作有问题，饶了点弯路，这里记录下，供参考。</p>
+<a id="more"></a>
+<h3 id="上图镇楼"><a href="#上图镇楼" class="headerlink" title="上图镇楼"></a>上图镇楼</h3><p><img src="http://ogo6z0ylk.bkt.clouddn.com/with9patch.png" alt=""><br>with 9patch(网摘，侵删)</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/no9patch.png" alt=""><br>no 9patch(网摘，侵删)</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/contentarea.png" alt=""><br>项目截图</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/step1.png" alt=""><br>item内容多的情况</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/step2.png" alt=""><br>item内容少的情况</p>
+<h3 id="What’s-9patch"><a href="#What’s-9patch" class="headerlink" title="What’s 9patch?"></a>What’s 9patch?</h3><ul>
+<li><p>9patch图片是andriod app开发里一种特殊的图片形式，文件的扩展名为：.9.png</p>
+</li>
+<li><p>9patch图片的作用就是在图片拉伸的时候保证其不会失真。所以我们使用.9图片，让图片在指定的位置拉伸和在指定的位置显示内容，这样图片的边边角角就不会出现失真了。</p>
+</li>
+</ul>
+<h3 id="绘制-9图片"><a href="#绘制-9图片" class="headerlink" title="绘制.9图片"></a>绘制.9图片</h3><p>话不多说，开始造吧。</p>
+<p>对了，这里不介绍太多方法，什么独立的.9图制作工具了，什么Eclipse上制作.9图了，吧啦吧啦的。那个工具我大致了解了是再Windows上好用，还有Eclipse不用好多年也不提了。反正Android开发基本都是AS了吧。<br>AndroidStudio很方便的，说出来可能不信，就复制粘贴，鼠标扒拉四条线就好了。。</p>
+<p>原图叫做contentarea，是png的。 不管那么多，直接复制到drawable下，再直接改后缀名。本来是contentarea.png  –&gt; contentarea.9.png。 妥了~~~</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/xiaoguo.png" alt=""><br>这就是效果图</p>
+<p>左边是原图，右边三角是预览(包括三个：纵向拉伸预览，横向拉伸预览，横纵拉伸预览。)</p>
+<p>下面有一些选项：</p>
+<ul>
+<li><p>Zoom：用来放大9-patch图片，放大了以后，方便设置 </p>
+</li>
+<li><p>Patch scale：用来放大右侧预览（右侧提供了三种预览，水平拉伸，垂直拉伸，水平垂直均拉伸 </p>
+</li>
+<li><p>Show lock：鼠标移动到图片时，显示图片中的不可编辑区域，也就是除了透明边框的部分（红色栅栏式斜线） </p>
+</li>
+<li><p>show content：在右侧预览中显示内容区域（深紫色） </p>
+</li>
+<li><p>show patches：显示伸缩区域（绿色区域，水平和垂直交叉处为浅紫色） </p>
+</li>
+<li><p>show bad patches：如果你设置的伸缩区域不是单一颜色，这块区域就会用红色框起来，这种区域在复制的时候就不能保证你的图片的图案的一致性了，我们一般将周围的纯色区域设置为伸缩区域，然后拉伸的时候也不会对中间的图案有影响（拉伸的时候会多多重颜色进行复制）。</p>
+</li>
+</ul>
+<p>好了  。  其实 这都不重要！！！  还是如上文所说，  再话四条线就够了。</p>
+<p>上：在水平拉伸的时候，保持其他位置不动，只在这个点的区域做无限的延伸（拷贝）</p>
+<p>左：在竖直拉伸的时候，保持其他位置不动，只在这个点的区域做无限的延伸（拷贝）</p>
+<p>下：在水平拉伸的时候，指定图片里的内容显示的区域</p>
+<p>右：在竖直拉伸的时候，指定图片里的内容显示的区域</p>
+<p>看一下画线之后的效果：</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/step3.png" alt=""><br>操作区域</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/step4.png" alt=""><br>预览图，蓝色就是内同区域。</p>
+<p>好了~  就酱紫.</p>
 
       
     </div>
@@ -362,7 +396,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/线程池/" rel="tag">#线程池</a>
+            <a href="/tags/9patch/" rel="tag">#9patch</a>
           
         </div>
       
@@ -371,13 +405,17 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/11/08/迟到的-Android-6-0-权限适配/" rel="next" title="谈Android 6.0 权限适配">
-                <i class="fa fa-chevron-left"></i> 谈Android 6.0 权限适配
+              <a href="/2017/05/10/Fragment中无故失踪的Context/" rel="next" title="Fragment中无故失踪的Context">
+                <i class="fa fa-chevron-left"></i> Fragment中无故失踪的Context
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/07/我所认知的MVP/" rel="prev" title="我所认知的MVP">
+                我所认知的MVP <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -527,7 +565,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#上图镇楼"><span class="nav-number">1.</span> <span class="nav-text">上图镇楼</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What’s-9patch"><span class="nav-number">2.</span> <span class="nav-text">What’s 9patch?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绘制-9图片"><span class="nav-number">3.</span> <span class="nav-text">绘制.9图片</span></a></li></ol></div>
             
           </div>
         </section>
