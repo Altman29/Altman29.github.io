@@ -1,0 +1,849 @@
+<!doctype html>
+
+
+
+  
+
+<html class="theme-next mist use-motion">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Iterator模式,Adapter模式," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="夜空中最亮的星 能否听清；那仰望的人 心底的孤独和叹息；夜空中最亮的星 能否记起；曾与我同行 消失在风里的身影；
+好。下面就介绍俩个设计模式:Iterator、Adapter;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="part 1 - 适应设计模式">
+<meta property="og:url" content="http://yoursite.com/2017/07/02/part-1-适应设计模式/index.html">
+<meta property="og:site_name" content="拾叁妖">
+<meta property="og:description" content="夜空中最亮的星 能否听清；那仰望的人 心底的孤独和叹息；夜空中最亮的星 能否记起；曾与我同行 消失在风里的身影；
+好。下面就介绍俩个设计模式:Iterator、Adapter;">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/part-02.jpg">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/part-001.jpg">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/part-03.jpg">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/part-04.jpg">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/adapter-05.jpg">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/adapter-06.jpg">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/adapter-04.jpg">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/adapter-03.jpg">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/adapter-002.jpg">
+<meta property="og:updated_time" content="2017-11-27T05:47:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="part 1 - 适应设计模式">
+<meta name="twitter:description" content="夜空中最亮的星 能否听清；那仰望的人 心底的孤独和叹息；夜空中最亮的星 能否记起；曾与我同行 消失在风里的身影；
+好。下面就介绍俩个设计模式:Iterator、Adapter;">
+<meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/part-02.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> part 1 - 适应设计模式 | 拾叁妖 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+    <script type="text/javascript"
+    color="25,25,112" opacity='0.6' zIndex="-2" count="129" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">拾叁妖</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                part 1 - 适应设计模式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-02T06:24:10+08:00" content="2017-07-02">
+              2017-07-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+          
+          
+             <span id="/2017/07/02/part-1-适应设计模式/" class="leancloud_visitors" data-flag-title="part 1 - 适应设计模式">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>夜空中最亮的星 能否听清；<br>那仰望的人 心底的孤独和叹息；<br>夜空中最亮的星 能否记起；<br>曾与我同行 消失在风里的身影；</p>
+<p>好。下面就介绍俩个设计模式:Iterator、Adapter;</p>
+<a id="more"></a>
+<p><b><i>Iterator模式:一个一个遍历;</i></b></p>
+<h2 id="Iterator模式"><a href="#Iterator模式" class="headerlink" title="Iterator模式"></a>Iterator模式</h2><p>使用Java语言显示数组中元素时，可以使用for循环遍历数组。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>;i&lt; arr.length;i++&#123;</div><div class="line">	System.out.println(arr[i]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>变量i，初始值是0，然后递增为1，2，3…，程序期间每次i递增后都会输出arr[i]。for语句的i++的作用就是让i的值每次循环后自增1，这样就可以访问数组中的下一个元素，也就实现了从头至为逐一遍历数组元素的功能。<b>将这里的循环变量i的作用抽象化、通用化后形成的模式，在设计模式中称为Iterator模式。</b></p>
+<p>Iterator模式用于在数据集合中按照顺序遍历集合。</p>
+<h3 id="示例程序"><a href="#示例程序" class="headerlink" title="示例程序"></a>示例程序</h3><p>示例程序描述：将书(Book)放置到书架上(BookShelf)中，并将书的名字按顺序显示出来.<br><img src="http://ogo6z0ylk.bkt.clouddn.com/part-02.jpg" alt=""></p>
+<h4 id="Aggregate接口"><a href="#Aggregate接口" class="headerlink" title="Aggregate接口"></a>Aggregate接口</h4><p>Aggregate接口是所要遍历的集合接口。实现了该接口的类将成为一个可以保存多个元素的集合，就像数组一样。Aggregate:使聚合，集合的意思。</p>
+<h5 id="示例程序的类图"><a href="#示例程序的类图" class="headerlink" title="示例程序的类图"></a>示例程序的类图</h5><p><img src="http://ogo6z0ylk.bkt.clouddn.com/part-001.jpg" alt=""></p>
+<h5 id="类和接口一览表"><a href="#类和接口一览表" class="headerlink" title="类和接口一览表"></a>类和接口一览表</h5><p><img src="http://ogo6z0ylk.bkt.clouddn.com/part-03.jpg" alt=""></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Aggregate</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Iterator <span class="title">itertor</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Aggregate接口中声明一个iterator方法，该方法会生成一个用于遍历集合的迭代器。</p>
+<h4 id="Iterator接口"><a href="#Iterator接口" class="headerlink" title="Iterator接口"></a>Iterator接口</h4><p>Iterator接口用于遍历集合中的元素，其作用相当于循环语句中的循环变量。Iterator接口定义有很多中，这里编写最简单的行为。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Iterator</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Object <span class="title">next</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>hasNext()方法不用说，就是判断有没有下一个元素，有就返回true;next()方法需要说一下，该方法返回类型是Object，表明该方法返回的是集合的一个元素。但是next()方法的作用并非仅仅如此。为了能够让下次调用next()方法时正确的返回下一个元素，该方法还”隐含”一个将迭代器移动至下一个元素的处理，说是”隐含”是因为Iterator接口只知道方法名，想要知道next方法具体进行了什么处理，还需要看一下实现了Iterator接口的类(BookShelfIterator)。</p>
+<h4 id="Book类"><a href="#Book类" class="headerlink" title="Book类"></a>Book类</h4><p>Book就是表示书籍的类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Book</span></span>&#123;</div><div class="line">	<span class="keyword">private</span> String name;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Book</span><span class="params">(String name)</span></span>&#123;</div><div class="line">	<span class="keyword">this</span>.name= name;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> name;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="BookShelf类"><a href="#BookShelf类" class="headerlink" title="BookShelf类"></a>BookShelf类</h4><p>BookShelf表示书架的类。由于需要将该类作为集合进行处理，因此它实现了Aggregate接口。此外，BookShelf类中还实现了Aggregate接口中的iterator方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookShelf</span> <span class="keyword">implements</span> <span class="title">Aggregate</span></span>&#123;</div><div class="line">	<span class="keyword">private</span> Book[] books;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> last = <span class="number">0</span>;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">BookShelf</span><span class="params">(<span class="keyword">int</span> maxsize)</span></span>&#123;</div><div class="line">		<span class="keyword">this</span>.books = <span class="keyword">new</span> Book[maxsize];</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> Book <span class="title">getBookAt</span><span class="params">(<span class="keyword">int</span> index)</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> books[index];</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">appendBook</span><span class="params">(Book book)</span></span>&#123;</div><div class="line">		<span class="keyword">this</span>.books[last] = book;</div><div class="line">		last++:</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> Iterator <span class="title">iterator</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">new</span> BookShelfIterator(<span class="keyword">this</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个书架中定义了books字段，它是Book类型的数组。该数组的大小(maxsize)再生成BookShelf的实例时就被指定了。iterator()方法会生成并返回BookShelfItertor类的实例作为BookShelf类对应的Iterator，当外部想要遍历书架时，就会调用这个方法具体实现。</p>
+<h4 id="BookShelfIterator类"><a href="#BookShelfIterator类" class="headerlink" title="BookShelfIterator类"></a>BookShelfIterator类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BookShelfIterator</span> <span class="keyword">implements</span> <span class="title">Iterator</span></span>&#123;</div><div class="line">	<span class="keyword">private</span> BookShelf bookShelf;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> index;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">BookSHelfIterator</span><span class="params">(BookShelf bookShelf)</span></span>&#123;</div><div class="line">		<span class="keyword">this</span>.bookShelf = bookShelf;</div><div class="line">		<span class="keyword">this</span>.index = <span class="number">0</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">if</span>(index &lt; bookShelf.getLength())&#123;</div><div class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;		</div><div class="line">		&#125;<span class="keyword">else</span>&#123;</div><div class="line">			<span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">next</span><span class="params">()</span></span>&#123;</div><div class="line">		Book book = bookShelf.getBookAt(index);</div><div class="line">		index++;</div><div class="line">		<span class="keyword">return</span> book;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>BookShelfIterator类需要发挥iterator的作用，所以实现了Iterator接口。<br><b>bookShelf字段表示BookShelfIterator所要遍历的书架。index字段表示迭代器当前所指向的书的下标。</b><br>构造函数会将接收到的BookShelf的实例保存再bookShelf字段中，并将index初始化为0。<br>next()方法会返回迭代器当前所指向的书(Book的实例)，并让迭代器指向下一本书。如果与for循环语句对比，这里让迭代器指向下一本书，就是其中的i++，它让循环指向下一个元素。</p>
+<h4 id="Main类"><a href="#Main类" class="headerlink" title="Main类"></a>Main类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">		BookShelf bookShelf = <span class="keyword">new</span> BookShelf(<span class="number">4</span>);</div><div class="line">		bookShelf.appendBook(<span class="keyword">new</span> Book(<span class="string">"book1"</span>));</div><div class="line">		bookShelf.appendBook(<span class="keyword">new</span> Book(<span class="string">"book2"</span>));</div><div class="line">		bookShelf.appendBook(<span class="keyword">new</span> Book(<span class="string">"book3"</span>));</div><div class="line">		bookShelf.appendBook(<span class="keyword">new</span> Book(<span class="string">"book4"</span>));</div><div class="line">		Iterator it = bookShelf.iterator();</div><div class="line">		<span class="keyword">while</span>(it.hasNext())&#123;</div><div class="line">			Book book = (Book)it.next();</div><div class="line">			Systemt.out.println(book.getName());</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码运行结果：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">book1</div><div class="line">book2</div><div class="line">book3</div><div class="line">book4</div></pre></td></tr></table></figure></p>
+<h3 id="Iterator模式中的角色"><a href="#Iterator模式中的角色" class="headerlink" title="Iterator模式中的角色"></a>Iterator模式中的角色</h3><p>示例程序看完，分析一下这其中都有那些角色。</p>
+<h4 id="Iterator迭代器"><a href="#Iterator迭代器" class="headerlink" title="Iterator迭代器"></a>Iterator迭代器</h4><p>该角色负责定义按照顺序捉个遍历元素的接口。在示例程序中，由Iterator接口扮演这个角色，它定义了hasNext()方法和next()方法。其中hastNext()方法用于判断是否存在下一个元素,next()方法用于获取该元素。</p>
+<h4 id="ConcreteIterator具体的迭代器"><a href="#ConcreteIterator具体的迭代器" class="headerlink" title="ConcreteIterator具体的迭代器"></a>ConcreteIterator具体的迭代器</h4><p>该角色负责实现Iterator角色所定义的接口。在示例程序中，由BookShelfIterator类扮演这个角色。该角色中包含了遍历集合所必须的信息。在示例程序中，BookShelf类的实例保存在bookShelf字段中，被指向的书的下标保存在index字段中。</p>
+<h4 id="Aggregate集合"><a href="#Aggregate集合" class="headerlink" title="Aggregate集合"></a>Aggregate集合</h4><p>该角色负责定义创建Iterator角色的接口。这个接口是一个方法，会创建出”按照顺序访问保存再我内存元素的人”。在示例程序中，由Aggregate接口扮演这个角色，它里面定义了iterator方法。</p>
+<h4 id="ConcreteAggregate具体的集合"><a href="#ConcreteAggregate具体的集合" class="headerlink" title="ConcreteAggregate具体的集合"></a>ConcreteAggregate具体的集合</h4><p>Concrete:具体的。该角色负责实现Aggregate角色所定义的接口。它会创建出具体的Iterator角色。即ConcreteIterator角色。在示例陈古中，由BookShelf来扮演这个角色，它实现了iterator方法。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/part-04.jpg" alt=""></p>
+<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><h4 id="迭代器种类"><a href="#迭代器种类" class="headerlink" title="迭代器种类"></a>迭代器种类</h4><p>迭代器的种类多种多样，示例程序是简单的从前向后遍历，其实还可以从最后向前遍历；或者指定下标进行跳跃式遍历等等。</p>
+<h4 id="多个Iterator"><a href="#多个Iterator" class="headerlink" title="多个Iterator"></a>多个Iterator</h4><p>“将遍历功能置于Aggregate角色之外”是Iterator模式的一个特征。根据这个特征，可以针对一个ConcreteAggregate角色编写多个ConcteteIterator角色。</p>
+<h3 id="相关设计模式"><a href="#相关设计模式" class="headerlink" title="相关设计模式"></a>相关设计模式</h3><h4 id="Visitor模式"><a href="#Visitor模式" class="headerlink" title="Visitor模式"></a>Visitor模式</h4><p>Iterator模式是从集合中一个一个取出元素进行遍历，但是并没有在Iterator接口中声明对取出的元素进行何种处理。<br>Visitor模式则是在遍历元素集合的过程中，对元素进行相同的处理。</p>
+<hr>
+<hr>
+<p><b><i>Apapter模式:加个”适配器”，以便复用;</i></b></p>
+<h2 id="Adapter模式"><a href="#Adapter模式" class="headerlink" title="Adapter模式"></a>Adapter模式</h2><p>如果想让额定工作电压是直流12伏特的笔记本电脑在交流100伏特的AC电源下工作，应该如何？通常，会使用AC适配器，将家庭交流100伏特电压转换成所需要的直流12伏特电压。<b>这就是适配器的工作，它位于实际情况与需求之间，填补两者之间的差异。</b></p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/adapter-05.jpg" alt=""></p>
+<p>在程序中，经常会存在现有的程序无法直接使用，需要做适当的变换之后才能使用的情况。<b>这种用于填补”现有程序”和”所需程序”之间的差异的设计模式就是Adapter模式。</b><br>Adapter模式也被称为Wrapper模式。有”包装器”的意思。<br>Adapter模式有俩种: <i>类适配器模式(使用继承的适配器)</i> ;    <i>对象适配器(使用委托的适配器)</i></p>
+<h3 id="示例程序1-使用继承的适配器"><a href="#示例程序1-使用继承的适配器" class="headerlink" title="示例程序1 (使用继承的适配器)"></a>示例程序1 (使用继承的适配器)</h3><p>此处的示例程序是一段会将输入的字符串显示为(Hello)或是<em>Hello</em>的简单程序。</p>
+<p>在Banner类中，有将字符串用括号括起来的showWithParen()方法，和将字符串用*号括起来的showWithAster()方法。<b>假设这个Banner类是类似前文中的”交流100伏特电压”的”实际情况”。</b></p>
+<p>假设Print接口中声明了俩种方法，即弱化字符串显示(加括号)的printWeak()方法，和强调字符串显示(加*号)的printStrong()方法。<b>假设这个接口类似前文中”直流12伏特电压”的”需求”。</b></p>
+<p><i>现在要做的就是使用Banner类编写一个实现了Print接口的类，也就是说要做一个将”交流100伏特电压”转换成”直流12伏特电压”的适配器。</i></p>
+<p>扮演适配器角色的是PrintBanner类。该类继承了Banner类并实现了”需求” ———— Print接口。PrintBanner类使用showWithParen()方法实现了printWeak()，使用showWithAster()方法实现了printStrong()。这样，PrintBanner类就具有了适配器的功能了。</p>
+<h4 id="电源的比喻和示例程序的对应关系"><a href="#电源的比喻和示例程序的对应关系" class="headerlink" title="电源的比喻和示例程序的对应关系"></a>电源的比喻和示例程序的对应关系</h4><p><img src="http://ogo6z0ylk.bkt.clouddn.com/adapter-06.jpg" alt=""></p>
+<h4 id="使用了”类适配器模式”的示例程序的类图-使用继承"><a href="#使用了”类适配器模式”的示例程序的类图-使用继承" class="headerlink" title="使用了”类适配器模式”的示例程序的类图(使用继承)"></a>使用了”类适配器模式”的示例程序的类图(使用继承)</h4><p><img src="http://ogo6z0ylk.bkt.clouddn.com/adapter-04.jpg" alt=""></p>
+<h4 id="Banner类"><a href="#Banner类" class="headerlink" title="Banner类"></a>Banner类</h4><p>假设Banner类是现在的实际情况。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Banner</span></span>&#123;</div><div class="line">	<span class="keyword">private</span> String string;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Banner</span><span class="params">(String string)</span></span>&#123;</div><div class="line">		<span class="keyword">this</span>.string = string;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showWithParen</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.println(<span class="string">"("</span> +string+ <span class="string">")"</span>);</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showWithAster</span><span class="params">()</span></span>&#123;</div><div class="line">		System.out.println(<span class="string">"*"</span>+ string+ <span class="string">"*"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Print接口"><a href="#Print接口" class="headerlink" title="Print接口"></a>Print接口</h4><p>假设现在Print接口是”需求”的接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Print</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">printWeak</span><span class="params">()</span></span>;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">printStrong</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="PrintBanner类"><a href="#PrintBanner类" class="headerlink" title="PrintBanner类"></a>PrintBanner类</h4><p>PrintBanner类扮演适配器的角色。它继承(extends)Banner类，继承了showWithParen()方法和showWithAster()方法。同时它也实现(implements)Print接口，实现了printWeak()方法和printStrong()方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PrintBanner</span> <span class="keyword">extends</span> <span class="title">Banner</span> <span class="keyword">implements</span> <span class="title">Print</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">PrintBanner</span><span class="params">(String string)</span></span>&#123;</div><div class="line">		<span class="keyword">super</span>(string);</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printWeak</span><span class="params">()</span></span>&#123;</div><div class="line">		showWithParen();</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printStrong</span><span class="params">()</span></span>&#123;</div><div class="line">		showWithAster();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Main类-1"><a href="#Main类-1" class="headerlink" title="Main类"></a>Main类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">		Print p = <span class="keyword">new</span> PrintBanner(<span class="string">"Hello"</span>);</div><div class="line">		p.printWeak();</div><div class="line">		p.printStorng();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>程序运行结果:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">(Hello)</div><div class="line">*Hello*</div></pre></td></tr></table></figure>
+<p>这里将PrintBanner类的实例保存在了Print类型的变量中。再Main类中。使用Print接口(即调用printWeak方法和printStrong方法)来进行编程的。对Main类而言，Banner类、showWithParen()方法和showWithAster()方法被完全隐藏了。<b>这就好像笔记本电脑只要在直流12伏特的电压下就能工作，但它并不知道这12伏特的电压是由适配器将100伏特交流电压转换而成的。</b></p>
+<p>Main类并不知道PrintBanner类是如何实现的，这样就可以再不用对Main类进行修改的情况下改变PrintBanner类的具体实现。</p>
+<h3 id="示例程序2-使用委托的适配器"><a href="#示例程序2-使用委托的适配器" class="headerlink" title="示例程序2 (使用委托的适配器)"></a>示例程序2 (使用委托的适配器)</h3><p>之前的示例程序使用了类适配器模式，这里使用”委托”来实现。</p>
+<h4 id="关于委托"><a href="#关于委托" class="headerlink" title="关于委托"></a>关于委托</h4><p>“委托”这个词过于正式了，说的通俗点就是”交给其他人”。在Java语言中，委托就是指将某个方法中的实际处理交给其他实例的方法。</p>
+<p>Main类和Banner类与示例程序1的内容完全相同，不过这里假设Print不是接口而是类。也就是说，打算利用Banner类实现一个类，该类的方法和Print类的方法相同。由于在Java中无法同时继承俩个类，因此无法将PrintBanner类分别定义为Print类和Banner类的子类。</p>
+<p>PrintBanner类的banner字段中保存了Banner类的实例。该实例是在PrintBanner类的构造函数中生成的，然后，printWeak()方法和printStrong()方法会通过banner字段调用Banner类的showWithParen()方法和showWithAster()方法。</p>
+<p>与之前的示例1不同，示例1是通过调用了父类中继承的showWithParen()和showWithAster()方法实现，此处是通过字段来调用这俩个方法实现。</p>
+<p>这也就形成了一种委托关系。<b>当PrintBanner类的printWeak()被调用时，并不是PrintBanner类自己进行处理，而是将处理交给了其他实例(Banner类的实例)的showWithPaten()方法。</b></p>
+<h4 id="使用了”对象适配器模式”的示例程序的类图-使用委托"><a href="#使用了”对象适配器模式”的示例程序的类图-使用委托" class="headerlink" title="使用了”对象适配器模式”的示例程序的类图(使用委托)"></a>使用了”对象适配器模式”的示例程序的类图(使用委托)</h4><p><img src="http://ogo6z0ylk.bkt.clouddn.com/adapter-03.jpg" alt=""></p>
+<h4 id="Print类"><a href="#Print类" class="headerlink" title="Print类"></a>Print类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Print</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">printWeak</span><span class="params">()</span></span>;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">printStrong</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="PrintBanner类-1"><a href="#PrintBanner类-1" class="headerlink" title="PrintBanner类"></a>PrintBanner类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PrintBanner</span> <span class="keyword">extends</span> <span class="title">Print</span></span>&#123;</div><div class="line">	<span class="keyword">private</span> Banner banner;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">PrintBanner</span><span class="params">(String string)</span></span>&#123;</div><div class="line">		<span class="keyword">this</span>.banner = <span class="keyword">new</span> Banner(string);</div><div class="line"></div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printWeak</span><span class="params">()</span></span>&#123;</div><div class="line">		banner.showWithParen();</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printStrong</span><span class="params">()</span></span>&#123;</div><div class="line">		banner.showWithAster();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Adapter模式中的角色"><a href="#Adapter模式中的角色" class="headerlink" title="Adapter模式中的角色"></a>Adapter模式中的角色</h3><p>在Adapter模式下有以下角色。</p>
+<h4 id="Target对象"><a href="#Target对象" class="headerlink" title="Target对象"></a>Target对象</h4><p>该角色负责定义所方法。以开头的栗子来说，即让笔记本电脑正常工作所需的直流12伏特电源。在示例程序中，由Print接口(使用继承时)和Print类(使用委托时)扮演此角色</p>
+<h4 id="Client请求者"><a href="#Client请求者" class="headerlink" title="Client请求者"></a>Client请求者</h4><p>改角色负责使用Target所定义的方法进行具体处理。以开头的栗子来说，即直流12伏特电源所驱动的笔记本电脑。在示例程序中，由Main类扮演此角色。</p>
+<h4 id="Adaptee被适配者"><a href="#Adaptee被适配者" class="headerlink" title="Adaptee被适配者"></a>Adaptee被适配者</h4><p>Adapt-ee被适配者。是一个持有既定方法的角色。以开头的栗子来说，即交流100伏特电源。在示例程序中，由Banner类扮演此角色。如果Adaptee角色中的方法与Target角色的方法相同(也就是说家庭使用电压就是12伏特直流电压)，就不需要接下来的Adapter角色了。</p>
+<h4 id="Adapter适配"><a href="#Adapter适配" class="headerlink" title="Adapter适配"></a>Adapter适配</h4><p>Adapter模式的主角。使用Adaptee角色的方法来满足Target角色的需求，这是Adapter模式的目的，也是Adapter角色的作用。以开头的栗子来说，Adapter角色就是将交流100伏特电压转换为直流12伏特电压的笔记本适配器。在示例中，由PrintBanner类扮演这个角色。</p>
+<h4 id="俩种Adapter模式的类图"><a href="#俩种Adapter模式的类图" class="headerlink" title="俩种Adapter模式的类图"></a>俩种Adapter模式的类图</h4><p>在类适配器模式是中，Adapter角色通过继承来使用Adaptee角色。而在对象适配器中，Adapter角色通过委托来使用Adaptee角色。如下：</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/adapter-002.jpg" alt=""></p>
+<p>(不知道为啥，就是正不过来，就当活动脖子了~~)</p>
+<h3 id="拓展-1"><a href="#拓展-1" class="headerlink" title="拓展"></a>拓展</h3><h4 id="什么时候使用Adapter模式"><a href="#什么时候使用Adapter模式" class="headerlink" title="什么时候使用Adapter模式"></a>什么时候使用Adapter模式</h4><p>如果某个方法就是我们所需要的方法，那么直接就再程序中使用不就可以了么？为什么还要考虑使用Adapter模式呢？</p>
+<p>很多时候，并非从零开始编程，经常会用到现有的类。特别是当现有的类已被充分测试过了，bug很少，而且已被用于其他软件时，我们更愿意将这些类作为组件重复利用。</p>
+<p>Adapter模式会对现有的类进行适配，生成新的类。通过该模式可以很方便的创建我们需要的方法群。当出现bug时，由于很明确的知道bug不在现有的类(Adapter角色)中，所以只需要调查扮演Adapter角色的类即可。这样，代码问题的排查就会非常简单。</p>
+<h4 id="如果没有现成的代码"><a href="#如果没有现成的代码" class="headerlink" title="如果没有现成的代码"></a>如果没有现成的代码</h4><p>让现有的类适配新的接口时，使用Adapter模式似乎理所当然。不过实际上，我们在让小友的类适配新的接口时，常常会有”只要将这里稍微改一下就可以了”的想法，一步留神就会修改现有的代码。</p>
+<p>使用Adapter模式可以在完全不改变现有代码的前提下使现有代码失陪于新的接口。此外，在Adapter模式中，并非一定需要线程的代码。只要知道现有类的功能，就可以编写出新的类。</p>
+<h3 id="相关设计模式-1"><a href="#相关设计模式-1" class="headerlink" title="相关设计模式"></a>相关设计模式</h3><h4 id="Bridfe模式"><a href="#Bridfe模式" class="headerlink" title="Bridfe模式"></a>Bridfe模式</h4><p>Adapter模式用于连接接口不同的类，而Bridge模式则用于连接类的功能层次结构与实现层次结构。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Iterator模式/" rel="tag">#Iterator模式</a>
+          
+            <a href="/tags/Adapter模式/" rel="tag">#Adapter模式</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/26/设计模式前置/" rel="next" title="设计模式之前">
+                <i class="fa fa-chevron-left"></i> 设计模式之前
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcxMS84Mjc1">
+  <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+  </script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/ava.png"
+               alt="拾叁妖" />
+          <p class="site-author-name" itemprop="name">拾叁妖</p>
+          <p class="site-description motion-element" itemprop="description">奇变偶不变，符号看象限。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Altman29" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/5866547818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Iterator模式"><span class="nav-number">1.</span> <span class="nav-text">Iterator模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#示例程序"><span class="nav-number">1.1.</span> <span class="nav-text">示例程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Aggregate接口"><span class="nav-number">1.1.1.</span> <span class="nav-text">Aggregate接口</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#示例程序的类图"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">示例程序的类图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#类和接口一览表"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">类和接口一览表</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Iterator接口"><span class="nav-number">1.1.2.</span> <span class="nav-text">Iterator接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Book类"><span class="nav-number">1.1.3.</span> <span class="nav-text">Book类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BookShelf类"><span class="nav-number">1.1.4.</span> <span class="nav-text">BookShelf类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BookShelfIterator类"><span class="nav-number">1.1.5.</span> <span class="nav-text">BookShelfIterator类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Main类"><span class="nav-number">1.1.6.</span> <span class="nav-text">Main类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Iterator模式中的角色"><span class="nav-number">1.2.</span> <span class="nav-text">Iterator模式中的角色</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Iterator迭代器"><span class="nav-number">1.2.1.</span> <span class="nav-text">Iterator迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ConcreteIterator具体的迭代器"><span class="nav-number">1.2.2.</span> <span class="nav-text">ConcreteIterator具体的迭代器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Aggregate集合"><span class="nav-number">1.2.3.</span> <span class="nav-text">Aggregate集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ConcreteAggregate具体的集合"><span class="nav-number">1.2.4.</span> <span class="nav-text">ConcreteAggregate具体的集合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拓展"><span class="nav-number">1.3.</span> <span class="nav-text">拓展</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代器种类"><span class="nav-number">1.3.1.</span> <span class="nav-text">迭代器种类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多个Iterator"><span class="nav-number">1.3.2.</span> <span class="nav-text">多个Iterator</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关设计模式"><span class="nav-number">1.4.</span> <span class="nav-text">相关设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Visitor模式"><span class="nav-number">1.4.1.</span> <span class="nav-text">Visitor模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adapter模式"><span class="nav-number">2.</span> <span class="nav-text">Adapter模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#示例程序1-使用继承的适配器"><span class="nav-number">2.1.</span> <span class="nav-text">示例程序1 (使用继承的适配器)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#电源的比喻和示例程序的对应关系"><span class="nav-number">2.1.1.</span> <span class="nav-text">电源的比喻和示例程序的对应关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用了”类适配器模式”的示例程序的类图-使用继承"><span class="nav-number">2.1.2.</span> <span class="nav-text">使用了”类适配器模式”的示例程序的类图(使用继承)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Banner类"><span class="nav-number">2.1.3.</span> <span class="nav-text">Banner类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Print接口"><span class="nav-number">2.1.4.</span> <span class="nav-text">Print接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PrintBanner类"><span class="nav-number">2.1.5.</span> <span class="nav-text">PrintBanner类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Main类-1"><span class="nav-number">2.1.6.</span> <span class="nav-text">Main类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例程序2-使用委托的适配器"><span class="nav-number">2.2.</span> <span class="nav-text">示例程序2 (使用委托的适配器)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关于委托"><span class="nav-number">2.2.1.</span> <span class="nav-text">关于委托</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用了”对象适配器模式”的示例程序的类图-使用委托"><span class="nav-number">2.2.2.</span> <span class="nav-text">使用了”对象适配器模式”的示例程序的类图(使用委托)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Print类"><span class="nav-number">2.2.3.</span> <span class="nav-text">Print类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PrintBanner类-1"><span class="nav-number">2.2.4.</span> <span class="nav-text">PrintBanner类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Adapter模式中的角色"><span class="nav-number">2.3.</span> <span class="nav-text">Adapter模式中的角色</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Target对象"><span class="nav-number">2.3.1.</span> <span class="nav-text">Target对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Client请求者"><span class="nav-number">2.3.2.</span> <span class="nav-text">Client请求者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Adaptee被适配者"><span class="nav-number">2.3.3.</span> <span class="nav-text">Adaptee被适配者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Adapter适配"><span class="nav-number">2.3.4.</span> <span class="nav-text">Adapter适配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#俩种Adapter模式的类图"><span class="nav-number">2.3.5.</span> <span class="nav-text">俩种Adapter模式的类图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拓展-1"><span class="nav-number">2.4.</span> <span class="nav-text">拓展</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么时候使用Adapter模式"><span class="nav-number">2.4.1.</span> <span class="nav-text">什么时候使用Adapter模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如果没有现成的代码"><span class="nav-number">2.4.2.</span> <span class="nav-text">如果没有现成的代码</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关设计模式-1"><span class="nav-number">2.5.</span> <span class="nav-text">相关设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Bridfe模式"><span class="nav-number">2.5.1.</span> <span class="nav-text">Bridfe模式</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">拾叁妖</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+  &nbsp;丨&nbsp;
+  <!-- 不蒜统计 -->
+  <span style="display: inline;" id="busuanzi_container_site_uv">本站总访客数 <span id="busuanzi_value_site_uv" font="微软雅黑"></span> 次</span>
+  &nbsp;丨&nbsp;
+  <span style="display: inline;" id="busuanzi_container_site_pv">本站总访问量 <span id="busuanzi_value_site_pv" font="微软雅黑"></span> 次</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("nfQNU5dFwiltiHNWVEeJeuFp-gzGzoHsz", "oANzCtO0CzmnL1JmWkHda5Dp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
