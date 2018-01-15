@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="多渠道打包," />
 
 
 
@@ -84,16 +84,19 @@
 
 
 
-<meta name="description" content="奇变偶不变，符号看象限。">
+<meta name="description" content="因为之前是在做海外应用，只针对Google Play市场。不涉及太多打包方面的知识。现换了新的工作环境，第一项任务就是多渠道打包，还好之前有所涉猎，知道是需要写一些配置的代码。这次着重查阅了相关资料。发现还是能拿出来一叙的。就目前所知，已经有多种方式可以完成多渠道打包，虽然说实现功能就可以了，但是身为好奇心可怕、喜欢炫技的”理想程序员”，还是想都给掌握了，包括常规的在清单文件和build文件完成配">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android多渠道打包Record">
 <meta property="og:url" content="http://yoursite.com/2018/01/15/Android多渠道打包Record/index.html">
 <meta property="og:site_name" content="拾叁妖">
-<meta property="og:description" content="奇变偶不变，符号看象限。">
-<meta property="og:updated_time" content="2018-01-15T09:27:42.000Z">
+<meta property="og:description" content="因为之前是在做海外应用，只针对Google Play市场。不涉及太多打包方面的知识。现换了新的工作环境，第一项任务就是多渠道打包，还好之前有所涉猎，知道是需要写一些配置的代码。这次着重查阅了相关资料。发现还是能拿出来一叙的。就目前所知，已经有多种方式可以完成多渠道打包，虽然说实现功能就可以了，但是身为好奇心可怕、喜欢炫技的”理想程序员”，还是想都给掌握了，包括常规的在清单文件和build文件完成配">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/WX20180115-182814@2x.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/wandoujia.png">
+<meta property="og:updated_time" content="2018-01-15T10:37:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android多渠道打包Record">
-<meta name="twitter:description" content="奇变偶不变，符号看象限。">
+<meta name="twitter:description" content="因为之前是在做海外应用，只针对Google Play市场。不涉及太多打包方面的知识。现换了新的工作环境，第一项任务就是多渠道打包，还好之前有所涉猎，知道是需要写一些配置的代码。这次着重查阅了相关资料。发现还是能拿出来一叙的。就目前所知，已经有多种方式可以完成多渠道打包，虽然说实现功能就可以了，但是身为好奇心可怕、喜欢炫技的”理想程序员”，还是想都给掌握了，包括常规的在清单文件和build文件完成配">
+<meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/WX20180115-182814@2x.png">
 
 
 
@@ -271,6 +274,25 @@
           </span>
 
           
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
 
           
             
@@ -302,7 +324,27 @@
       
 
       
-        
+        <p>因为之前是在做海外应用，只针对Google Play市场。不涉及太多打包方面的知识。现换了新的工作环境，第一项任务就是多渠道打包，还好之前有所涉猎，知道是需要写一些配置的代码。这次着重查阅了相关资料。发现还是能拿出来一叙的。就目前所知，已经有多种方式可以完成多渠道打包，虽然说实现功能就可以了，但是身为好奇心可怕、喜欢炫技的”理想程序员”，还是想都给掌握了，包括常规的在清单文件和build文件完成配置、使用Python脚本完成多渠道打包等以及打包的方式，是click、click、click还是在AS下的Terminal使用gradle命令完成都是很酷的(虽然在多渠道完成之前，连gradle环境变量都没配..捂脸)。好记性不如烂blog，这次我就mark下啦。</p>
+<a id="more"></a>
+<h3 id="多渠道打包的由来"><a href="#多渠道打包的由来" class="headerlink" title="多渠道打包的由来"></a>多渠道打包的由来</h3><p>In short, 将App发布到不同平台，打对应的包。</p>
+<p>在国内，各大市场目不暇接，什么安智，应用宝吧啦吧啦的。一个应用发布到不同平台能都是一个包下来，但，产品可能高兴了，一个平台一个对应的图标，或者资源文件里的某些String都不一样。这样程序工作中如果2个平台还好，打完一个包，下个包修改下资源，当然之前平台的资源还要备份，再打下一个平台的包。这样尚可，但是如果想想要是需要上传10个平台呢，每个平台发布的包虽然是换汤不换药，但是打包过程是恒久远的，Tools方面小的应用还好，要是大点的App，电脑都哮喘吧。哼唧哼唧10分钟很平常。这多尴尬。而多渠道打包就是来解决或者说简化这个操作的(个人认为打包总时间可能有所减少，但减少的是中间替换资源什么的不属于打包所耗时间，所以以个人理解，加了个”简化”)。</p>
+<h3 id="多渠道打包的用途"><a href="#多渠道打包的用途" class="headerlink" title="多渠道打包的用途"></a>多渠道打包的用途</h3><h4 id="统计信息"><a href="#统计信息" class="headerlink" title="统计信息"></a>统计信息</h4><p>一个应用做的好不好，不是你说的算还是他说的算的，它是有具体数据体现的。而且更具各种统计信息来指定对应的开发计划也是必须的。举个栗子，读取到打包，根据每个渠道信息统计安装量，可以直观的看出App在某一平台的安装情况，这就是一种意义。</p>
+<h4 id="批量生成Apk文件名"><a href="#批量生成Apk文件名" class="headerlink" title="批量生成Apk文件名"></a>批量生成Apk文件名</h4><p>根据产品大佬的命名规则，如果一个一个右键重命名，那就相当尴尬了，而多渠道打包的命名都是自动生成的。</p>
+<h4 id="生成不同的名称和图标"><a href="#生成不同的名称和图标" class="headerlink" title="生成不同的名称和图标"></a>生成不同的名称和图标</h4><p>就像上面提到过的，不同平台不同的图标，不同的名称，无非是一些资源的替换。多渠道打包实现起来就很方便，不必打一个改一次。</p>
+<p>差不多想到这么多用途吧，欢迎补充。</p>
+<h3 id="Guide"><a href="#Guide" class="headerlink" title="Guide"></a>Guide</h3><h4 id="1-添加占位符"><a href="#1-添加占位符" class="headerlink" title="1.添加占位符"></a>1.添加占位符</h4><p>公司使用的是友盟的SDK。这里就以此为例。</p>
+<p>在<code>AndroidManifest.xml</code>的<code>application</code>标签里面添加<code>&lt;meta-data&gt;</code>标签定义占位符，value是动态的会被友盟提取值到后台进行统计。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta-data</span></span></div><div class="line">    	<span class="attr">android:name</span>=<span class="string">"UMENG_CHANNEL"</span></div><div class="line">        <span class="attr">android:value</span>=<span class="string">"$&#123;UMENG_CHANNEL_VALUE&#125;"</span> /&gt;</div></pre></td></tr></table></figure>
+<h4 id="2-修改app下的build-gradle文件，在android标签中添加productFlavors属性配置。"><a href="#2-修改app下的build-gradle文件，在android标签中添加productFlavors属性配置。" class="headerlink" title="2.修改app下的build.gradle文件，在android标签中添加productFlavors属性配置。"></a>2.修改<code>app</code>下的<code>build.gradle</code>文件，在<code>android</code>标签中添加<code>productFlavors</code>属性配置。</h4><figure class="highlight gradle"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div></pre></td><td class="code"><pre><div class="line">android&#123;</div><div class="line"></div><div class="line">	<span class="comment">//...省略</span></div><div class="line"></div><div class="line">productFlavors &#123;</div><div class="line"><span class="comment">//    直观写法</span></div><div class="line"><span class="comment">//        kuan &#123;</span></div><div class="line"><span class="comment">//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "kuan"]</span></div><div class="line"><span class="comment">//        &#125;</span></div><div class="line"><span class="comment">//        xiaomi &#123;</span></div><div class="line"><span class="comment">//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]</span></div><div class="line"><span class="comment">//        &#125;</span></div><div class="line"><span class="comment">//</span></div><div class="line"><span class="comment">//        qh360 &#123;</span></div><div class="line"><span class="comment">//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "qh360"]</span></div><div class="line"><span class="comment">//        &#125;</span></div><div class="line"><span class="comment">//        baidu &#123;</span></div><div class="line"><span class="comment">//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]</span></div><div class="line"><span class="comment">//        &#125;</span></div><div class="line"><span class="comment">//        wandoujia &#123;</span></div><div class="line"><span class="comment">//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "wandoujia"]</span></div><div class="line"><span class="comment">//        &#125;</span></div><div class="line"></div><div class="line"><span class="comment">//这一些少些点没观点，但是还要写一个productFlavors.all(下面那坨)</span></div><div class="line">        kuan &#123;&#125;</div><div class="line">        xiaomi &#123;&#125;</div><div class="line">        qh360 &#123;&#125;</div><div class="line">        baidu &#123;&#125;</div><div class="line">        wandoujia &#123;&#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    productFlavors.all &#123;</div><div class="line">        flavor -&gt; flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 自定义输出配置，这里我们加上APK版本号1.0</span></div><div class="line">    applicationVariants.all &#123; variant -&gt;</div><div class="line">        variant.outputs.<span class="keyword">each</span> &#123; output -&gt;</div><div class="line">            <span class="keyword">def</span> outputFile = output.outputFile</div><div class="line">            <span class="keyword">if</span> (outputFile != <span class="keyword">null</span> &amp;&amp; outputFile.name.endsWith(<span class="string">'.apk'</span>)) &#123;</div><div class="line">                <span class="comment">// 输出apk名称为mobileworld_v1.0_wandoujia.apk</span></div><div class="line">                <span class="keyword">def</span> fileName = <span class="string">"mobileworld_v$&#123;defaultConfig.versionName&#125;_$&#123;releaseTime()&#125;"</span> +</div><div class="line">                        <span class="string">"_$&#123;variant.productFlavors[0].name&#125;.apk"</span></div><div class="line">                output.outputFile = <span class="keyword">new</span> <span class="keyword">File</span>(outputFile.parent, fileName)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//获取时间，可以有无</span></div><div class="line"><span class="keyword">def</span> releaseTime() &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Date().format(<span class="string">"yyyy-MM-dd"</span>, TimeZone.getTimeZone(<span class="string">"UTC"</span>))</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">dependencies</span> &#123;</div><div class="line">	<span class="keyword">compile</span> files(<span class="string">'libs/umeng-common-1.4.1.jar'</span>)</div><div class="line">	<span class="keyword">compile</span> files(<span class="string">'libs/umeng-analytics-7.4.1.jar'</span>)</div><div class="line">    <span class="comment">//...省略</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>像360样的数字当然是不能直接写的，可以加个下划线_，也可以加个前缀这点随意，只要别以数字开头就好了。</p>
+<h4 id="3-打包"><a href="#3-打包" class="headerlink" title="3.打包"></a>3.打包</h4><p>click、click、click了。build-&gt;Generate Singed APK.输入密码一顿 next，</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/WX20180115-182814@2x.png" alt=""></p>
+<p>然后选择要打的渠道的包就可以喝口水歇会了。</p>
+<h4 id="4-生成不同的图标或者名称"><a href="#4-生成不同的图标或者名称" class="headerlink" title="4.生成不同的图标或者名称"></a>4.生成不同的图标或者名称</h4><p>说白了，这就是不同的资源，这个很简单，只需要创建对应的目录即可。在<code>src</code>下与<code>main</code>同级，名字要与<code>productFlavors</code>一致。如图。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/wandoujia.png" alt=""></p>
+<hr>
+<p>好了，先酱紫，还有一些黑科技没亲测呢，等亲测可行了在来收尾~</p>
+
       
     </div>
 
@@ -320,6 +362,12 @@
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/多渠道打包/" rel="tag">#多渠道打包</a>
+          
+        </div>
       
 
       
@@ -433,7 +481,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -482,7 +530,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#多渠道打包的由来"><span class="nav-number">1.</span> <span class="nav-text">多渠道打包的由来</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多渠道打包的用途"><span class="nav-number">2.</span> <span class="nav-text">多渠道打包的用途</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#统计信息"><span class="nav-number">2.1.</span> <span class="nav-text">统计信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#批量生成Apk文件名"><span class="nav-number">2.2.</span> <span class="nav-text">批量生成Apk文件名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成不同的名称和图标"><span class="nav-number">2.3.</span> <span class="nav-text">生成不同的名称和图标</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Guide"><span class="nav-number">3.</span> <span class="nav-text">Guide</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-添加占位符"><span class="nav-number">3.1.</span> <span class="nav-text">1.添加占位符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-修改app下的build-gradle文件，在android标签中添加productFlavors属性配置。"><span class="nav-number">3.2.</span> <span class="nav-text">2.修改app下的build.gradle文件，在android标签中添加productFlavors属性配置。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-打包"><span class="nav-number">3.3.</span> <span class="nav-text">3.打包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-生成不同的图标或者名称"><span class="nav-number">3.4.</span> <span class="nav-text">4.生成不同的图标或者名称</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
