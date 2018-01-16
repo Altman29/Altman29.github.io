@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Singleton 模式,Prototype 模式,Builder 模式,Abstract Factory 模式," />
 
 
 
@@ -84,15 +84,22 @@
 
 
 
-<meta name="description" content="奇变偶不变，符号看象限。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="拾叁妖">
-<meta property="og:url" content="http://yoursite.com/tags/Singleton-模式/index.html">
+<meta name="description" content="像我这样优秀的人        本该灿烂过一生怎么二十多年到头来        还在人海里浮沉
+像我这样聪明的人        早就告别了单纯怎么还是用了一段情        去换一身伤痕
+Singleton模式、Prototype模式、Builder模式、Abstract Factory模式， let’s do it.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="part 3 - 生成实例">
+<meta property="og:url" content="http://yoursite.com/2017/07/26/part-3-生成实例/index.html">
 <meta property="og:site_name" content="拾叁妖">
-<meta property="og:description" content="奇变偶不变，符号看象限。">
+<meta property="og:description" content="像我这样优秀的人        本该灿烂过一生怎么二十多年到头来        还在人海里浮沉
+像我这样聪明的人        早就告别了单纯怎么还是用了一段情        去换一身伤痕
+Singleton模式、Prototype模式、Builder模式、Abstract Factory模式， let’s do it.">
+<meta property="og:updated_time" content="2018-01-16T07:58:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="拾叁妖">
-<meta name="twitter:description" content="奇变偶不变，符号看象限。">
+<meta name="twitter:title" content="part 3 - 生成实例">
+<meta name="twitter:description" content="像我这样优秀的人        本该灿烂过一生怎么二十多年到头来        还在人海里浮沉
+像我这样聪明的人        早就告别了单纯怎么还是用了一段情        去换一身伤痕
+Singleton模式、Prototype模式、Builder模式、Abstract Factory模式， let’s do it.">
 
 
 
@@ -110,7 +117,7 @@
   };
 </script>
 
-  <title> 标签: Singleton 模式 | 拾叁妖 </title>
+  <title> part 3 - 生成实例 | 拾叁妖 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -133,7 +140,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -231,51 +238,169 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        Singleton 模式
-        <small>标签</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                part 3 - 生成实例
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-26T09:48:02+08:00" content="2017-07-26">
+              2017-07-26
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+          
+          
+             <span id="/2017/07/26/part-3-生成实例/" class="leancloud_visitors" data-flag-title="part 3 - 生成实例">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p>像我这样优秀的人        本该灿烂过一生<br>怎么二十多年到头来        还在人海里浮沉</p>
+<p>像我这样聪明的人        早就告别了单纯<br>怎么还是用了一段情        去换一身伤痕</p>
+<p><b>Singleton模式、Prototype模式、Builder模式、Abstract Factory模式</b>， let’s do it.</p>
+<a id="more"></a>
+      
+    </div>
 
-      <h1 class="post-title">
+    <div>
+      
         
-            <a class="post-title-link" href="/2017/07/26/part-3-生成实例/" itemprop="url">
-              
-                <span itemprop="name">part 3 - 生成实例</span>
-              
-            </a>
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-26T09:48:02+08:00"
-              content="2017-07-26" >
-          07-26
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Singleton-模式/" rel="tag">#Singleton 模式</a>
+          
+            <a href="/tags/Prototype-模式/" rel="tag">#Prototype 模式</a>
+          
+            <a href="/tags/Builder-模式/" rel="tag">#Builder 模式</a>
+          
+            <a href="/tags/Abstract-Factory-模式/" rel="tag">#Abstract Factory 模式</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/15/part-2-交给子类/" rel="next" title="part 2 - 交给子类">
+                <i class="fa fa-chevron-left"></i> part 2 - 交给子类
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/15/Android多渠道打包Record/" rel="prev" title="Android多渠道打包Record">
+                Android多渠道打包Record <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcxMS84Mjc1">
+  <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+  </script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
 
         </div>
         
@@ -295,8 +420,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/ava.png"
@@ -366,6 +500,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -473,6 +618,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
