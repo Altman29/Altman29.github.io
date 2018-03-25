@@ -255,6 +255,132 @@
             
               
                 
+                <a class="post-title-link" href="/2017/05/10/Fragment中无故失踪的Context/" itemprop="url">
+                  Fragment中无故失踪的Context
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-05-10T14:29:29+08:00" content="2017-05-10">
+              2017-05-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+          
+          
+             <span id="/2017/05/10/Fragment中无故失踪的Context/" class="leancloud_visitors" data-flag-title="Fragment中无故失踪的Context">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在一个项目中使用了ViewPager+Fragment的组合，但是在实际使用中频繁的Crash，错误是在Fragment内部出现的NullPointException。</p>
+<p>经过仔细排查，发现是因为我在Fragment内有一些AsyncTask联网操作，在网络链接失败的时候会弹出Toast消息提示。而生成Toast时传入的Context参数是getActivity() ，这里就有可能会出现问题了，只有Fragment附着(onAttach)在Activity上时 getActivity() 函数才会返回正确的对象，否则的话返回null。</p>
+<p>因此，如果我正在联网，滑动ViewPager使得这个Fragment被销毁了或者点击Back键返回了，此时Fragment就会和Activity解除附着，当再试图弹出Toast的时候，getActivity() 返回null，于是就Crash了。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/05/10/Fragment中无故失踪的Context/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/05/06/和世界分享我的秘密/" itemprop="url">
                   旅行的意义
                 </a>
@@ -1316,111 +1442,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/16/Singleton/" itemprop="url">
-                  单例模式Singleton
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-01-16T23:34:38+08:00" content="2017-01-16">
-              2017-01-16
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-          
-          
-             <span id="/2017/01/16/Singleton/" class="leancloud_visitors" data-flag-title="单例模式Singleton">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>单例设计模式是设计模式中最常见也最简单的一种设计模式，保证了在程序中只用一个实例存在并且能全局的访问到。比如在Android实际APP开发中用到的帐号信息对象管理、数据库对象等都会用到单例模式。下面针对一些栗子分析下在开发过程中应用单例模式需要注意的点。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/01/16/Singleton/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1464,7 +1485,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1481,7 +1502,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
