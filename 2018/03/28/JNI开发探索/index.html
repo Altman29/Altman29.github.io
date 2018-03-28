@@ -1,0 +1,779 @@
+<!doctype html>
+
+
+
+  
+
+<html class="theme-next mist use-motion">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JNI," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="原生开发工具包 (NDK) 是一组可让您在 Android 应用中利用 C 和 C++ 代码的工具。 可用以从您自己的源代码构建，或者利用现有的预构建库。NDK 不适用于大多数初学的 Android 编程者，对许多类型的 Android 应用没什么价值。 因为它不可避免地会增加开发过程的复杂性，所以通常不值得使用。 但如果您需要执行以下操作，它可能很有用：从设备获取卓越性能以用于计算密集型应用，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JNI开发探索">
+<meta property="og:url" content="http://yoursite.com/2018/03/28/JNI开发探索/index.html">
+<meta property="og:site_name" content="拾叁妖">
+<meta property="og:description" content="原生开发工具包 (NDK) 是一组可让您在 Android 应用中利用 C 和 C++ 代码的工具。 可用以从您自己的源代码构建，或者利用现有的预构建库。NDK 不适用于大多数初学的 Android 编程者，对许多类型的 Android 应用没什么价值。 因为它不可避免地会增加开发过程的复杂性，所以通常不值得使用。 但如果您需要执行以下操作，它可能很有用：从设备获取卓越性能以用于计算密集型应用，">
+<meta property="og:updated_time" content="2018-03-28T13:30:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JNI开发探索">
+<meta name="twitter:description" content="原生开发工具包 (NDK) 是一组可让您在 Android 应用中利用 C 和 C++ 代码的工具。 可用以从您自己的源代码构建，或者利用现有的预构建库。NDK 不适用于大多数初学的 Android 编程者，对许多类型的 Android 应用没什么价值。 因为它不可避免地会增加开发过程的复杂性，所以通常不值得使用。 但如果您需要执行以下操作，它可能很有用：从设备获取卓越性能以用于计算密集型应用，">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> JNI开发探索 | 拾叁妖 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">拾叁妖</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JNI开发探索
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-03-28T17:04:39+08:00" content="2018-03-28">
+              2018-03-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+          
+          
+             <span id="/2018/03/28/JNI开发探索/" class="leancloud_visitors" data-flag-title="JNI开发探索">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>原生开发工具包 (NDK) 是一组可让您在 Android 应用中利用 C 和 C++ 代码的工具。 可用以从您自己的源代码构建，或者利用现有的预构建库。<br>NDK 不适用于大多数初学的 Android 编程者，对许多类型的 Android 应用没什么价值。 因为它不可避免地会增加开发过程的复杂性，所以通常不值得使用。 但如果您需要执行以下操作，它可能很有用：<br>从设备获取卓越性能以用于计算密集型应用，例如游戏或物理模拟。<br>重复使用您自己或其他开发者的 C 或 C++ 库。</p>
+</blockquote>
+<a id="more"></a>
+<p>这是 <a href="https://developer.android.com/ndk/guides/index.html" target="_blank" rel="external">developer官网</a> 关于NDK开发的描述。虽然说实话，确实对之前工作中开发的Android应用没什么价值，已经工作4年了，换过3家公司，做过十几个项目，需要JNI的项目一个也没遇到过，但是好歹是属于Android高级必备的技能，而且最近在找工作，面试中经常被问到有了解过JNI开发么，就很尴尬。。这次不能忍了，怎么说也要了解一下。经过混迹各种blog，论坛，贴吧各种资源，以及相应的实践，终于算是弄清楚了，在此特昭告天下，哈哈哈。</p>
+<h3 id="JNI-NDK概述"><a href="#JNI-NDK概述" class="headerlink" title="JNI/NDK概述"></a>JNI/NDK概述</h3><p><strong>JNI</strong>本意为Java Native Interface(Java本地接口)，为了方便Java调用native(C/C++等)本地代码所封装的一层接口。用于Java的跨平台性导致本地交互能力薄弱，一些和操作系统相关的特性Java无法完成，于是Java提供了JNI专门用于和本地代码交互。</p>
+<p><strong>NDK</strong>是Android所提供的一个工具集，通过NDK可以在Android中更加方便的通过JNI来访问本地代码。</p>
+<h4 id="JNI使用场景"><a href="#JNI使用场景" class="headerlink" title="JNI使用场景"></a>JNI使用场景</h4><p>1、程序当中用到了JAVA API不提供的特殊系统环境才会有的特征。而跨进程操作又不现实。<br>2、你可能想访问一些己有的本地库，但又不想付出跨进程调用时的代价，如效率，内存，数据传递方面。<br>3、JAVA程序当中的一部分代码对效率要求非常高，如算法计算，图形渲染等。</p>
+<h4 id="JNI缺陷"><a href="#JNI缺陷" class="headerlink" title="JNI缺陷"></a>JNI缺陷</h4><p>1、程序不再跨平台。要想跨平台，必须在不同的系统环境下重新编译本地语言部分。<br>2、程序不再是绝对安全的，本地代码的不当使用可能导致整个程序崩溃。一个通用规则是，你应该让本地方法集中在少数几个类当中。这样就降低了JAVA和C之间的耦合性</p>
+<h4 id="JNI作用"><a href="#JNI作用" class="headerlink" title="JNI作用"></a>JNI作用</h4><p>1、你可以使用JNI来实现“本地方法”（native methods），并在JAVA程序中调用它们。<br>2、JNI支持一个“调用接口”（invocation interface），它允许你把一个JVM嵌入到本地程序中。本地程序可以链接一个实现了JVM的本地库，然后使用“调用接口”执行JAVA语言编写的软件模块。</p>
+<h4 id="NDK所需构建工具"><a href="#NDK所需构建工具" class="headerlink" title="NDK所需构建工具"></a>NDK所需构建工具</h4><p>CMake：外部构建工具</p>
+<blockquote>
+<p>CMake是一个开源的跨平台系列工具，旨在构建，测试和打包软件。<br>CMake用于使用简单的平台和编译器独立的配置文件来控制软件编译过程，并生成可以在选择的编译环境中使用的本地makefile和工作空间。<br>CMack工具套件由Kitware创建，以响应对开源项目（如ITK和VTK）的强大的跨平台构建环境的需求。<br>官方地址:<a href="https://cmake.org/" target="_blank" rel="external">https://cmake.org/</a> 有兴趣可以简单了解下~</p>
+</blockquote>
+<p>LLDB：Android Studio 上面调试本地代码的工具</p>
+<blockquote>
+<p>LLDB是下一代高性能调试器。它被构建为一组可重用的组件，可以高度利用较大的LLVM项目中的现有库，例如Clang表达式解析器和LLVM反汇编程序。<br>在Mac OS X中，LLDB是Xcode中的默认调试器，支持在桌面和iOS设备和模拟器上调试C，Objective-C和C ++。<br>LLDB项目中的所有代码都可以使用标准的 LLVM许可证（一种开放源代码“BSD风格”）许可证。<br>LLDB目前将调试信息转换成clang类型，以便它可以利用clang编译器基础架构。这允许LLDB在表达式中支持最新的C，C++，Objective C和Objective C ++语言特性和运行时间，而无需重新实现任何此功能。在编写表达式的函数，拆卸指令和提取指令详细信息等时，还可以利用编译器来处理所有ABI细节。<br>主要优点包括：<br>C，C ++，Objective C的最新语言支持 ；<br>可以声明局部变量和类型的多行表达式；<br>支持时使用JIT表达式；<br>当JIT不能使用时，评估表达式中间表示（IR）<br>官方地址：<a href="http://lldb.llvm.org/" target="_blank" rel="external">http://lldb.llvm.org/</a></p>
+</blockquote>
+<h4 id="NDK配置-amp-AndroidStudio配置NDK环境"><a href="#NDK配置-amp-AndroidStudio配置NDK环境" class="headerlink" title="NDK配置&amp;AndroidStudio配置NDK环境"></a>NDK配置&amp;AndroidStudio配置NDK环境</h4><p><a href="https://blog.csdn.net/u012400885/article/details/71106085" target="_blank" rel="external">具体配置参照这篇，很详细</a></p>
+<h3 id="Sample分析"><a href="#Sample分析" class="headerlink" title="Sample分析"></a>Sample分析</h3><p>假设已经配置好了NDK开发环境，打开HelloJni的Sample项目。 具体分析一下代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">// Used to load the 'native-lib' library on application startup.</span></div><div class="line">    <span class="keyword">static</span> &#123;</div><div class="line">        System.loadLibrary(<span class="string">"native-lib"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line"></div><div class="line">        <span class="comment">// Example of a call to a native method</span></div><div class="line">        TextView tv = (TextView) findViewById(R.id.sample_text);</div><div class="line">        tv.setText(stringFromJNI());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * A native method that is implemented by the 'native-lib' native library,</div><div class="line">     * which is packaged with this application.</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> String <span class="title">stringFromJNI</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看出，<br>1.首先执行一个静态代码块，用于加载so库<br>2.Java中调用native方法的方式：<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> String <span class="title">stringFromJNI</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure>,乍一看以为是接口，当时八杆子打不着。
+
+再看一下cpp中的代码
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;jni.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> </div><div class="line"><span class="function">JNIEXPORT jstring JNICALL</span></div><div class="line"><span class="title">Java_com_altman29_demojni_MainActivity_stringFromJNI</span><span class="params">(</span></div><div class="line">        JNIEnv *env,</div><div class="line">        jobject <span class="comment">/* this */</span>) &#123;</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> hello = <span class="string">"Hello from C++"</span>;</div><div class="line">    <span class="keyword">return</span> env-&gt;NewStringUTF(hello.c_str());</div><div class="line">&#125;</div><div class="line"></div></pre></td></tr></table></figure></p>
+<p>函数名格式：Java<em>包名</em>类名<em>方法名。就是之间的 .  全部换成 </em> 分隔。<br>参数:    jstring表示String类型参数，与Java数据类型有参照关系的。<br>        JNIEnv * 表示一个指向JNI环境的指针，可以通过它来访问JNI提供的方法。<br>        jobject表示Java对象中的this<br>        JNIEXPORT和JNICALL这是JNI中所定义的宏。</p>
+<p>其中Java_com_altman29_demojni_MainActivity_stringFromJNI就是实现的JNI方法，结果会在MainActivity中直接调用使用。</p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>当然，这只是JNI入门的一个笔记。还有好多东西没有尝试，推荐几个关于JNI好看的blog。</p>
+<p><a href="https://blog.csdn.net/u012400885/article/details/71106085" target="_blank" rel="external">图解配置NDK开发环境以及Hello To jni</a><br><a href="http://gityuan.com/2016/05/28/android-jni/" target="_blank" rel="external">Android JNI原理分析</a><br><a href="http://szysky.com/2016/08/26/%E3%80%8AAndroid-%E5%BC%80%E5%8F%91%E8%89%BA%E6%9C%AF%E6%8E%A2%E7%B4%A2%E3%80%8B-14-JNI%E5%92%8CNDK%E7%BC%96%E7%A8%8B/" target="_blank" rel="external">Android开发艺术探索</a></p>
+<p><a href="http://www.voidcn.com/article/p-caqdagml-bbt.html" target="_blank" rel="external">Q&amp;A1</a><br><a href="https://blog.csdn.net/yyg_2015/article/details/72229892" target="_blank" rel="external">Q&amp;A2</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JNI/" rel="tag">#JNI</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/25/始于2018/" rel="next" title="始于2018">
+                <i class="fa fa-chevron-left"></i> 始于2018
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcxMS84Mjc1">
+  <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+  </script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/ava.png"
+               alt="拾叁妖" />
+          <p class="site-author-name" itemprop="name">拾叁妖</p>
+          <p class="site-description motion-element" itemprop="description">奇变偶不变，符号看象限。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Altman29" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/5866547818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#JNI-NDK概述"><span class="nav-number">1.</span> <span class="nav-text">JNI/NDK概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JNI使用场景"><span class="nav-number">1.1.</span> <span class="nav-text">JNI使用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JNI缺陷"><span class="nav-number">1.2.</span> <span class="nav-text">JNI缺陷</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JNI作用"><span class="nav-number">1.3.</span> <span class="nav-text">JNI作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NDK所需构建工具"><span class="nav-number">1.4.</span> <span class="nav-text">NDK所需构建工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NDK配置-amp-AndroidStudio配置NDK环境"><span class="nav-number">1.5.</span> <span class="nav-text">NDK配置&AndroidStudio配置NDK环境</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sample分析"><span class="nav-number">2.</span> <span class="nav-text">Sample分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结语"><span class="nav-number">3.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">拾叁妖</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+  &nbsp;丨&nbsp;
+  <!-- 不蒜统计 -->
+  <span style="display: inline;" id="busuanzi_container_site_uv">本站总访客数 <span id="busuanzi_value_site_uv" font="微软雅黑"></span> 次</span>
+  &nbsp;丨&nbsp;
+  <span style="display: inline;" id="busuanzi_container_site_pv">本站总访问量 <span id="busuanzi_value_site_pv" font="微软雅黑"></span> 次</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("nfQNU5dFwiltiHNWVEeJeuFp-gzGzoHsz", "oANzCtO0CzmnL1JmWkHda5Dp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
