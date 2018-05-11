@@ -255,6 +255,112 @@
             
               
                 
+                <a class="post-title-link" href="/2018/05/11/单例分析/" itemprop="url">
+                  单例分析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-11T17:28:21+08:00" content="2018-05-11">
+              2018-05-11
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+          
+          
+             <span id="/2018/05/11/单例分析/" class="leancloud_visitors" data-flag-title="单例分析">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>因为个人习惯，关于单例的选择，一直都是使用静态内部类的方式完成。具体为什么这也选择，以前我是知道的，知道才这也选择么。但是用的时间长了就不怎么关心为什么了，有点忘却了。这次记录下，加深加深印象。</p>
+<p>最早是在看一篇ImageLoader源码分析的时候，才注意到单例的实现方式其实不止饿汉式一种…当时的Context下，花了点时间，充分的了解了各种单例的实现方式，包括线程安全与否、资源消耗对比、是否支持懒加载等等方面情况。当然在写这篇note的时候，我又回顾了一下，就是各种baidu、google了一番。记录下结果以供下次review。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2018/05/11/单例分析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2018/03/28/JNI开发探索/" itemprop="url">
                   JNI开发探索
                 </a>
@@ -1306,130 +1412,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/07/我所认知的MVP/" itemprop="url">
-                  我所认知的MVP
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-06-07T11:33:30+08:00" content="2017-06-07">
-              2017-06-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-          
-          
-             <span id="/2017/06/07/我所认知的MVP/" class="leancloud_visitors" data-flag-title="我所认知的MVP">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>MVP已经流行很久了，但是确实没有在工作中使用过，一直只是了解、知道，如何具体应用在日常开发工作中，没有具体操作过。一是时间确实不富裕，二也是因为自己懒，我猜是懒占大头，哈哈。这次决定写点自己的理解和想法，复习复习之前学到东西，毕竟好记性不如写blog，四吧~ 之前看过很多开源项目软件实现都是各种MVP，看起来很有比格，但是毕竟是一种编程思想、框架思想，感觉是个大脑腐，就很抵触。而且没有固定的写法，每个人的写法都有差，总感觉自己的不是完美的，现在想来，我OK啊。经过这些天的准备(PS:写一篇质量好点的blog真是脑子都快瓦特了…),再学习MVP之前，得清楚MVP怎么来的吧，为什么MVC用的好好的会有人提出MVP，那MVC又是什么？接触这些概念的时候又得看懂UML，又把UML补了补…算了，不提了，下面请观众老爷们准备好瓜子和饮料，我要开始表演了~</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/06/07/我所认知的MVP/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1473,7 +1455,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1490,7 +1472,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

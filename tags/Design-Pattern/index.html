@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="线程池," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,28 +84,15 @@
 
 
 
-<meta name="description" content="看源码，看blog，发现线程池使用简单，但真正理解透，好像还差点火候。所以没有下笔，只是仔细看了源码，画了张图，以供后用。
-且UML图，好久没画过了，差点都忘了怎么画的了，这里备注下，方便记忆：
-
-目前先把源码多看几遍，看看图，熟悉线程池常用接口和类，恩。先酱紫。以后填这个坑。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="线程池分析(暂缓)">
-<meta property="og:url" content="http://yoursite.com/2017/06/22/线程池分析-暂缓/index.html">
+<meta name="description" content="奇变偶不变，符号看象限。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="拾叁妖">
+<meta property="og:url" content="http://yoursite.com/tags/Design-Pattern/index.html">
 <meta property="og:site_name" content="拾叁妖">
-<meta property="og:description" content="看源码，看blog，发现线程池使用简单，但真正理解透，好像还差点火候。所以没有下笔，只是仔细看了源码，画了张图，以供后用。
-且UML图，好久没画过了，差点都忘了怎么画的了，这里备注下，方便记忆：
-
-目前先把源码多看几遍，看看图，熟悉线程池常用接口和类，恩。先酱紫。以后填这个坑。">
-<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/ExecutorFramework.png">
-<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/uml-0.jpg">
-<meta property="og:updated_time" content="2017-11-15T06:50:25.000Z">
+<meta property="og:description" content="奇变偶不变，符号看象限。">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="线程池分析(暂缓)">
-<meta name="twitter:description" content="看源码，看blog，发现线程池使用简单，但真正理解透，好像还差点火候。所以没有下笔，只是仔细看了源码，画了张图，以供后用。
-且UML图，好久没画过了，差点都忘了怎么画的了，这里备注下，方便记忆：
-
-目前先把源码多看几遍，看看图，熟悉线程池常用接口和类，恩。先酱紫。以后填这个坑。">
-<meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/ExecutorFramework.png">
+<meta name="twitter:title" content="拾叁妖">
+<meta name="twitter:description" content="奇变偶不变，符号看象限。">
 
 
 
@@ -123,7 +110,7 @@
   };
 </script>
 
-  <title> 线程池分析(暂缓) | 拾叁妖 </title>
+  <title> 标签: Design Pattern | 拾叁妖 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -146,7 +133,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -244,184 +231,51 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                线程池分析(暂缓)
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-06-22T20:22:35+08:00" content="2017-06-22">
-              2017-06-22
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-          
-          
-             <span id="/2017/06/22/线程池分析-暂缓/" class="leancloud_visitors" data-flag-title="线程池分析(暂缓)">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <p><img src="http://ogo6z0ylk.bkt.clouddn.com/ExecutorFramework.png" alt=""></p>
-<p>看源码，看blog，发现线程池使用简单，但真正理解透，好像还差点火候。所以没有下笔，只是仔细看了源码，画了张图，以供后用。</p>
-<p>且UML图，好久没画过了，差点都忘了怎么画的了，这里备注下，方便记忆：</p>
-<p><img src="http://ogo6z0ylk.bkt.clouddn.com/uml-0.jpg" alt=""></p>
-<p>目前先把源码多看几遍，看看图，熟悉线程池常用接口和类，恩。先酱紫。以后填这个坑。</p>
-
-      
+  <div id="posts" class="posts-collapse">
+    <div class="collection-title">
+      <h2 >
+        Design Pattern
+        <small>标签</small>
+      </h2>
     </div>
 
-    <div>
+    
       
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
         
-      
-    </div>
-
-    <div>
-      
+            <a class="post-title-link" href="/2018/05/11/单例分析/" itemprop="url">
+              
+                <span itemprop="name">单例分析</span>
+              
+            </a>
         
+      </h1>
 
-      
-    </div>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2018-05-11T17:28:21+08:00"
+              content="2018-05-11" >
+          05-11
+        </time>
+      </div>
 
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/线程池/" rel="tag">#线程池</a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/06/18/迟到的-Android-6-0-权限适配/" rel="next" title="谈Android 6.0 权限适配">
-                <i class="fa fa-chevron-left"></i> 谈Android 6.0 权限适配
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/26/设计模式前置/" rel="prev" title="设计模式之前">
-                设计模式之前 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
-      
-    </div>
+    
   </div>
+
+  
 
 
           </div>
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-  <!-- 来必力City版安装代码 -->
-<div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcxMS84Mjc1">
-  <script type="text/javascript">
-   (function(d, s) {
-       var j, e = d.getElementsByTagName(s)[0];
-
-       if (typeof LivereTower === 'function') { return; }
-
-       j = d.createElement(s);
-       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-       j.async = true;
-
-       e.parentNode.insertBefore(j, e);
-   })(document, 'script');
-  </script>
-<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
-</div>
-<!-- City版安装代码已完成 -->
-
 
         </div>
         
@@ -441,17 +295,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/ava.png"
@@ -521,17 +366,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <p class="post-toc-empty">此文章未包含目录</p>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -639,10 +473,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
 
   
 
