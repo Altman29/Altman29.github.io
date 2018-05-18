@@ -86,7 +86,7 @@
 
 <meta name="description" content="线程、线程池、OkHttp内部的线程池实现。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="线程池分析(暂缓)">
+<meta property="og:title" content="线程池分析">
 <meta property="og:url" content="http://yoursite.com/2017/06/22/线程池分析/index.html">
 <meta property="og:site_name" content="拾叁妖">
 <meta property="og:description" content="线程、线程池、OkHttp内部的线程池实现。">
@@ -106,9 +106,9 @@
 <meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/014executorservice.png">
 <meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/015executorservice.png">
 <meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/016executorservice.png">
-<meta property="og:updated_time" content="2018-05-18T02:52:10.000Z">
+<meta property="og:updated_time" content="2018-05-18T02:56:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="线程池分析(暂缓)">
+<meta name="twitter:title" content="线程池分析">
 <meta name="twitter:description" content="线程、线程池、OkHttp内部的线程池实现。">
 <meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/001executorservice.png">
 
@@ -128,7 +128,7 @@
   };
 </script>
 
-  <title> 线程池分析(暂缓) | 拾叁妖 </title>
+  <title> 线程池分析 | 拾叁妖 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -270,7 +270,7 @@
             
             
               
-                线程池分析(暂缓)
+                线程池分析
               
             
           </h1>
@@ -316,7 +316,7 @@
           
           
           
-             <span id="/2017/06/22/线程池分析/" class="leancloud_visitors" data-flag-title="线程池分析(暂缓)">
+             <span id="/2017/06/22/线程池分析/" class="leancloud_visitors" data-flag-title="线程池分析">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -340,8 +340,6 @@
       
         <p>线程、线程池、OkHttp内部的线程池实现。</p>
 <a id="more"></a>
-<a href="!--![](http://ogo6z0ylk.bkt.clouddn.com/ExecutorFramework.png)--">!--![](http://ogo6z0ylk.bkt.clouddn.com/ExecutorFramework.png)--</a>
-<a href="!--![](http://ogo6z0ylk.bkt.clouddn.com/uml-0.jpg)--">!--![](http://ogo6z0ylk.bkt.clouddn.com/uml-0.jpg)--</a>
 <h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>线程，是程序执行的最小单元。一个标准的线程有线程ID，当前指令指针，寄存器集合和堆栈组成。另外，线程是进程中的一个实体，是被系统独立调度和分派的基本单位，线程自己不拥有系统资源，只拥有一点在运行中必不可少的资源，但它与同属一个进程的其他线程共享进程中所拥有的全部资源。</p>
 <p>一个线程可以创建和撤销另一个线程，同一个进程中的多个线程之间可以并发执行。对于开发者来说，线程就是干实事的伙伴。在Java中，对于线程的基本操作，有一下三中写法：</p>
 <p>a.自定义一个类，继承Thread类，重写run方法<br>b.自定义一个类，实现Runnabel接口，重写run方法<br>c.自定义一个类，实现Callable接口，重写call方法</p>
