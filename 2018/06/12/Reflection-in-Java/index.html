@@ -1,0 +1,845 @@
+<!doctype html>
+
+
+
+  
+
+<html class="theme-next mist use-motion">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="代理,动态代理,Java Reflection," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="概述反射机制定义Java反射机制是在运行状态中，对于任意一个类，都能够知道这个类中的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reflection in Java">
+<meta property="og:url" content="http://yoursite.com/2018/06/12/Reflection-in-Java/index.html">
+<meta property="og:site_name" content="拾叁妖">
+<meta property="og:description" content="概述反射机制定义Java反射机制是在运行状态中，对于任意一个类，都能够知道这个类中的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/reflection001.png">
+<meta property="og:updated_time" content="2018-08-09T02:25:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Reflection in Java">
+<meta name="twitter:description" content="概述反射机制定义Java反射机制是在运行状态中，对于任意一个类，都能够知道这个类中的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。">
+<meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/reflection001.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Reflection in Java | 拾叁妖 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">拾叁妖</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Reflection in Java
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-06-12T15:30:59+08:00" content="2018-06-12">
+              2018-06-12
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+          
+          
+             <span id="/2018/06/12/Reflection-in-Java/" class="leancloud_visitors" data-flag-title="Reflection in Java">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="反射机制定义"><a href="#反射机制定义" class="headerlink" title="反射机制定义"></a>反射机制定义</h3><p>Java反射机制是在运行状态中，对于任意一个类，都能够知道这个类中的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。</p>
+<a id="more"></a>
+<h3 id="反射的功能"><a href="#反射的功能" class="headerlink" title="反射的功能"></a>反射的功能</h3><p>1.在运行时判断任意一个对象所属的类。</p>
+<p>2.在运行时构造任意一个类的对象。</p>
+<p>3.在运行时判断任意一个类所具有的成员变量和方法。</p>
+<p>4.在运行时调用任意一个对象的方法。</p>
+<p>5.生成动态代理。</p>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>1.逆向代码 ，例如反编译</p>
+<p>2.与注解相结合的框架 例如Retrofit</p>
+<p>3.单纯的反射机制应用框架 例如EventBus</p>
+<p>4.动态生成类框架 例如Gson</p>
+<h2 id="通过反射查看类的信息"><a href="#通过反射查看类的信息" class="headerlink" title="通过反射查看类的信息"></a>通过反射查看类的信息</h2><h3 id="获取class对象"><a href="#获取class对象" class="headerlink" title="获取class对象"></a>获取class对象</h3><p>每个类被加载之后，系统就会为该类生成一个对应的Class对象。通过该Class对象就可以访问到JVM中的这个类。</p>
+<p>在Java程序中获得Class对象通常有如下三种方式：</p>
+<p>1.使用Class类的forName(String clazzName)静态方法。该方法需要传入字符串参数，该字符串参数的值是某个类的全限定名（必须添加完整包名）。</p>
+<p>2.调用某个类的class属性来获取该类对应的Class对象。</p>
+<p>3.调用某个对象的getClass()方法。该方法是java.lang.Object类中的一个方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//第一种方式 通过Class类的静态方法——forName()来实现</span></div><div class="line">class1 = Class.forName(<span class="string">"com.lvr.reflection.Person"</span>);</div><div class="line"><span class="comment">//第二种方式 通过类的class属性</span></div><div class="line">class1 = Person.class;</div><div class="line"><span class="comment">//第三种方式 通过对象getClass方法</span></div><div class="line">Person person = <span class="keyword">new</span> Person();</div><div class="line">Class&lt;?&gt; class1 = person.getClass();</div></pre></td></tr></table></figure>
+<h3 id="获取class对象的属性、方法、构造"><a href="#获取class对象的属性、方法、构造" class="headerlink" title="获取class对象的属性、方法、构造"></a>获取class对象的属性、方法、构造</h3><p>1.获取class对象的成员变量</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Field[] allFields = class1.getDeclaredFields();<span class="comment">//获取class对象的所有属性</span></div><div class="line">Field[] publicFields = class1.getFields();<span class="comment">//获取class对象的public属性</span></div><div class="line">Field ageField = class1.getDeclaredField(<span class="string">"age"</span>);<span class="comment">//获取class指定属性</span></div><div class="line">Field desField = class1.getField(<span class="string">"des"</span>);<span class="comment">//获取class指定的public属性</span></div></pre></td></tr></table></figure>
+<p>2.获取class对象的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Method[] methods = class1.getDeclaredMethods();<span class="comment">//获取class对象的所有声明方法</span></div><div class="line">Method[] allMethods = class1.getMethods();<span class="comment">//获取class对象的所有public方法 包括父类的方法</span></div><div class="line">Method method = class1.getMethod(<span class="string">"info"</span>, String.class);<span class="comment">//返回次Class对象对应类的、带指定形参列表的public方法</span></div><div class="line">Method declaredMethod = class1.getDeclaredMethod(<span class="string">"info"</span>, String.class);<span class="comment">//返回次Class对象对应类的、带指定形参列表的方法</span></div></pre></td></tr></table></figure>
+<p>3.获取class对象的构造函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Constructor&lt;?&gt;[] allConstructors = class1.getDeclaredConstructors();<span class="comment">//获取class对象的所有声明构造函数</span></div><div class="line">Constructor&lt;?&gt;[] publicConstructors = class1.getConstructors();<span class="comment">//获取class对象public构造函数</span></div><div class="line">Constructor&lt;?&gt; constructor = class1.getDeclaredConstructor(String.class);<span class="comment">//获取指定声明构造函数</span></div><div class="line">Constructor publicConstructor = class1.getConstructor(String.class);<span class="comment">//获取指定声明的public构造函数</span></div></pre></td></tr></table></figure>
+<p>4.其他方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Annotation[] annotations = (Annotation[]) class1.getAnnotations();<span class="comment">//获取class对象的所有注解</span></div><div class="line">Annotation annotation = (Annotation) class1.getAnnotation(Deprecated.class);<span class="comment">//获取class对象指定注解</span></div><div class="line">Type genericSuperclass = class1.getGenericSuperclass();<span class="comment">//获取class对象的直接超类的 Type</span></div><div class="line">Type[] interfaceTypes = class1.getGenericInterfaces();<span class="comment">//获取class对象的所有接口的type集合</span></div></pre></td></tr></table></figure>
+<h3 id="获取class对象的信息"><a href="#获取class对象的信息" class="headerlink" title="获取class对象的信息"></a>获取class对象的信息</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">boolean</span> isPrimitive = class1.isPrimitive();<span class="comment">//判断是否是基础类型</span></div><div class="line"><span class="keyword">boolean</span> isArray = class1.isArray();<span class="comment">//判断是否是集合类</span></div><div class="line"><span class="keyword">boolean</span> isAnnotation = class1.isAnnotation();<span class="comment">//判断是否是注解类</span></div><div class="line"><span class="keyword">boolean</span> isInterface = class1.isInterface();<span class="comment">//判断是否是接口类</span></div><div class="line"><span class="keyword">boolean</span> isEnum = class1.isEnum();<span class="comment">//判断是否是枚举类</span></div><div class="line"><span class="keyword">boolean</span> isAnonymousClass = class1.isAnonymousClass();<span class="comment">//判断是否是匿名内部类</span></div><div class="line"><span class="keyword">boolean</span> isAnnotationPresent = class1.isAnnotationPresent(Deprecated.class);<span class="comment">//判断是否被某个注解类修饰</span></div><div class="line">String className = class1.getName();<span class="comment">//获取class名字 包含包名路径</span></div><div class="line">Package aPackage = class1.getPackage();<span class="comment">//获取class的包信息</span></div><div class="line">String simpleName = class1.getSimpleName();<span class="comment">//获取class类名</span></div><div class="line"><span class="keyword">int</span> modifiers = class1.getModifiers();<span class="comment">//获取class访问权限</span></div><div class="line">Class&lt;?&gt;[] declaredClasses = class1.getDeclaredClasses();<span class="comment">//内部类</span></div><div class="line">Class&lt;?&gt; declaringClass = class1.getDeclaringClass();<span class="comment">//外部类</span></div></pre></td></tr></table></figure>
+<h2 id="通过反射生成并操作对象"><a href="#通过反射生成并操作对象" class="headerlink" title="通过反射生成并操作对象"></a>通过反射生成并操作对象</h2><h3 id="生成类的实例对象"><a href="#生成类的实例对象" class="headerlink" title="生成类的实例对象"></a>生成类的实例对象</h3><p>1.使用Class对象的newInstance()方法来创建该Class对象对应类的实例。这种方式要求该Class对象的对应类有默认构造器，而执行newInstance()方法时实际上是利用默认构造器来创建该类的实例。</p>
+<p>2.先使用Class对象获取指定的Constructor对象，再调用Constructor对象的newInstance()方法来创建该Class对象对应类的实例。通过这种方式可以选择使用指定的构造器来创建实例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//第一种方式 Class对象调用newInstance()方法生成</span></div><div class="line">Object obj = class1.newInstance();</div><div class="line"><span class="comment">//第二种方式 对象获得对应的Constructor对象，再通过该Constructor对象的newInstance()方法生成</span></div><div class="line">Constructor&lt;?&gt; constructor = class1.getDeclaredConstructor(String.class);<span class="comment">//获取指定声明构造函数</span></div><div class="line">obj = constructor.newInstance(<span class="string">"hello"</span>);</div></pre></td></tr></table></figure>
+<h3 id="调用类的方法"><a href="#调用类的方法" class="headerlink" title="调用类的方法"></a>调用类的方法</h3><p>1.通过Class对象的getMethods()方法或者getMethod()方法获得指定方法，返回Method数组或对象。</p>
+<p>2.调用Method对象中的Object invoke(Object obj, Object… args)方法。第一个参数对应调用该方法的实例对象，第二个参数对应该方法的参数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 生成新的对象：用newInstance()方法</span></div><div class="line"> Object obj = class1.newInstance();</div><div class="line"><span class="comment">//首先需要获得与该方法对应的Method对象</span></div><div class="line">Method method = class1.getDeclaredMethod(<span class="string">"setAge"</span>, <span class="keyword">int</span>.class);</div><div class="line"><span class="comment">//调用指定的函数并传递参数</span></div><div class="line">method.invoke(obj, <span class="number">28</span>);</div></pre></td></tr></table></figure>
+<p>当通过Method的invoke()方法来调用对应的方法时，Java会要求程序必须有调用该方法的权限。如果程序确实需要调用某个对象的private方法，则可以先调用Method对象的如下方法。</p>
+<p>setAccessible(boolean flag)：将Method对象的acessible设置为指定的布尔值。值为true，指示该Method在使用时应该取消Java语言的访问权限检查；值为false，则知识该Method在使用时要实施Java语言的访问权限检查。</p>
+<h3 id="访问成员变量值"><a href="#访问成员变量值" class="headerlink" title="访问成员变量值"></a>访问成员变量值</h3><p>1.通过Class对象的getFields()方法或者getField()方法获得指定方法，返回Field数组或对象。</p>
+<p>2.Field提供了两组方法来读取或设置成员变量的值：<br>getXXX(Object obj):获取obj对象的该成员变量的值。此处的XXX对应8种基本类型。如果该成员变量的类型是引用类型，则取消get后面的XXX。<br>setXXX(Object obj,XXX val)：将obj对象的该成员变量设置成val值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//生成新的对象：用newInstance()方法 </span></div><div class="line">Object obj = class1.newInstance();</div><div class="line"><span class="comment">//获取age成员变量</span></div><div class="line">Field field = class1.getField(<span class="string">"age"</span>);</div><div class="line"><span class="comment">//将obj对象的age的值设置为10</span></div><div class="line">field.setInt(obj, <span class="number">10</span>);</div><div class="line"><span class="comment">//获取obj对象的age的值</span></div><div class="line">field.getInt(obj);</div></pre></td></tr></table></figure>
+<h2 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h2><p>定义：给某个对象提供一个代理对象，并由代理对象控制对于原对象的访问，即客户不直接操控原对象，而是通过代理对象间接地操控原对象</p>
+<h3 id="代理模式的理解"><a href="#代理模式的理解" class="headerlink" title="代理模式的理解"></a>代理模式的理解</h3><p>代理模式使用代理对象完成用户请求，屏蔽用户对真实对象的访问。现实世界的代理人被授权执行当事人的一些事宜，无需当事人出面，从第三方的角度看，似乎当事人并不存在，因为他只和代理人通信。而事实上代理人是要有当事人的授权，并且在核心问题上还需要请示当事人。</p>
+<p>在软件设计中，使用代理模式的意图也很多，比如因为安全原因需要屏蔽客户端直接访问真实对象，或者在远程调用中需要使用代理类处理远程方法调用的技术细节，也可能为了提升系统性能，对真实对象进行封装，从而达到延迟加载的目的。</p>
+<h3 id="代理模式的参与者"><a href="#代理模式的参与者" class="headerlink" title="代理模式的参与者"></a>代理模式的参与者</h3><p>代理模式的角色分四种：</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/reflection001.png" alt=""></p>
+<p><b>主题接口</b>：Subject 是委托对象和代理对象都共同实现的接口，即代理类的所实现的行为接口。Request() 是委托对象和代理对象共同拥有的方法。<br><b>目标对象</b>：ReaSubject 是原对象，也就是被代理的对象。<br><b>代理对象</b>：Proxy 是代理对象，用来封装真是主题类的代理类。<br><b>客户端</b>：使用代理类和主题接口完成一些工作。</p>
+<h3 id="代理模式的分类"><a href="#代理模式的分类" class="headerlink" title="代理模式的分类"></a>代理模式的分类</h3><p><b><i>静态代理</i></b>：代理类是在编译时就实现好的。也就是说 Java 编译完成后代理类是一个实际的 class 文件。</p>
+<p><b><i>动态代理</i></b>：代理类是在运行时生成的。也就是说 Java 编译完之后并没有实际的 class 文件，而是在运行时动态生成的类字节码，并加载到JVM中。</p>
+<h3 id="代理模式的实现思路"><a href="#代理模式的实现思路" class="headerlink" title="代理模式的实现思路"></a>代理模式的实现思路</h3><p>1.代理对象和目标对象均实现同一个行为接口。</p>
+<p>2.代理类和目标类分别具体实现接口逻辑。</p>
+<p>3.在代理类的构造函数中实例化一个目标对象。</p>
+<p>4.在代理类中调用目标对象的行为接口。</p>
+<p>5.客户端想要调用目标对象的行为接口，只能通过代理类来操作。</p>
+<h3 id="静态代理的简单实现"><a href="#静态代理的简单实现" class="headerlink" title="静态代理的简单实现"></a>静态代理的简单实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyDemo</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String args[])</span></span>&#123;</div><div class="line">        RealSubject subject = <span class="keyword">new</span> RealSubject();</div><div class="line">        Proxy p = <span class="keyword">new</span> Proxy(subject);</div><div class="line">        p.request();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Subject</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">request</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">RealSubject</span> <span class="keyword">implements</span> <span class="title">Subject</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"request"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Proxy</span> <span class="keyword">implements</span> <span class="title">Subject</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> Subject subject;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Proxy</span><span class="params">(Subject subject)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.subject = subject;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"PreProcess"</span>);</div><div class="line">        subject.request();</div><div class="line">        System.out.println(<span class="string">"PostProcess"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>目标对象(RealSubject )以及代理对象（Proxy）都实现了主题接口（Subject）。在代理对象（Proxy）中，通过构造函数传入目标对象(RealSubject)，然后重写主题接口（Subject）的request()方法，在该方法中调用目标对象(RealSubject )的request()方法，并可以添加一些额外的处理工作在目标对象(RealSubject )的request()方法的前后。</p>
+<h3 id="代理的好处"><a href="#代理的好处" class="headerlink" title="代理的好处"></a>代理的好处</h3><p>假如有这样的需求，要在某些模块方法调用前后加上一些统一的前后处理操作，比如在添加购物车、修改订单等操作前后统一加上登陆验证与日志记录处理，该怎样实现？首先想到最简单的就是直接修改源码，在对应模块的对应方法前后添加操作。如果模块很多，你会发现，修改源码不仅非常麻烦、难以维护，而且会使代码显得十分臃肿。</p>
+<p>这时候就轮到代理模式上场了，它可以在被调用方法前后加上自己的操作，而不需要更改被调用类的源码，大大地降低了模块之间的耦合性，体现了极大的优势。</p>
+<p>静态代理比较简单，上面的简单实例就是静态代理的应用方式，下面介绍本篇文章的主题：动态代理。</p>
+<h2 id="反射机制与动态代理"><a href="#反射机制与动态代理" class="headerlink" title="反射机制与动态代理"></a>反射机制与动态代理</h2><h3 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h3><p>动态代理的思路和上述思路一致.</p>
+<p>动态代理是指在运行时动态生成代理类。即，代理类的字节码将在运行时生成并载入当前代理的 ClassLoader。与静态处理类相比，动态类有诸多好处。</p>
+<p>1.不需要为(RealSubject )写一个形式上完全一样的封装类，假如主题接口（Subject）中的方法很多，为每一个接口写一个代理方法也很麻烦。如果接口有变动，则目标对象和代理类都要修改，不利于系统维护；</p>
+<p>2.使用一些动态代理的生成方法甚至可以在运行时制定代理类的执行逻辑，从而大大提升系统的灵活性</p>
+<h3 id="涉及主要的类"><a href="#涉及主要的类" class="headerlink" title="涉及主要的类"></a>涉及主要的类</h3><p>主要涉及两个类，这两个类都是java.lang.reflect包下的类，内部主要通过反射来实现的。</p>
+<p>java.lang.reflect.Proxy:这是生成代理类的主类，通过 Proxy 类生成的代理类都继承了Proxy类。</p>
+<p>Proxy提供了用户创建动态代理类和代理对象的静态方法，它是所有动态代理类的父类。</p>
+<p>java.lang.reflect.InvocationHandler:这里称他为”调用处理器”，它是一个接口。当调用动态代理类中的方法时，将会直接转接到执行自定义的InvocationHandler中的invoke()方法。即我们动态生成的代理类需要完成的具体内容需要自己定义一个类，而这个类必须实现 InvocationHandler 接口，通过重写invoke()方法来执行具体内容。</p>
+<p>Proxy提供了如下两个方法来创建动态代理类和动态代理实例。</p>
+<blockquote>
+<p>static Class&lt;?&gt; getProxyClass(ClassLoader loader, Class&lt;?&gt;… interfaces) 返回代理类的java.lang.Class对象。第一个参数是类加载器对象（即哪个类加载器来加载这个代理类到 JVM 的方法区），第二个参数是接口（表明你这个代理类需要实现哪些接口），第三个参数是调用处理器类实例（指定代理类中具体要干什么），该代理类将实现interfaces所指定的所有接口，执行代理对象的每个方法时都会被替换执行InvocationHandler对象的invoke方法。<br>static Object newProxyInstance(ClassLoader loader, Class&lt;?&gt;[] interfaces, InvocationHandler h) 返回代理类实例。参数与上述方法一致。</p>
+</blockquote>
+<p>对应上述两种方法创建动态代理对象的方式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//创建一个InvocationHandler对象</span></div><div class="line">InvocationHandler handler = <span class="keyword">new</span> MyInvocationHandler(.args..);</div><div class="line"><span class="comment">//使用Proxy生成一个动态代理类</span></div><div class="line">Class proxyClass = Proxy.getProxyClass(RealSubject.class.getClassLoader(),RealSubject.class.getInterfaces(), handler);</div><div class="line"><span class="comment">//获取proxyClass类中一个带InvocationHandler参数的构造器</span></div><div class="line">Constructor constructor = proxyClass.getConstructor(InvocationHandler.class);</div><div class="line"><span class="comment">//调用constructor的newInstance方法来创建动态实例</span></div><div class="line">RealSubject real = (RealSubject)constructor.newInstance(handler);</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//创建一个InvocationHandler对象</span></div><div class="line">InvocationHandler handler = <span class="keyword">new</span> MyInvocationHandler(.args..);</div><div class="line"><span class="comment">//使用Proxy直接生成一个动态代理对象</span></div><div class="line">RealSubject real =Proxy.newProxyInstance(RealSubject.class.getClassLoader(),RealSubject.class.getInterfaces(), handler);</div></pre></td></tr></table></figure>
+<p>newProxyInstance这个方法实际上做了两件事：第一，创建了一个新的类【代理类】，这个类实现了Class[] interfaces中的所有接口，并通过你指定的ClassLoader将生成的类的字节码加载到JVM中，创建Class对象；第二，以你传入的InvocationHandler作为参数创建一个代理类的实例并返回。</p>
+<p>Proxy 类还有一些静态方法，比如：<br>```InvocationHandler getInvocationHandler(Object proxy):</p>
+<p>获得代理对象对应的调用处理器对象。</p>
+<p>```Class getProxyClass(ClassLoader loader, Class[] interfaces):</p>
+<p>根据类加载器和实现的接口获得代理类。</p>
+<p>InvocationHandler 接口中有方法：</p>
+<p>```invoke(Object proxy, Method method, Object[] args)</p>
+<p>这个函数是在代理对象调用任何一个方法时都会调用的，方法不同会导致第二个参数method不同，第一个参数是代理对象（表示哪个代理对象调用了method方法），第二个参数是 Method 对象（表示哪个方法被调用了），第三个参数是指定调用方法的参数。</p>
+<h3 id="动态代理的简单实现"><a href="#动态代理的简单实现" class="headerlink" title="动态代理的简单实现"></a>动态代理的简单实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicProxyDemo</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="comment">//1.创建目标对象</span></div><div class="line">        RealSubject realSubject = <span class="keyword">new</span> RealSubject();    </div><div class="line">        <span class="comment">//2.创建调用处理器对象</span></div><div class="line">        ProxyHandler handler = <span class="keyword">new</span> ProxyHandler(realSubject);    </div><div class="line">       <span class="comment">//3.动态生成代理对象</span></div><div class="line">        Subject proxySubject = (Subject)Proxy.newProxyInstance(RealSubject.class.getClassLoader(),</div><div class="line">                                               RealSubject.class.getInterfaces(), handler);   </div><div class="line">        <span class="comment">//4.通过代理对象调用方法   </span></div><div class="line">        proxySubject.request();    </div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 主题接口</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Subject</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">request</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 目标对象类</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">RealSubject</span> <span class="keyword">implements</span> <span class="title">Subject</span></span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">request</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"====RealSubject Request===="</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 代理类的调用处理器</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProxyHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> Subject subject;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ProxyHandler</span><span class="params">(Subject subject)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.subject = subject;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span></span></div><div class="line">            <span class="keyword">throws</span> Throwable &#123;</div><div class="line">        <span class="comment">//定义预处理的工作，当然你也可以根据 method 的不同进行不同的预处理工作</span></div><div class="line">        System.out.println(<span class="string">"====before===="</span>);</div><div class="line">       <span class="comment">//调用RealSubject中的方法</span></div><div class="line">        Object result = method.invoke(subject, args);</div><div class="line">        System.out.println(<span class="string">"====after===="</span>);</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看到，我们通过newProxyInstance就产生了一个Subject 的实例，即代理类的实例，然后就可以通过Subject .request()，就会调用InvocationHandler中的invoke()方法，传入方法Method对象，以及调用方法的参数，通过Method.invoke调用RealSubject中的方法的request()方法。同时可以在InvocationHandler中的invoke()方法加入其他执行逻辑。</p>
+<h2 id="泛型和class类"><a href="#泛型和class类" class="headerlink" title="泛型和class类"></a>泛型和class类</h2><p>从JDK 1.5 后，Java中引入泛型机制，Class类也增加了泛型功能，从而允许使用泛型来限制Class类，例如：String.class的类型实际上是Class<string>。如果Class对应的类暂时未知，则使用Class&lt;?&gt;(?是通配符)。通过反射中使用泛型，可以避免使用反射生成的对象需要强制类型转换。</string></p>
+<p>泛型的好处众多，最主要的一点就是避免类型转换，防止出现ClassCastException，即类型转换异常。以下面程序为例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ObjectFactory</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">getInstance</span><span class="params">(String name)</span></span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="comment">//创建指定类对应的Class对象</span></div><div class="line">            Class cls = Class.forName(name);</div><div class="line">            <span class="comment">//返回使用该Class对象创建的实例</span></div><div class="line">            <span class="keyword">return</span> cls.newInstance();</div><div class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException | InstantiationException | IllegalAccessException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面程序是个工厂类，通过指定的字符串创建Class对象并创建一个类的实例对象返回。但是这个对象的类型是Object对象，取出实例后需要强制类型转换。<br>如下例：</p>
+<p>```Date date = (Date) ObjectFactory.getInstance(“java.util.Date”);</p>
+<p>或者如下:</p>
+<p>```String string = (String) ObjectFactory.getInstance(“java.util.Date”);</p>
+<p>上面代码在编译时不会有任何问题，但是运行时将抛出ClassCastException异常，因为程序试图将一个Date对象转换成String对象。但是泛型的出现后，就可以避免这种情况。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ObjectFactory</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">T <span class="title">getInstance</span><span class="params">(Class&lt;T&gt; cls)</span> </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="comment">// 返回使用该Class对象创建的实例</span></div><div class="line">            <span class="keyword">return</span> cls.newInstance();</div><div class="line">        &#125; <span class="keyword">catch</span> (InstantiationException | IllegalAccessException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在上面程序的getInstance()方法中传入一个Class<t>参数，这是一个泛型化的Class对象，调用该Class对象的newInstance()方法将返回一个T对象。</t></p>
+<p>```String instance = ObjectFactory.getInstance(String.class);</p>
+<p>通过传入String.class便知道T代表String，所以返回的对象是String类型的，避免强制类型转换。</p>
+<p>当然Class类引入泛型的好处不止这一点，在以后的实际应用中会更加能体会到。</p>
+<h2 id="使用反射来获取泛型信息"><a href="#使用反射来获取泛型信息" class="headerlink" title="使用反射来获取泛型信息"></a>使用反射来获取泛型信息</h2><p>通过指定类对应的 Class 对象，可以获得该类里包含的所有 Field，不管该 Field 是使用 private 修饰，还是使用 public 修饰。获得了 Field 对象后，就可以很容易地获得该 Field 的数据类型，即使用如下代码即可获得指定 Field 的类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 获取 Field 对象 f 的类型</span></div><div class="line">Class&lt;?&gt; a = f.getType();</div></pre></td></tr></table></figure>
+<p>但这种方式只对普通类型的 Field 有效。如果该 Field 的类型是有泛型限制的类型，如 Map<string, integer=""> 类型，则不能准确地得到该 Field 的泛型参数。</string,></p>
+<p>为了获得指定 Field 的泛型类型，应先使用如下方法来获取指定 Field 的类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 获得 Field 实例的泛型类型</span></div><div class="line">Type type = f.getGenericType();</div></pre></td></tr></table></figure>
+<p>然后将 Type 对象强制类型转换为 ParameterizedType 对象，ParameterizedType 代表被参数化的类型，也就是增加了泛型限制的类型。ParameterizedType 类提供了如下两个方法。</p>
+<p>```getRawType()：返回没有泛型信息的原始类型。</p>
+<p>```getActualTypeArguments()：返回泛型参数的类型。</p>
+<p>下面是一个获取泛型类型的完整程序。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GenericTest</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">private</span> Map&lt;String , Integer&gt; score;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span></div><div class="line">        <span class="keyword">throws</span> Exception</div><div class="line">    &#123;</div><div class="line">        Class&lt;GenericTest&gt; clazz = GenericTest.class;</div><div class="line">        Field f = clazz.getDeclaredField(<span class="string">"score"</span>);</div><div class="line">        <span class="comment">// 直接使用getType()取出Field类型只对普通类型的Field有效</span></div><div class="line">        Class&lt;?&gt; a = f.getType();</div><div class="line">        <span class="comment">// 下面将看到仅输出java.util.Map</span></div><div class="line">        System.out.println(<span class="string">"score的类型是:"</span> + a);</div><div class="line">        <span class="comment">// 获得Field实例f的泛型类型</span></div><div class="line">        Type gType = f.getGenericType();</div><div class="line">        <span class="comment">// 如果gType类型是ParameterizedType对象</span></div><div class="line">        <span class="keyword">if</span>(gType <span class="keyword">instanceof</span> ParameterizedType)</div><div class="line">        &#123;</div><div class="line">            <span class="comment">// 强制类型转换</span></div><div class="line">            ParameterizedType pType = (ParameterizedType)gType;</div><div class="line">            <span class="comment">// 获取原始类型</span></div><div class="line">            Type rType = pType.getRawType();</div><div class="line">            System.out.println(<span class="string">"原始类型是："</span> + rType);</div><div class="line">            <span class="comment">// 取得泛型类型的泛型参数</span></div><div class="line">            Type[] tArgs = pType.getActualTypeArguments();</div><div class="line">            System.out.println(<span class="string">"泛型类型是:"</span>);</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; tArgs.length; i++) </div><div class="line">            &#123;</div><div class="line">                System.out.println(<span class="string">"第"</span> + i + <span class="string">"个泛型类型是："</span> + tArgs[i]);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span></div><div class="line">        &#123;</div><div class="line">            System.out.println(<span class="string">"获取泛型类型出错！"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出结果:</p>
+<blockquote>
+<p>score 的类型是: interface java.util.Map<br>原始类型是: interface java.util.Map<br>泛型类型是:<br>第 0 个泛型类型是: class java.lang.String<br>第 1 个泛型类型是：class java.lang.Integer</p>
+</blockquote>
+<p>从上面的运行结果可以看出，直接使用 Field 的 getType() 方法只能获取普通类型的 Field 的数据类型：对于增加了泛型参数的类型的 Field，应该使用 getGenericType() 方法来取得其类型。</p>
+<p>Type 也是 java.lang.reflect 包下的一个接口，该接口代表所有类型的公共高级接口，Class 是 Type 接口的实现类。Type 包括原始类型、参数化类型、数组类型、类型变量和基本类型等。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/代理/" rel="tag">#代理</a>
+          
+            <a href="/tags/动态代理/" rel="tag">#动态代理</a>
+          
+            <a href="/tags/Java-Reflection/" rel="tag">#Java Reflection</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/03/Syntactic-Sugar-in-Java/" rel="next" title="Syntactic Sugar in Java">
+                <i class="fa fa-chevron-left"></i> Syntactic Sugar in Java
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcxMS84Mjc1">
+  <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+  </script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/ava.png"
+               alt="拾叁妖" />
+          <p class="site-author-name" itemprop="name">拾叁妖</p>
+          <p class="site-description motion-element" itemprop="description">奇变偶不变，符号看象限。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Altman29" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/5866547818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#反射机制定义"><span class="nav-number">1.1.</span> <span class="nav-text">反射机制定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反射的功能"><span class="nav-number">1.2.</span> <span class="nav-text">反射的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用场景"><span class="nav-number">1.3.</span> <span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过反射查看类的信息"><span class="nav-number">2.</span> <span class="nav-text">通过反射查看类的信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取class对象"><span class="nav-number">2.1.</span> <span class="nav-text">获取class对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取class对象的属性、方法、构造"><span class="nav-number">2.2.</span> <span class="nav-text">获取class对象的属性、方法、构造</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取class对象的信息"><span class="nav-number">2.3.</span> <span class="nav-text">获取class对象的信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过反射生成并操作对象"><span class="nav-number">3.</span> <span class="nav-text">通过反射生成并操作对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成类的实例对象"><span class="nav-number">3.1.</span> <span class="nav-text">生成类的实例对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用类的方法"><span class="nav-number">3.2.</span> <span class="nav-text">调用类的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问成员变量值"><span class="nav-number">3.3.</span> <span class="nav-text">访问成员变量值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代理模式"><span class="nav-number">4.</span> <span class="nav-text">代理模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代理模式的理解"><span class="nav-number">4.1.</span> <span class="nav-text">代理模式的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代理模式的参与者"><span class="nav-number">4.2.</span> <span class="nav-text">代理模式的参与者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代理模式的分类"><span class="nav-number">4.3.</span> <span class="nav-text">代理模式的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代理模式的实现思路"><span class="nav-number">4.4.</span> <span class="nav-text">代理模式的实现思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态代理的简单实现"><span class="nav-number">4.5.</span> <span class="nav-text">静态代理的简单实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代理的好处"><span class="nav-number">4.6.</span> <span class="nav-text">代理的好处</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反射机制与动态代理"><span class="nav-number">5.</span> <span class="nav-text">反射机制与动态代理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述-1"><span class="nav-number">5.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#涉及主要的类"><span class="nav-number">5.2.</span> <span class="nav-text">涉及主要的类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态代理的简单实现"><span class="nav-number">5.3.</span> <span class="nav-text">动态代理的简单实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型和class类"><span class="nav-number">6.</span> <span class="nav-text">泛型和class类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用反射来获取泛型信息"><span class="nav-number">7.</span> <span class="nav-text">使用反射来获取泛型信息</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">拾叁妖</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+  &nbsp;丨&nbsp;
+  <!-- 不蒜统计 -->
+  <span style="display: inline;" id="busuanzi_container_site_uv">本站总访客数 <span id="busuanzi_value_site_uv" font="微软雅黑"></span> 次</span>
+  &nbsp;丨&nbsp;
+  <span style="display: inline;" id="busuanzi_container_site_pv">本站总访问量 <span id="busuanzi_value_site_pv" font="微软雅黑"></span> 次</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("nfQNU5dFwiltiHNWVEeJeuFp-gzGzoHsz", "oANzCtO0CzmnL1JmWkHda5Dp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
