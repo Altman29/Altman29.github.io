@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="所谓IO，也就是Input与Output的缩写。">
+<meta name="description" content="在Java中有输入、输出两种IO流，每种输入、输出流又分为字节流和字符流两大类。关于字节，我们在学习8大基本数据类型中都有了解，每个字节(byte)有8bit组成，每种数据类型又几个字节组成等。关于字符，我们可能知道代表一个汉字或者英文字母。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="What's IO?">
 <meta property="og:url" content="http://yoursite.com/2018/06/19/What-s-IO/index.html">
 <meta property="og:site_name" content="拾叁妖">
-<meta property="og:description" content="所谓IO，也就是Input与Output的缩写。">
+<meta property="og:description" content="在Java中有输入、输出两种IO流，每种输入、输出流又分为字节流和字符流两大类。关于字节，我们在学习8大基本数据类型中都有了解，每个字节(byte)有8bit组成，每种数据类型又几个字节组成等。关于字符，我们可能知道代表一个汉字或者英文字母。">
 <meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/io001.png">
 <meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/io003.png">
-<meta property="og:updated_time" content="2018-08-09T08:49:46.000Z">
+<meta property="og:updated_time" content="2018-08-09T10:43:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="What's IO?">
-<meta name="twitter:description" content="所谓IO，也就是Input与Output的缩写。">
+<meta name="twitter:description" content="在Java中有输入、输出两种IO流，每种输入、输出流又分为字节流和字符流两大类。关于字节，我们在学习8大基本数据类型中都有了解，每个字节(byte)有8bit组成，每种数据类型又几个字节组成等。关于字符，我们可能知道代表一个汉字或者英文字母。">
 <meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/io001.png">
 
 
@@ -305,9 +305,8 @@
       
 
       
-        <p>所谓IO，也就是Input与Output的缩写。</p>
-<a id="more"></a>
-<h2 id="字符与字节"><a href="#字符与字节" class="headerlink" title="字符与字节"></a>字符与字节</h2><p>在Java中有输入、输出两种IO流，每种输入、输出流又分为字节流和字符流两大类。关于字节，我们在学习8大基本数据类型中都有了解，每个字节(byte)有8bit组成，每种数据类型又几个字节组成等。关于字符，我们可能知道代表一个汉字或者英文字母。</p>
+        <p>在Java中有输入、输出两种IO流，每种输入、输出流又分为字节流和字符流两大类。关于字节，我们在学习8大基本数据类型中都有了解，每个字节(byte)有8bit组成，每种数据类型又几个字节组成等。关于字符，我们可能知道代表一个汉字或者英文字母。<br><a id="more"></a></p>
+<h2 id="字符与字节"><a href="#字符与字节" class="headerlink" title="字符与字节"></a>字符与字节</h2><p>上面描述了字符和字节的定义。</p>
 <p><b>但是字节与字符之间的关系是怎样的？</b></p>
 <p>Java采用unicode编码，2个字节来表示一个字符，这点与C语言中不同，C语言中采用ASCII，在大多数系统中，一个字符通常占1个字节，但是在0~127整数之间的字符映射，unicode向下兼容ASCII。而Java采用unicode来表示字符，一个中文或英文字符的unicode编码都占2个字节。但如果采用其他编码方式，一个字符占用的字节数则各不相同。可能有点晕，举个例子解释下。</p>
 <p>例如：Java中的String类是按照unicode进行编码的，当使用String(byte[] bytes, String encoding)构造字符串时，encoding所指的是bytes中的数据是按照那种方式编码的，而不是最后产生的String是什么编码方式，换句话说，是让系统把bytes中的数据由encoding编码方式转换成unicode编码。如果不指明，bytes的编码方式将由jdk根据操作系统决定。</p>

@@ -84,16 +84,16 @@
 
 
 
-<meta name="description" content="Java集合简介Java集合大致分为Set、List、Queue和Map四种体系。
+<meta name="description" content="Java集合大致分为Set、List、Queue和Map四种体系。
 其中Set代表无序、不可重复的集合；List代表有序、重复的集合；而Map则代表具有映射关系的集合。Java5中增加了Queue体系集合，代表一种队列集合实现。
-Java集合就像一个容器，可以把多个对象，实际上是对象的引用，但习惯上都称对象，丢进容器中。从Java5增加了泛型以后、Java集合可以记住容器中对象的数">
+Java集合就像一个容器，可以把多个对象，实际上是对象的引用，但习惯上都称对象，丢进容器中。从Java5增加了泛型以后、Java集合可以记住容器中对象的数据类型，使得编码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于Java集合的综述">
 <meta property="og:url" content="http://yoursite.com/2018/05/29/Java集合总结/index.html">
 <meta property="og:site_name" content="拾叁妖">
-<meta property="og:description" content="Java集合简介Java集合大致分为Set、List、Queue和Map四种体系。
+<meta property="og:description" content="Java集合大致分为Set、List、Queue和Map四种体系。
 其中Set代表无序、不可重复的集合；List代表有序、重复的集合；而Map则代表具有映射关系的集合。Java5中增加了Queue体系集合，代表一种队列集合实现。
-Java集合就像一个容器，可以把多个对象，实际上是对象的引用，但习惯上都称对象，丢进容器中。从Java5增加了泛型以后、Java集合可以记住容器中对象的数">
+Java集合就像一个容器，可以把多个对象，实际上是对象的引用，但习惯上都称对象，丢进容器中。从Java5增加了泛型以后、Java集合可以记住容器中对象的数据类型，使得编码">
 <meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/Java001.png">
 <meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/Java002.jpg">
 <meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/Java003.png">
@@ -113,12 +113,12 @@ Java集合就像一个容器，可以把多个对象，实际上是对象的引�
 <meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/treemap001.png">
 <meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/treemap002.png">
 <meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/treemap003.png">
-<meta property="og:updated_time" content="2018-08-01T09:57:12.000Z">
+<meta property="og:updated_time" content="2018-08-09T10:41:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于Java集合的综述">
-<meta name="twitter:description" content="Java集合简介Java集合大致分为Set、List、Queue和Map四种体系。
+<meta name="twitter:description" content="Java集合大致分为Set、List、Queue和Map四种体系。
 其中Set代表无序、不可重复的集合；List代表有序、重复的集合；而Map则代表具有映射关系的集合。Java5中增加了Queue体系集合，代表一种队列集合实现。
-Java集合就像一个容器，可以把多个对象，实际上是对象的引用，但习惯上都称对象，丢进容器中。从Java5增加了泛型以后、Java集合可以记住容器中对象的数">
+Java集合就像一个容器，可以把多个对象，实际上是对象的引用，但习惯上都称对象，丢进容器中。从Java5增加了泛型以后、Java集合可以记住容器中对象的数据类型，使得编码">
 <meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/Java001.png">
 
 
@@ -328,10 +328,10 @@ Java集合就像一个容器，可以把多个对象，实际上是对象的引�
       
 
       
-        <h2 id="Java集合简介"><a href="#Java集合简介" class="headerlink" title="Java集合简介"></a>Java集合简介</h2><p>Java集合大致分为Set、List、Queue和Map四种体系。</p>
+        <p>Java集合大致分为Set、List、Queue和Map四种体系。</p>
 <p>其中Set代表无序、不可重复的集合；List代表有序、重复的集合；而Map则代表具有映射关系的集合。Java5中增加了Queue体系集合，代表一种队列集合实现。</p>
 <p>Java集合就像一个容器，可以把多个对象，实际上是对象的引用，但习惯上都称对象，丢进容器中。从Java5增加了泛型以后、Java集合可以记住容器中对象的数据类型，使得编码更加简洁、健壮。<br><a id="more"></a></p>
-<h3 id="Java集合和数组的区别"><a href="#Java集合和数组的区别" class="headerlink" title="Java集合和数组的区别"></a>Java集合和数组的区别</h3><p>数组长度在初始化时指定，意味着只能保存定长的数据。而集合可以保存数量不确定的数据。同时可以保存居右映射关系的数据。</p>
+<h2 id="Java集合简介"><a href="#Java集合简介" class="headerlink" title="Java集合简介"></a>Java集合简介</h2><h3 id="Java集合和数组的区别"><a href="#Java集合和数组的区别" class="headerlink" title="Java集合和数组的区别"></a>Java集合和数组的区别</h3><p>数组长度在初始化时指定，意味着只能保存定长的数据。而集合可以保存数量不确定的数据。同时可以保存居右映射关系的数据。</p>
 <p>数组元素即可以是基本类型的值，也可以是对象。集合里只能保存对象，实际上是保存对象的应用变量，基本数据类型的变量要转换成对应的包装类才能放入集合类中。</p>
 <h3 id="Java集合之间的继承关系"><a href="#Java集合之间的继承关系" class="headerlink" title="Java集合之间的继承关系"></a>Java集合之间的继承关系</h3><p>Java集合类主要由俩个接口派生而出：Collection和Map，Collection和Map是集合框架的根接口。</p>
 <p><img src="http://ogo6z0ylk.bkt.clouddn.com/Java001.png" alt=""></p>
