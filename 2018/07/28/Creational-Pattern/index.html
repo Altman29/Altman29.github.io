@@ -1,0 +1,958 @@
+<!doctype html>
+
+
+
+  
+
+<html class="theme-next mist use-motion">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Design Pattern,Creational Pattern,Simple Factory Pattern,Factory Method Pattern,Abstract Factory Pattern,Builder Pattern,设计模式,Singleton Pattern," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="创建型模式(Creational Pattern)对类的实例化过程进行了抽象，能够将软件模块中对象的创建和对象的使用分离。为了使软件的结构更加清晰，外界对于这些对象只需要知道它们共同的接口，而不清楚其具体的实现细节，使整个系统的设计更加符合单一职责原则。
+创建型模式在创建什么(What)，由谁创建(Who)，何时创建(When)等方面都为软件设计者提供了尽可能大的灵活性。创建型模式隐藏了类的实例的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Creational Pattern">
+<meta property="og:url" content="http://yoursite.com/2018/07/28/Creational-Pattern/index.html">
+<meta property="og:site_name" content="拾叁妖">
+<meta property="og:description" content="创建型模式(Creational Pattern)对类的实例化过程进行了抽象，能够将软件模块中对象的创建和对象的使用分离。为了使软件的结构更加清晰，外界对于这些对象只需要知道它们共同的接口，而不清楚其具体的实现细节，使整个系统的设计更加符合单一职责原则。
+创建型模式在创建什么(What)，由谁创建(Who)，何时创建(When)等方面都为软件设计者提供了尽可能大的灵活性。创建型模式隐藏了类的实例的">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern001.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern002.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern003.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern004.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern005.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern006.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern007.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern008.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern009.jpg">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern010.jpg">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern011.png">
+<meta property="og:updated_time" content="2018-08-13T06:50:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Creational Pattern">
+<meta name="twitter:description" content="创建型模式(Creational Pattern)对类的实例化过程进行了抽象，能够将软件模块中对象的创建和对象的使用分离。为了使软件的结构更加清晰，外界对于这些对象只需要知道它们共同的接口，而不清楚其具体的实现细节，使整个系统的设计更加符合单一职责原则。
+创建型模式在创建什么(What)，由谁创建(Who)，何时创建(When)等方面都为软件设计者提供了尽可能大的灵活性。创建型模式隐藏了类的实例的">
+<meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern001.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Creational Pattern | 拾叁妖 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">拾叁妖</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Creational Pattern
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-07-28T11:15:31+08:00" content="2018-07-28">
+              2018-07-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Design-Patterns/" itemprop="url" rel="index">
+                    <span itemprop="name">Design Patterns</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+          
+          
+             <span id="/2018/07/28/Creational-Pattern/" class="leancloud_visitors" data-flag-title="Creational Pattern">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>创建型模式(Creational Pattern)对类的实例化过程进行了抽象，能够将软件模块中对象的创建和对象的使用分离。为了使软件的结构更加清晰，外界对于这些对象只需要知道它们共同的接口，而不清楚其具体的实现细节，使整个系统的设计更加符合单一职责原则。</p>
+<p>创建型模式在创建什么(What)，由谁创建(Who)，何时创建(When)等方面都为软件设计者提供了尽可能大的灵活性。创建型模式隐藏了类的实例的创建细节，通过隐藏对象如何被创建和组合在一起达到使整个系统独立的目的。</p>
+<a id="more"></a>
+<h1 id="Simple-Factory-Pattern"><a href="#Simple-Factory-Pattern" class="headerlink" title="Simple Factory Pattern"></a>Simple Factory Pattern</h1><h2 id="简单工厂模式简介"><a href="#简单工厂模式简介" class="headerlink" title="简单工厂模式简介"></a>简单工厂模式简介</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>简单工厂模式(Simple Factory Pattern)：又称为静态工厂方法(Static Factory Method)模式，它属于类创建型模式。在简单工厂模式中，可以根据参数的不同返回不同类的实例。简单工厂模式专门定义一个类来负责创建其他类的实例，被创建的实例通常都具有共同的父类。</p>
+<h3 id="使用动机"><a href="#使用动机" class="headerlink" title="使用动机"></a>使用动机</h3><p>考虑一个简单的软件应用场景：一个软件系统可以提供多个外观不同的按钮（如圆形按钮、矩形按钮、菱形按钮等）， 这些按钮都源自同一个基类，不过在继承基类后不同的子类修改了部分属性从而使得它们可以呈现不同的外观。</p>
+<p>如果我们希望在使用这些按钮时，不需要知道这些具体按钮类的名字，只需要知道表示该按钮类的一个参数，并提供一个调用方便的方法，把该参数传入方法即可返回一个相应的按钮对象，此时，就可以使用简单工厂模式。</p>
+<h2 id="简单工厂模式结构"><a href="#简单工厂模式结构" class="headerlink" title="简单工厂模式结构"></a>简单工厂模式结构</h2><h3 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h3><p><img src="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern001.png" alt=""></p>
+<p>简单工厂模式包含如下<b>角色</b>：</p>
+<p><b>*Factory：工厂角色</b>，工厂角色负责实现创建所有实例的内部逻辑</p>
+<p><b>*Product：抽象产品角色</b>，抽象产品角色是所创建的所有对象的父类，负责描述所有实例所共有的公共接口</p>
+<p><b>*ConcreteProduct：具体产品角色</b>，具体产品角色是创建目标，所有创建的对象都充当这个角色的某个具体类的实例。</p>
+<h3 id="时序图"><a href="#时序图" class="headerlink" title="时序图"></a>时序图</h3><p><img src="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern002.png" alt=""></p>
+<p>①先调用工厂类中的静态方法createProduct()</p>
+<p>②根据传入产品类型参数，获得具体的产品对象</p>
+<p>③返回产品对象并使用</p>
+<h2 id="简单工厂使用实例"><a href="#简单工厂使用实例" class="headerlink" title="简单工厂使用实例"></a>简单工厂使用实例</h2><p>以登录功能来说，假如应用系统需要支持多种登录方式如：口令认证、域认证（口令认证通常是去数据库中验证用户，而域认证则是需要到微软的域中验证用户）。那么自然的做法就是建立一个各种登录方式都适用的接口，如下图所示：</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern003.png" alt=""></p>
+<h3 id="抽象产品Login"><a href="#抽象产品Login" class="headerlink" title="抽象产品Login"></a>抽象产品Login</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Login</span> </span>&#123;</div><div class="line">    <span class="comment">//登录验证</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">verify</span><span class="params">(String name , String password)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="具体产品DomainLogin"><a href="#具体产品DomainLogin" class="headerlink" title="具体产品DomainLogin"></a>具体产品DomainLogin</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DomainLogin</span> <span class="keyword">implements</span> <span class="title">Login</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">verify</span><span class="params">(String name, String password)</span> </span>&#123;</div><div class="line">        <span class="comment">// TODO Auto-generated method stub</span></div><div class="line">        <span class="comment">/**</span></div><div class="line">         * 业务逻辑</div><div class="line">         */</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="具体产品PasswordLogin"><a href="#具体产品PasswordLogin" class="headerlink" title="具体产品PasswordLogin"></a>具体产品PasswordLogin</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PasswordLogin</span> <span class="keyword">implements</span> <span class="title">Login</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">verify</span><span class="params">(String name, String password)</span> </span>&#123;</div><div class="line">        <span class="comment">// TODO Auto-generated method stub</span></div><div class="line">        <span class="comment">/**</span></div><div class="line">         * 业务逻辑</div><div class="line">         */</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="工厂类LoginManager"><a href="#工厂类LoginManager" class="headerlink" title="工厂类LoginManager"></a>工厂类LoginManager</h3><p>根据调用者不同的要求，创建出不同的登录对象并返回。而如果碰到不合法的要求，会返回一个Runtime异常。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginManager</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Login <span class="title">factory</span><span class="params">(String type)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(type.equals(<span class="string">"password"</span>))&#123;</div><div class="line"></div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> PasswordLogin();</div><div class="line"></div><div class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(type.equals(<span class="string">"passcode"</span>))&#123;</div><div class="line"></div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> DomainLogin();</div><div class="line"></div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            <span class="comment">/**</span></div><div class="line">             * 这里抛出一个自定义异常会更恰当</div><div class="line">             */</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"没有找到登录类型"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="测试调用"><a href="#测试调用" class="headerlink" title="测试调用"></a>测试调用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        String loginType = <span class="string">"password"</span>;</div><div class="line">        String name = <span class="string">"name"</span>;</div><div class="line">        String password = <span class="string">"password"</span>;</div><div class="line">        Login login = LoginManager.factory(loginType);</div><div class="line">        <span class="keyword">boolean</span> bool = login.verify(name, password);</div><div class="line">        <span class="keyword">if</span> (bool) &#123;</div><div class="line">            <span class="comment">/**</span></div><div class="line">             * 业务逻辑</div><div class="line">             */</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="comment">/**</span></div><div class="line">             * 业务逻辑</div><div class="line">             */</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="不使用简单工厂实现登录"><a href="#不使用简单工厂实现登录" class="headerlink" title="不使用简单工厂实现登录"></a>不使用简单工厂实现登录</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="comment">// TODO Auto-generated method stub</span></div><div class="line"></div><div class="line">        String loginType = <span class="string">"password"</span>;</div><div class="line">        String name = <span class="string">"name"</span>;</div><div class="line">        String password = <span class="string">"password"</span>;</div><div class="line">        <span class="comment">//处理口令认证</span></div><div class="line">        <span class="keyword">if</span>(loginType.equals(<span class="string">"password"</span>))&#123;</div><div class="line">            PasswordLogin passwordLogin = <span class="keyword">new</span> PasswordLogin();</div><div class="line">            <span class="keyword">boolean</span> bool = passwordLogin.verify(name, password);</div><div class="line">            <span class="keyword">if</span> (bool) &#123;</div><div class="line">                <span class="comment">/**</span></div><div class="line">                 * 业务逻辑</div><div class="line">                 */</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="comment">/**</span></div><div class="line">                 * 业务逻辑</div><div class="line">                 */</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//处理域认证</span></div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(loginType.equals(<span class="string">"passcode"</span>))&#123;</div><div class="line">            DomainLogin domainLogin = <span class="keyword">new</span> DomainLogin();</div><div class="line">            <span class="keyword">boolean</span> bool = domainLogin.verify(name, password);</div><div class="line">            <span class="keyword">if</span> (bool) &#123;</div><div class="line">                <span class="comment">/**</span></div><div class="line">                 * 业务逻辑</div><div class="line">                 */</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="comment">/**</span></div><div class="line">                 * 业务逻辑</div><div class="line">                 */</div><div class="line">            &#125;    </div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            <span class="comment">/**</span></div><div class="line">             * 业务逻辑</div><div class="line">             */</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><b>可以看到非常麻烦，代码重复很多，而且不利于扩展维护。</b></p>
+<h2 id="简单工厂模式的优缺点"><a href="#简单工厂模式的优缺点" class="headerlink" title="简单工厂模式的优缺点"></a>简单工厂模式的优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>通过使用工厂类，外界不再需要关心如何创造各种具体的产品，只要提供一个产品的名称作为参数传给工厂，就可以直接得到一个想要的产品对象，并且可以按照接口规范来调用产品对象的所有功能（方法）。</p>
+<p>构造容易，逻辑简单。</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>1.简单工厂模式中的if else判断非常多，完全是Hard Code，如果有一个新产品要加进来，就要同时添加一个新产品类，并且必须修改工厂类，再加入一个 else if 分支才可以， 这样就违背了 “开放-关闭原则”中的对修改关闭的准则了。当系统中的具体产品类不断增多时候，就要不断的修改工厂类，对系统的维护和扩展不利。</p>
+<p>2.一个工厂类中集合了所有的类的实例创建逻辑，违反了高内聚的责任分配原则，将全部的创建逻辑都集中到了一个工厂类当中，所有的业务逻辑都在这个工厂类中实现。什么时候它不能工作了，整个系统都会受到影响。因此一般只在很简单的情况下应用，比如当工厂类负责创建的对象比较少时。</p>
+<p>3.简单工厂模式由于使用了静态工厂方法，造成工厂角色无法形成基于继承的等级结构。</p>
+<h2 id="适用环境"><a href="#适用环境" class="headerlink" title="适用环境"></a>适用环境</h2><p>在以下情况下可以使用简单工厂模式：</p>
+<p>工厂类负责创建的对象比较少：由于创建的对象较少，不会造成工厂方法中的业务逻辑太过复杂。</p>
+<p>客户端只知道传入工厂类的参数，对于如何创建对象不关心：客户端既不需要关心创建细节，甚至连类名都不需要记住，只需要知道类型所对应的参数。</p>
+<h2 id="在Java中的应用"><a href="#在Java中的应用" class="headerlink" title="在Java中的应用"></a>在Java中的应用</h2><p>①JDK类库中广泛使用了简单工厂模式，如工具类java.text.DateFormat，它用于格式化一个本地日期或者时间。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> DateFormat <span class="title">getDateInstance</span><span class="params">()</span></span>;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> DateFormat <span class="title">getDateInstance</span><span class="params">(<span class="keyword">int</span> style)</span></span>;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> DateFormat <span class="title">getDateInstance</span><span class="params">(<span class="keyword">int</span> style,Locale</span></span></div><div class="line">locale);</div></pre></td></tr></table></figure>
+<p>②Java加密技术<br>获取不同加密算法的密钥生成器:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">KeyGenerator keyGen=KeyGenerator.getInstance(<span class="string">"DESede"</span>);</div></pre></td></tr></table></figure>
+<p>创建密码器:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Cipher cp=Cipher.getInstance(<span class="string">"DESede"</span>);</div></pre></td></tr></table></figure>
+<hr>
+<hr>
+<h1 id="Factory-Method-Pattern"><a href="#Factory-Method-Pattern" class="headerlink" title="Factory Method Pattern"></a>Factory Method Pattern</h1><h2 id="工厂方法模式简介"><a href="#工厂方法模式简介" class="headerlink" title="工厂方法模式简介"></a>工厂方法模式简介</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>工厂方法模式(Factory Method Pattern)又称为工厂模式，也叫虚拟构造器(Virtual Constructor)模式或者多态工厂(Polymorphic Factory)模式，它属于类创建型模式。</p>
+<p>在工厂方法模式中，工厂父类负责定义创建产品对象的公共接口，而工厂子类则负责生成具体的产品对象，这样做的目的是将产品类的实例化操作延迟到工厂子类中完成，即通过工厂子类来确定究竟应该实例化哪一个具体产品类。</p>
+<h3 id="使用目的"><a href="#使用目的" class="headerlink" title="使用目的"></a>使用目的</h3><p>现在对该系统（上篇文章提到）进行修改，不再设计一个按钮工厂类来统一负责所有产品的创建，而是将具体按钮的创建过程交给专门的工厂子类去完成。</p>
+<p>我们先定义一个抽象的按钮工厂类，再定义具体的工厂类来生成圆形按钮、矩形按钮、菱形按钮等，它们实现在抽象按钮工厂类中定义的方法。这种抽象化的结果使这种结构可以在不修改具体工厂类的情况下引进新的产品，如果出现新的按钮类型，只需要为这种新类型的按钮创建一个具体的工厂类就可以获得该新按钮的实例，这一特点无疑使得工厂方法模式具有超越简单工厂模式的优越性，更加符合“开闭原则”。</p>
+<h2 id="工厂方法模式结构"><a href="#工厂方法模式结构" class="headerlink" title="工厂方法模式结构"></a>工厂方法模式结构</h2><h3 id="模式结构-1"><a href="#模式结构-1" class="headerlink" title="模式结构"></a>模式结构</h3><p><img src="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern004.png" alt=""></p>
+<p>工厂方法模式包含如下<b>角色</b>：</p>
+<p><b>*Product：抽象产品</b>，工厂方法模式所创建的对象的超类，也就是所有产品类的共同父类或共同拥有的接口。在实际的系统中，这个角色也常常使用抽象类实现。</p>
+<p><b>*ConcreteProduct：具体产品</b>，这个角色实现了抽象产品（Product）所声明的接口，工厂方法模式所创建的每一个对象都是某个具体产品的实例。</p>
+<p><b>*Factory：抽象工厂</b>，担任这个角色的是工厂方法模式的核心，任何在模式中创建对象的工厂类必须实现这个接口。在实际的系统中，这个角色也常常使用抽象类实现。</p>
+<p><b>*ConcreteFactory：具体工厂</b>，担任这个角色的是实现了抽象工厂接口的具体Java类。具体工厂角色含有与业务密切相关的逻辑，并且受到使用者的调用以创建具体产品对象。</p>
+<h3 id="时序图-1"><a href="#时序图-1" class="headerlink" title="时序图"></a>时序图</h3><p><img src="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern005.png" alt=""></p>
+<p>①先调用具体工厂对象中的方法createProduct()</p>
+<p>②根据传入产品类型参数（也可以无参），获得具体的产品对象</p>
+<p>③返回产品对象并使用</p>
+<h2 id="工厂方法模式使用实例"><a href="#工厂方法模式使用实例" class="headerlink" title="工厂方法模式使用实例"></a>工厂方法模式使用实例</h2><p><img src="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern006.png" alt=""></p>
+<p>上面的类图中，在灯这个品类下，有灯泡和灯管两种产品，并且都实现了灯的通用方法：关灯和开灯。在工厂类下，有各种生产具体产品的子工厂负责生产相应的两种灯具。</p>
+<p><b>分析:</b>如果还不是太明白，那我们来假设一个情景。小明（客户端）想要买一个灯泡，他不认识工厂，只能去供销店（工厂类）买，于是和老板说“我要一个灯泡”，老板说 “没问题！您稍等”。转身到了后院，对生产灯泡的小弟（灯泡工厂子类）吆喝一声，给我造个灯泡！不一会灯泡造好了，老板拿给小明，“嘿嘿，灯泡给您作了一个，您试试？”，小明把灯泡拧在灯口上，开关了两下（灯的通用方法）“嘿！挺好，没问题！”，付了钱高高兴兴走了。</p>
+<h3 id="抽象产品接口ILight"><a href="#抽象产品接口ILight" class="headerlink" title="抽象产品接口ILight"></a>抽象产品接口ILight</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ILight</span></span>&#123;</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">TurnOn</span><span class="params">()</span></span>;</div><div class="line">        <span class="function"><span class="keyword">void</span> <span class="title">TurnOff</span><span class="params">()</span></span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="具体的产品类BulbLight"><a href="#具体的产品类BulbLight" class="headerlink" title="具体的产品类BulbLight"></a>具体的产品类BulbLight</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BulbLight</span> <span class="keyword">implements</span> <span class="title">ILight</span></span>&#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TurnOn</span><span class="params">()</span></span></div><div class="line">        &#123;</div><div class="line">            Console.WriteLine(<span class="string">"BulbLight turns on."</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TurnOff</span><span class="params">()</span></span></div><div class="line">        &#123;</div><div class="line">            Console.WriteLine(<span class="string">"BulbLight turns off."</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="具体的产品类TubeLight"><a href="#具体的产品类TubeLight" class="headerlink" title="具体的产品类TubeLight"></a>具体的产品类TubeLight</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TubeLight</span> <span class="keyword">implements</span> <span class="title">ILight</span></span>&#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TurnOn</span><span class="params">()</span></span></div><div class="line">        &#123;</div><div class="line">            Console.WriteLine(<span class="string">"TubeLight turns on."</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TurnOff</span><span class="params">()</span></span></div><div class="line">        &#123;</div><div class="line">            Console.WriteLine(<span class="string">"TubeLight turns off."</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="抽象的工厂类"><a href="#抽象的工厂类" class="headerlink" title="抽象的工厂类"></a>抽象的工厂类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ICreator</span></span>&#123;</div><div class="line">        <span class="function">ILight <span class="title">CreateLight</span><span class="params">()</span></span>;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="具体的工厂类BulbCreator"><a href="#具体的工厂类BulbCreator" class="headerlink" title="具体的工厂类BulbCreator"></a>具体的工厂类BulbCreator</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BulbCreator</span> <span class="keyword">implements</span> <span class="title">ICreator</span></span>&#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> ILight <span class="title">CreateLight</span><span class="params">()</span></span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> BulbLight();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="具体的工厂类TubeCreator"><a href="#具体的工厂类TubeCreator" class="headerlink" title="具体的工厂类TubeCreator"></a>具体的工厂类TubeCreator</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TubeCreator</span> <span class="keyword">implements</span> <span class="title">ICreator</span></span>&#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> ILight <span class="title">CreateLight</span><span class="params">()</span></span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> TubeLight();</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="客户端调用"><a href="#客户端调用" class="headerlink" title="客户端调用"></a>客户端调用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span><span class="params">(string[] args)</span></span>&#123;</div><div class="line">            <span class="comment">//先给我来个灯泡</span></div><div class="line">            ICreator creator = <span class="keyword">new</span> BulbCreator();</div><div class="line">            ILight light = creator.CreateLight();</div><div class="line">            light.TurnOn();</div><div class="line">            light.TurnOff();</div><div class="line"></div><div class="line">            <span class="comment">//再来个灯管看看</span></div><div class="line">            creator = <span class="keyword">new</span> TubeCreator();</div><div class="line">            light = creator.CreateLight();</div><div class="line">            light.TurnOn();</div><div class="line">            light.TurnOff();</div><div class="line"></div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p><b>通过一个引用变量ICreator来创建产品对象，创建何种产品对象由指向的具体工厂类决定。通过工厂方法模式，将具体的应用逻辑和产品的创建分离开，促进松耦合。</b></p>
+<p>本例中每个具体工厂类只负责生产一种类型的产品，当然每个具体工厂类也内部可以维护少数几种产品实例对象，类似于简单工厂模式。</p>
+<h2 id="工厂方法模式优缺点"><a href="#工厂方法模式优缺点" class="headerlink" title="工厂方法模式优缺点"></a>工厂方法模式优缺点</h2><h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><p>①在工厂方法模式中，工厂方法用来创建客户所需要的产品，同时还向客户隐藏了哪种具体产品类将被实例化这一细节，用户只需要关心所需产品对应的工厂，无须关心创建细节，甚至无须知道具体产品类的类名。</p>
+<p>②基于工厂角色和产品角色的多态性设计是工厂方法模式的关键。它能够使工厂可以自主确定创建何种产品对象，而如何创建这个对象的细节则完全封装在具体工厂内部。工厂方法模式之所以又被称为多态工厂模式，是因为所有的具体工厂类都具有同一抽象父类。</p>
+<p>③使用工厂方法模式的另一个优点是在系统中加入新产品时，无须修改抽象工厂和抽象产品提供的接口，无须修改客户端，也无须修改其他的具体工厂和具体产品，而只要添加一个具体工厂和具体产品就可以了。这样，系统的可扩展性也就变得非常好，完全符合“开闭原则”，这点比简单工厂模式更优秀。</p>
+<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><p>①在添加新产品时，需要编写新的具体产品类，而且还要提供与之对应的具体工厂类，系统中类的个数将成对增加，在一定程度上增加了系统的复杂度，有更多的类需要编译和运行，会给系统带来一些额外的开销。</p>
+<p>②由于考虑到系统的可扩展性，需要引入抽象层，在客户端代码中均使用抽象层进行定义，增加了系统的抽象性和理解难度，且在实现时可能需要用到DOM、反射等技术，增加了系统的实现难度。</p>
+<h2 id="适用环境-1"><a href="#适用环境-1" class="headerlink" title="适用环境"></a>适用环境</h2><p>在以下情况下可以使用工厂方法模式：</p>
+<p>①一个类不知道它所需要的对象的类：在工厂方法模式中，客户端不需要知道具体产品类的类名，只需要知道所对应的工厂即可，具体的产品对象由具体工厂类创建；客户端需要知道创建具体产品的工厂类。</p>
+<p>②一个类通过其子类来指定创建哪个对象：在工厂方法模式中，对于抽象工厂类只需要提供一个创建产品的接口，而由其子类来确定具体要创建的对象，利用面向对象的多态性和里氏代换原则，在程序运行时，子类对象将覆盖父类对象，从而使得系统更容易扩展。</p>
+<p>③将创建对象的任务委托给多个工厂子类中的某一个，客户端在使用时可以无须关心是哪一个工厂子类创建产品子类，需要时再动态指定，可将具体工厂类的类名存储在配置文件或数据库中。</p>
+<h2 id="在Java中的应用-1"><a href="#在Java中的应用-1" class="headerlink" title="在Java中的应用"></a>在Java中的应用</h2><p>JDBC中的工厂方法:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Connection conn=DriverManager.getConnection(<span class="string">"jdbc:microsoft:sqlserver://localhost:1433; DatabaseName=DB;user=sa;password="</span>);</div><div class="line">Statement statement=conn.createStatement();</div><div class="line">ResultSet rs=statement.executeQuery(<span class="string">"select * from UserInfo"</span>);</div></pre></td></tr></table></figure>
+<hr>
+<hr>
+<h1 id="Abstract-Factory-Patern"><a href="#Abstract-Factory-Patern" class="headerlink" title="Abstract Factory Patern"></a>Abstract Factory Patern</h1><h2 id="抽象工程模式简介"><a href="#抽象工程模式简介" class="headerlink" title="抽象工程模式简介"></a>抽象工程模式简介</h2><h3 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h3><p>抽象工厂模式(Abstract Factory Pattern)：提供一个创建一系列相关或相互依赖对象的接口，而无须指定它们具体的类。抽象工厂模式又称为Kit模式，属于对象创建型模式。</p>
+<p>定义很难懂？没错，看起来是很抽象，不过这正反应了这种模式的强大。下面具体阐述下定义。</p>
+<h3 id="定义阐述"><a href="#定义阐述" class="headerlink" title="定义阐述"></a>定义阐述</h3><p>在工厂方法模式中具体工厂负责生产具体的产品，每一个具体工厂对应一种或几种具体产品，工厂方法也具有唯一性，一般情况下，一个具体工厂中只有一个工厂方法或者一组重载的工厂方法。但是有时候我们需要一个工厂可以提供多个不同种类产品对象，而不是单一种类的产品对象。</p>
+<p>为了更清晰地理解工厂方法模式，需要先引入<b>两个概念</b>：</p>
+<p><b>产品等级结构</b> ：产品等级结构即产品的继承结构，如一个抽象类是电视机，其子类有海尔电视机、海信电视机、TCL电视机，则抽象电视机与具体品牌的电视机之间构成了一个产品等级结构，抽象电视机是父类，而具体品牌的电视机是其子类。</p>
+<p><b>产品族</b> ：在抽象工厂模式中，产品族是指由同一个工厂生产的，位于不同产品等级结构中的一组产品，如海尔电器工厂生产的海尔电视机、海尔电冰箱，海尔电视机位于电视机产品等级结构中，海尔电冰箱位于电冰箱产品等级结构中。</p>
+<p><b>当系统所提供的工厂所需生产的具体产品并不是一个简单的对象，而是多个位于不同产品等级结构中属于不同类型的具体产品时需要使用抽象工厂模式。</b></p>
+<p>抽象工厂模式是所有形式的工厂模式中<b>最为抽象和最具一般性的一种形态。</b></p>
+<p>抽象工厂模式与工厂方法模式最大的区别在于，<b>工厂方法模式针对的是一个产品等级结构，而抽象工厂模式则需要面对多个产品等级结构</b>，一个工厂等级结构可以负责多个不同产品等级结构中的产品对象的创建 。当一个工厂等级结构可以创建出分属于不同产品等级结构的一个产品族中的所有对象时，抽象工厂模式比工厂方法模式更为简单、有效率。</p>
+<h2 id="抽象工程模式结构"><a href="#抽象工程模式结构" class="headerlink" title="抽象工程模式结构"></a>抽象工程模式结构</h2><h3 id="模式结构-2"><a href="#模式结构-2" class="headerlink" title="模式结构"></a>模式结构</h3><p><img src="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern007.png" alt=""></p>
+<p>抽象工厂模式包含如下<b>角色</b>：</p>
+<p>AbstractFactory：抽象工厂<br>ConcreteFactory：具体工厂<br>AbstractProduct：抽象产品<br>Product：具体产品</p>
+<h3 id="时序图-2"><a href="#时序图-2" class="headerlink" title="时序图"></a>时序图</h3><p><img src="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern008.png" alt=""></p>
+<p>①先调用具体工厂对象中的方法createProductX()。根据具体工厂不同可以选择不同的方法，针对同一种工厂也可以选择不同的方法创建不同类型的产品对象。</p>
+<p>②根据传入产品类型参数（也可以无参），获得具体的产品对象</p>
+<p>③返回产品对象并使用</p>
+<h2 id="抽象工厂的使用实例"><a href="#抽象工厂的使用实例" class="headerlink" title="抽象工厂的使用实例"></a>抽象工厂的使用实例</h2><p>假设有一个移动终端工厂，可以制造苹果系列的移动产品和三星系列的移动产品。这个工厂下有两个子厂，一个负责制造苹果系列的Pad和三星系列的Pad，另一个负责制造苹果系列的手机和三星系列的手机。这便是一个典型的抽象工厂的实例。</p>
+<h3 id="抽象产品-苹果系列"><a href="#抽象产品-苹果系列" class="headerlink" title="抽象产品:苹果系列"></a>抽象产品:苹果系列</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Apple</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">AppleStyle</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="抽象产品-三星系列"><a href="#抽象产品-三星系列" class="headerlink" title="抽象产品:三星系列"></a>抽象产品:三星系列</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Sumsung</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">void</span> <span class="title">BangziStyle</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="具体产品-iphone"><a href="#具体产品-iphone" class="headerlink" title="具体产品:iphone"></a>具体产品:iphone</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">iphone</span> <span class="keyword">implements</span> <span class="title">Apple</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AppleStyle</span><span class="params">()</span></span>&#123;</div><div class="line">		Console.WriteLine(<span class="string">"Apple's style: iPhone!"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="具体产品-ipad"><a href="#具体产品-ipad" class="headerlink" title="具体产品:ipad"></a>具体产品:ipad</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ipad</span> <span class="keyword">implements</span> <span class="title">Apple</span></span>&#123;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AppleStyle</span><span class="params">()</span></span>&#123;</div><div class="line">		Console.WriteLine(<span class="string">"Apple's style: iPad!"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="具体产品-note2"><a href="#具体产品-note2" class="headerlink" title="具体产品:note2"></a>具体产品:note2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">note2</span> <span class="keyword">implements</span> <span class="title">Sumsung</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">BangziStyle</span><span class="params">()</span></span>&#123;</div><div class="line">		Console.WriteLine(<span class="string">"Bangzi's style : Note2!"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="具体产品-tabs"><a href="#具体产品-tabs" class="headerlink" title="具体产品:tabs"></a>具体产品:tabs</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tabs</span> <span class="keyword">implements</span> <span class="title">Sumsung</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">BangziStyle</span><span class="params">()</span></span>&#123;</div><div class="line">		Console.WriteLine(<span class="string">"Bangzi's style : Tab!"</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Factory</span></span>&#123;</div><div class="line">	<span class="function">Apple <span class="title">createAppleProduct</span><span class="params">()</span></span>;</div><div class="line">	<span class="function">Sumsung <span class="title">createSumsungProduct</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="手机工厂"><a href="#手机工厂" class="headerlink" title="手机工厂"></a>手机工厂</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory_Phone</span> <span class="keyword">implements</span> <span class="title">Factory</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> Apple <span class="title">createAppleProduct</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">new</span> iphone();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> Sumsung <span class="title">createSumsungProduct</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">new</span> note2();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="pad工厂"><a href="#pad工厂" class="headerlink" title="pad工厂"></a>pad工厂</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Factory_Pad</span> <span class="keyword">implements</span>  <span class="title">Factory</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">public</span> Apple <span class="title">createAppleProduct</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">new</span> ipad();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> Sumsung <span class="title">createSumsungProduct</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Tabs();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="客户端调用-1"><a href="#客户端调用-1" class="headerlink" title="客户端调用"></a>客户端调用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span><span class="params">(string[] args)</span></span>&#123;</div><div class="line">	<span class="comment">//采购商要一台iPad和一台Tab</span></div><div class="line">	Factory factory = <span class="keyword">new</span> Factory_Pad();</div><div class="line">	Apple apple = factory.createAppleProduct();</div><div class="line">	apple.AppleStyle();</div><div class="line">	Sumsung sumsung = factory.createSumsungProduct();</div><div class="line">	sumsung.BangziStyle();</div><div class="line"></div><div class="line">	<span class="comment">//采购商又要一台iPhone和一台Note2</span></div><div class="line">	factory = <span class="keyword">new</span> Factory_Phone();</div><div class="line">	apple = factory.createAppleProduct();</div><div class="line">	apple.AppleStyle();</div><div class="line">	sumsung = factory.createSumsungProduct();</div><div class="line">	sumsung.BangziStyle();</div><div class="line">	Console.ReadKey();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><b>抽象工厂可以通过多态，来动态设置不同的工厂，生产不同的产品，同时每个工厂中的产品又不属于同一个产品等级结构。</b></p>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><h3 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h3><p>①抽象工厂模式隔离了具体类的生成，使得客户并不需要知道什么被创建。由于这种隔离，更换一个具体工厂就变得相对容易。所有的具体工厂都实现了抽象工厂中定义的那些公共接口，因此只需改变具体工厂的实例，就可以在某种程度上改变整个软件系统的行为。另外，应用抽象工厂模式可以实现高内聚低耦合的设计目的，因此抽象工厂模式得到了广泛的应用。</p>
+<p>②增加新的具体工厂和产品族很方便，因为一个具体的工厂实现代表的是一个产品族，无须修改已有系统，符合“开闭原则”。</p>
+<h3 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h3><p>在添加新的产品对象（不同于现有的产品等级结构）时，难以扩展抽象工厂来生产新种类的产品，这是因为在抽象工厂角色中规定了所有可能被创建的产品集合，要支持新种类的产品就意味着要对该接口进行扩展，而这将涉及到对抽象工厂角色及其所有子类的修改，显然会带来较大的不便。</p>
+<p>开闭原则的倾斜性（增加新的工厂和产品族容易，增加新的产品等级结构麻烦）。</p>
+<h2 id="适用环境-2"><a href="#适用环境-2" class="headerlink" title="适用环境"></a>适用环境</h2><p>在以下情况下可以使用抽象工厂模式：</p>
+<p>①一个系统不应当依赖于产品类实例如何被创建、组合和表达的细节，这对于所有类型的工厂模式都是重要的。</p>
+<p>②系统中有多于一个的产品族，而每次只使用其中某一产品族。与工厂方法模式的区别</p>
+<p>③属于同一个产品族的产品将在一起使用，这一约束必须在系统的设计中体现出来。</p>
+<p>④系统提供一个产品类的库，所有的产品以同样的接口出现，从而使客户端不依赖于具体实现。</p>
+<hr>
+<hr>
+<h1 id="Singleton-Pattern"><a href="#Singleton-Pattern" class="headerlink" title="Singleton Pattern"></a>Singleton Pattern</h1><h2 id="单例模式简介"><a href="#单例模式简介" class="headerlink" title="单例模式简介"></a>单例模式简介</h2><h3 id="定义-3"><a href="#定义-3" class="headerlink" title="定义"></a>定义</h3><p>作为对象的创建模式，单例模式确保某一个类只有一个实例，而且自行实例化并向整个系统提供这个实例。这个类称为单例类。</p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p>单例类只能有一个实例。</p>
+<p>单例类必须自己创建自己的唯一实例。</p>
+<p>单例类必须给所有其他对象提供这一实例。</p>
+<h2 id="创建单例模式的方式"><a href="#创建单例模式的方式" class="headerlink" title="创建单例模式的方式"></a>创建单例模式的方式</h2><h3 id="懒汉式，线程不安全"><a href="#懒汉式，线程不安全" class="headerlink" title="懒汉式，线程不安全"></a>懒汉式，线程不安全</h3><p>懒汉式其实是一种比较形象的称谓。既然懒，那么在创建对象实例的时候就不着急。会一直等到马上要使用对象实例的时候才会创建，懒人嘛，总是推脱不开的时候才会真正去执行工作，因此在装载对象的时候不创建对象实例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance;</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">     <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</div><div class="line">         instance = <span class="keyword">new</span> Singleton();</div><div class="line">     &#125;</div><div class="line">     <span class="keyword">return</span> instance;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这段代码简单明了，而且使用了懒加载模式，但是却存在致命的问题。当有多个线程并行调用 getInstance() 的时候，就会创建多个实例。也就是说在多线程下不能正常工作。</p>
+<h3 id="懒汉式，线程安全"><a href="#懒汉式，线程安全" class="headerlink" title="懒汉式，线程安全"></a>懒汉式，线程安全</h3><p>为了解决上面的问题，最简单的方法是将整个 getInstance() 方法设为同步（synchronized）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</div><div class="line">        instance = <span class="keyword">new</span> Singleton();</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> instance;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>虽然做到了线程安全，并且解决了多实例的问题，但是它并不高效。因为在任何时候只能有一个线程调用 getInstance()方法。但是同步操作只需要在第一次调用时才被需要，即第一次创建单例实例对象时。这就引出了双重检验锁。</p>
+<h3 id="双重检验锁"><a href="#双重检验锁" class="headerlink" title="双重检验锁"></a>双重检验锁</h3><p>双重检验锁模式（double checked locking pattern），是一种使用同步块加锁的方法。程序员称其为双重检查锁，因为会有两次检查 instance == null，一次是在同步块外，一次是在同步块内。为什么在同步块内还要再检验一次？因为可能会有多个线程一起进入同步块外的 if，如果在同步块内不进行二次检验的话就会生成多个实例了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getSingleton</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;                         <span class="comment">//Single Checked</span></div><div class="line">        <span class="keyword">synchronized</span> (Singleton.class) &#123;</div><div class="line">            <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;                 <span class="comment">//Double Checked</span></div><div class="line">                instance = <span class="keyword">new</span> Singleton();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> instance ;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这段代码看起来很完美，很可惜，它是有问题。主要在于instance = new Singleton()这句，<b>这并非是一个原子操作</b>，事实上在 JVM 中这句话大概做了下面 3 件事情:</p>
+<p>1.给 instance 分配内存</p>
+<p>2.调用 Singleton 的构造函数来初始化成员变量</p>
+<p>3.将instance对象指向分配的内存空间（执行完这步 instance 就为非 null 了）。</p>
+<p>但是在 JVM 的即时编译器中存在指令重排序的优化。也就是说上面的第二步和第三步的顺序是不能保证的，最终的执行顺序可能是 1-2-3 也可能是 1-3-2。如果是后者，则在 3 执行完毕、2 未执行之前，被线程二抢占了，这时 instance 已经是非 null 了（但却没有初始化），所以线程二会直接返回 instance，然后使用，然后顺理成章地报错。</p>
+<p>我们只需要将 instance 变量声明成 volatile 就可以了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton instance; <span class="comment">//声明成 volatile</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getSingleton</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;                         </div><div class="line">            <span class="keyword">synchronized</span> (Singleton.class) &#123;</div><div class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;       </div><div class="line">                    instance = <span class="keyword">new</span> Singleton();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> instance;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>有些人认为使用 volatile 的原因是可见性，也就是可以保证线程在本地不会存有 instance 的副本，每次都是去主内存中读取。但其实是不对的。<b>使用 volatile 的主要原因是其另一个特性：禁止指令重排序优化。也就是说，在 volatile 变量的赋值操作后面会有一个内存屏障（生成的汇编代码上），读操作不会被重排序到内存屏障之前。</b>比如上面的例子，取操作必须在执行完 1-2-3 之后或者 1-3-2 之后，不存在执行到 1-3 然后取到值的情况。</p>
+<p>从「先行发生原则」的角度理解的话，就是对于一个 volatile 变量的写操作都先行发生于后面对这个变量的读操作（这里的“后面”是时间上的先后顺序）。</p>
+<p>但是特别注意在 Java 5 以前的版本使用了 volatile 的双检锁还是有问题的。其原因是 Java 5 以前的 JMM （Java 内存模型）是存在缺陷的，即时将变量声明成 volatile 也不能完全避免重排序，主要是 volatile 变量前后的代码仍然存在重排序问题。这个 volatile 屏蔽重排序的问题在 Java 5 中才得以修复，所以在这之后才可以放心使用 volatile。</p>
+<p>相信你不会喜欢这种复杂又隐含问题的方式，当然我们有更好的实现线程安全的单例模式的办法。</p>
+<h3 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h3><p>饿汉式其实是一种比较形象的称谓。既然饿，那么在创建对象实例的时候就比较着急，饿了嘛，于是在装载类的时候就创建对象实例。</p>
+<p>这种方法非常简单，因为单例的实例被声明成 static 和 final 变量了，在第一次加载类到内存中时就会初始化，所以创建实例本身是线程安全的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</div><div class="line">    <span class="comment">//类加载时就初始化</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton instance = <span class="keyword">new</span> Singleton();</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> instance;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>缺点是它不是一种懒加载模式（lazy initialization），<b>单例会在加载类后一开始就被初始化，即使客户端没有调用 getInstance()方法。</b></p>
+<p>饿汉式的创建方式在一些场景中将无法使用：譬如 Singleton 实例的创建是依赖参数或者配置文件的，在 getInstance() 之前必须调用某个方法设置参数给它，那样这种单例写法就无法使用了。</p>
+<h3 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h3><p>这种方法也是《Effective Java》上所推荐的,也是个人常用的一种方式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonHolder</span> </span>&#123;  </div><div class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton INSTANCE = <span class="keyword">new</span> Singleton();  </div><div class="line">    &#125;  </div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span> <span class="params">()</span></span>&#123;&#125;  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </div><div class="line">        <span class="keyword">return</span> SingletonHolder.INSTANCE; </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这种写法仍然使用JVM本身机制保证了线程安全问题。由于静态单例对象没有作为Singleton的成员变量直接实例化，因此类加载时不会实例化Singleton，<b>第一次调用getInstance()时将加载内部类SingletonHolder</b>，在该内部类中定义了一个static类型的变量INSTANCE ，此时会首先初始化这个成员变量，由Java虚拟机来保证其线程安全性，确保该成员变量只能初始化一次。由于getInstance()方法没有任何线程锁定，因此其性能不会造成任何影响。</p>
+<p>由于 SingletonHolder 是私有的，除了 getInstance() 之外没有办法访问它，因此它是懒汉式的；同时读取实例的时候不会进行同步，没有性能缺陷；也不依赖 JDK 版本。</p>
+<h3 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h3><p>用枚举写单例实在太简单了！这也是它最大的优点。下面这段代码就是声明枚举实例的通常做法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">enum</span> EasySingleton&#123;</div><div class="line">    INSTANCE;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们可以通过EasySingleton.INSTANCE来访问实例，这比调用getInstance()方法简单多了。创建枚举默认就是线程安全的，所以不需要担心double checked locking，而且还能防止反序列化导致重新创建新的对象。</p>
+<h2 id="单例分析"><a href="#单例分析" class="headerlink" title="单例分析"></a>单例分析</h2><p>一般来说，单例模式有五种写法：懒汉、饿汉、双重检验锁、静态内部类、枚举。上述所说都是线程安全的实现，上文中第一种方式线程不安全，排除。</p>
+<p>一般情况下直接使用饿汉式就好了，如果明确要求要懒加载（lazy initialization）倾向于使用静态内部类。如果涉及到反序列化创建对象时会试着使用枚举的方式来实现单例</p>
+<hr>
+<hr>
+<h1 id="Builder-Pattern"><a href="#Builder-Pattern" class="headerlink" title="Builder Pattern"></a>Builder Pattern</h1><h2 id="建造者模式简介"><a href="#建造者模式简介" class="headerlink" title="建造者模式简介"></a>建造者模式简介</h2><p>造者模式(Builder Pattern)：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。</p>
+<p>建造者模式是一步一步创建一个复杂的对象，它允许用户只通过指定复杂对象的类型和内容就可以构建它们，用户不需要知道内部的具体构建细节。建造者模式属于对象创建型模式。根据中文翻译的不同，建造者模式又可以称为生成器模式。</p>
+<h2 id="建造者模式结构"><a href="#建造者模式结构" class="headerlink" title="建造者模式结构"></a>建造者模式结构</h2><p>建造者模式包含如下<b>角色</b>：</p>
+<p>Builder：抽象建造者<br>ConcreteBuilder：具体建造者<br>Director：指挥者<br>Product：产品角色</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern009.jpg" alt=""></p>
+<h2 id="时序图-3"><a href="#时序图-3" class="headerlink" title="时序图"></a>时序图</h2><p><img src="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern010.jpg" alt=""></p>
+<h2 id="简单实现"><a href="#简单实现" class="headerlink" title="简单实现"></a>简单实现</h2><p>电脑的组装过程较为复杂，步骤繁多，但是顺序却是不固定的。下面我们以组装电脑为例来演示一下简单且经典的builder模式.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.dp.example.builder;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Computer产品抽象类, 为了例子简单, 只列出这几个属性</div><div class="line"> * </div><div class="line"> * <span class="doctag">@author</span> mrsimple</div><div class="line"> *</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Computer</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> mCpuCore = <span class="number">1</span>;</div><div class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> mRamSize = <span class="number">0</span>;</div><div class="line">    <span class="keyword">protected</span> String mOs = <span class="string">"Dos"</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">Computer</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 设置CPU核心数</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">setCPU</span><span class="params">(<span class="keyword">int</span> core)</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">// 设置内存</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">setRAM</span><span class="params">(<span class="keyword">int</span> gb)</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">// 设置操作系统</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">setOs</span><span class="params">(String os)</span></span>;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"Computer [mCpuCore="</span> + mCpuCore + <span class="string">", mRamSize="</span> + mRamSize</div><div class="line">                + <span class="string">", mOs="</span> + mOs + <span class="string">"]"</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">package</span> com.dp.example.builder;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Apple电脑</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppleComputer</span> <span class="keyword">extends</span> <span class="title">Computer</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">AppleComputer</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCPU</span><span class="params">(<span class="keyword">int</span> core)</span> </span>&#123;</div><div class="line">        mCpuCore = core;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRAM</span><span class="params">(<span class="keyword">int</span> gb)</span> </span>&#123;</div><div class="line">        mRamSize = gb;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOs</span><span class="params">(String os)</span> </span>&#123;</div><div class="line">        mOs = os;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">package</span> com.dp.example.builder;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">package</span> com.dp.example.builder;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * builder抽象类</div><div class="line"> *</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Builder</span> </span>&#123;</div><div class="line">    <span class="comment">// 设置CPU核心数</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">buildCPU</span><span class="params">(<span class="keyword">int</span> core)</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">// 设置内存</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">buildRAM</span><span class="params">(<span class="keyword">int</span> gb)</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">// 设置操作系统</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">buildOs</span><span class="params">(String os)</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">// 创建Computer</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> Computer <span class="title">create</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">package</span> com.dp.example.builder;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ApplePCBuilder</span> <span class="keyword">extends</span> <span class="title">Builder</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Computer mApplePc = <span class="keyword">new</span> AppleComputer();</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildCPU</span><span class="params">(<span class="keyword">int</span> core)</span> </span>&#123;</div><div class="line">        mApplePc.setCPU(core);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildRAM</span><span class="params">(<span class="keyword">int</span> gb)</span> </span>&#123;</div><div class="line">        mApplePc.setRAM(gb);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buildOs</span><span class="params">(String os)</span> </span>&#123;</div><div class="line">        mApplePc.setOs(os);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Computer <span class="title">create</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mApplePc;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">package</span> com.dp.example.builder;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Director</span> </span>&#123;</div><div class="line">    Builder mBuilder = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * </div><div class="line">     * <span class="doctag">@param</span> builder</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Director</span><span class="params">(Builder builder)</span> </span>&#123;</div><div class="line">        mBuilder = builder;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 构建对象</div><div class="line">     * </div><div class="line">     * <span class="doctag">@param</span> cpu</div><div class="line">     * <span class="doctag">@param</span> ram</div><div class="line">     * <span class="doctag">@param</span> os</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">construct</span><span class="params">(<span class="keyword">int</span> cpu, <span class="keyword">int</span> ram, String os)</span> </span>&#123;</div><div class="line">        mBuilder.buildCPU(cpu);</div><div class="line">        mBuilder.buildRAM(ram);</div><div class="line">        mBuilder.buildOs(os);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 经典实现较为繁琐</div><div class="line"> * </div><div class="line"> * <span class="doctag">@author</span> mrsimple</div><div class="line"> *</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="comment">// 构建器</span></div><div class="line">        Builder builder = <span class="keyword">new</span> ApplePCBuilder();</div><div class="line">        <span class="comment">// Director</span></div><div class="line">        Director pcDirector = <span class="keyword">new</span> Director(builder);</div><div class="line">        <span class="comment">// 封装构建过程, 4核, 内存2GB, Mac系统</span></div><div class="line">        pcDirector.construct(<span class="number">4</span>, <span class="number">2</span>, <span class="string">"Mac OS X 10.9.1"</span>);</div><div class="line">        <span class="comment">// 构建电脑, 输出相关信息</span></div><div class="line">        System.out.println(<span class="string">"Computer Info : "</span> + builder.create().toString());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Android源码中体现"><a href="#Android源码中体现" class="headerlink" title="Android源码中体现"></a>Android源码中体现</h2><p>在Android源码中，我们最常用到的Builder模式就是AlertDialog.Builder， 使用该Builder来构建复杂的AlertDialog对象。简单示例如下 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//显示基本的AlertDialog  </span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">showDialog</span><span class="params">(Context context)</span> </span>&#123;  </div><div class="line">        AlertDialog.Builder builder = <span class="keyword">new</span> AlertDialog.Builder(context);  </div><div class="line">        builder.setIcon(R.drawable.icon);  </div><div class="line">        builder.setTitle(<span class="string">"Title"</span>);  </div><div class="line">        builder.setMessage(<span class="string">"Message"</span>);  </div><div class="line">        builder.setPositiveButton(<span class="string">"Button1"</span>,  </div><div class="line">                <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;  </div><div class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> whichButton)</span> </span>&#123;  </div><div class="line">                        setTitle(<span class="string">"点击了对话框上的Button1"</span>);  </div><div class="line">                    &#125;  </div><div class="line">                &#125;);  </div><div class="line">        builder.setNeutralButton(<span class="string">"Button2"</span>,  </div><div class="line">                <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;  </div><div class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> whichButton)</span> </span>&#123;  </div><div class="line">                        setTitle(<span class="string">"点击了对话框上的Button2"</span>);  </div><div class="line">                    &#125;  </div><div class="line">                &#125;);  </div><div class="line">        builder.setNegativeButton(<span class="string">"Button3"</span>,  </div><div class="line">                <span class="keyword">new</span> DialogInterface.OnClickListener() &#123;  </div><div class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(DialogInterface dialog, <span class="keyword">int</span> whichButton)</span> </span>&#123;  </div><div class="line">                        setTitle(<span class="string">"点击了对话框上的Button3"</span>);  </div><div class="line">                    &#125;  </div><div class="line">                &#125;);  </div><div class="line">        builder.create().show();  <span class="comment">// 构建AlertDialog， 并且显示</span></div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>结果:</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/creational_pattern011.png" alt=""></p>
+<p>看看AlertDialog的相关源码 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// AlertDialog</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AlertDialog</span> <span class="keyword">extends</span> <span class="title">Dialog</span> <span class="keyword">implements</span> <span class="title">DialogInterface</span> </span>&#123;</div><div class="line">    <span class="comment">// Controller, 接受Builder成员变量P中的各个参数</span></div><div class="line">    <span class="keyword">private</span> AlertController mAlert;</div><div class="line"></div><div class="line">    <span class="comment">// 构造函数</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">AlertDialog</span><span class="params">(Context context, <span class="keyword">int</span> theme)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>(context, theme, <span class="keyword">true</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 4 : 构造AlertDialog</span></div><div class="line">    AlertDialog(Context context, <span class="keyword">int</span> theme, <span class="keyword">boolean</span> createContextWrapper) &#123;</div><div class="line">        <span class="keyword">super</span>(context, resolveDialogTheme(context, theme), createContextWrapper);</div><div class="line">        mWindow.alwaysReadCloseOnTouchAttr();</div><div class="line">        mAlert = <span class="keyword">new</span> AlertController(getContext(), <span class="keyword">this</span>, getWindow());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 实际上调用的是mAlert的setTitle方法</span></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTitle</span><span class="params">(CharSequence title)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.setTitle(title);</div><div class="line">        mAlert.setTitle(title);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 实际上调用的是mAlert的setCustomTitle方法</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCustomTitle</span><span class="params">(View customTitleView)</span> </span>&#123;</div><div class="line">        mAlert.setCustomTitle(customTitleView);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMessage</span><span class="params">(CharSequence message)</span> </span>&#123;</div><div class="line">        mAlert.setMessage(message);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// AlertDialog其他的代码省略</span></div><div class="line"></div><div class="line">    <span class="comment">// ************  Builder为AlertDialog的内部类   *******************</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Builder</span> </span>&#123;</div><div class="line">        <span class="comment">// 1 : 存储AlertDialog的各个参数, 例如title, message, icon等.</span></div><div class="line">        <span class="keyword">private</span> <span class="keyword">final</span> AlertController.AlertParams P;</div><div class="line">        <span class="comment">// 属性省略</span></div><div class="line"></div><div class="line">        <span class="comment">/**</span></div><div class="line">         * Constructor using a context for this builder and the &#123;<span class="doctag">@link</span> AlertDialog&#125; it creates.</div><div class="line">         */</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Builder</span><span class="params">(Context context)</span> </span>&#123;</div><div class="line">            <span class="keyword">this</span>(context, resolveDialogTheme(context, <span class="number">0</span>));</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Builder</span><span class="params">(Context context, <span class="keyword">int</span> theme)</span> </span>&#123;</div><div class="line">            P = <span class="keyword">new</span> AlertController.AlertParams(<span class="keyword">new</span> ContextThemeWrapper(</div><div class="line">                    context, resolveDialogTheme(context, theme)));</div><div class="line">            mTheme = theme;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// Builder的其他代码省略 ......</span></div><div class="line"></div><div class="line">        <span class="comment">// 2 : 设置各种参数</span></div><div class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">setTitle</span><span class="params">(CharSequence title)</span> </span>&#123;</div><div class="line">            P.mTitle = title;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">setMessage</span><span class="params">(CharSequence message)</span> </span>&#123;</div><div class="line">            P.mMessage = message;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">setIcon</span><span class="params">(<span class="keyword">int</span> iconId)</span> </span>&#123;</div><div class="line">            P.mIconId = iconId;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">setPositiveButton</span><span class="params">(CharSequence text, <span class="keyword">final</span> OnClickListener listener)</span> </span>&#123;</div><div class="line">            P.mPositiveButtonText = text;</div><div class="line">            P.mPositiveButtonListener = listener;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> Builder <span class="title">setView</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">            P.mView = view;</div><div class="line">            P.mViewSpacingSpecified = <span class="keyword">false</span>;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// 3 : 构建AlertDialog, 传递参数</span></div><div class="line">        <span class="function"><span class="keyword">public</span> AlertDialog <span class="title">create</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="comment">// 调用new AlertDialog构造对象， 并且将参数传递个体AlertDialog </span></div><div class="line">            <span class="keyword">final</span> AlertDialog dialog = <span class="keyword">new</span> AlertDialog(P.mContext, mTheme, <span class="keyword">false</span>);</div><div class="line">            <span class="comment">// 5 : 将P中的参数应用的dialog中的mAlert对象中</span></div><div class="line">            P.apply(dialog.mAlert);</div><div class="line">            dialog.setCancelable(P.mCancelable);</div><div class="line">            <span class="keyword">if</span> (P.mCancelable) &#123;</div><div class="line">                dialog.setCanceledOnTouchOutside(<span class="keyword">true</span>);</div><div class="line">            &#125;</div><div class="line">            dialog.setOnCancelListener(P.mOnCancelListener);</div><div class="line">            <span class="keyword">if</span> (P.mOnKeyListener != <span class="keyword">null</span>) &#123;</div><div class="line">                dialog.setOnKeyListener(P.mOnKeyListener);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> dialog;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看到，通过Builder来设置AlertDialog中的title, message, button等参数， 这些参数都存储在类型为AlertController.AlertParams的成员变量P中，AlertController.AlertParams中包含了与之对应的成员变量。在调用Builder类的create函数时才创建AlertDialog, 并且将Builder成员变量P中保存的参数应用到AlertDialog的mAlert对象中，即P.apply(dialog.mAlert)代码段。我们看看apply函数的实现 :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">apply</span><span class="params">(AlertController dialog)</span> </span>&#123;</div><div class="line">            <span class="keyword">if</span> (mCustomTitleView != <span class="keyword">null</span>) &#123;</div><div class="line">                dialog.setCustomTitle(mCustomTitleView);</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">if</span> (mTitle != <span class="keyword">null</span>) &#123;</div><div class="line">                    dialog.setTitle(mTitle);</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span> (mIcon != <span class="keyword">null</span>) &#123;</div><div class="line">                    dialog.setIcon(mIcon);</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span> (mIconId &gt;= <span class="number">0</span>) &#123;</div><div class="line">                    dialog.setIcon(mIconId);</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span> (mIconAttrId &gt; <span class="number">0</span>) &#123;</div><div class="line">                    dialog.setIcon(dialog.getIconAttributeResId(mIconAttrId));</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (mMessage != <span class="keyword">null</span>) &#123;</div><div class="line">                dialog.setMessage(mMessage);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (mPositiveButtonText != <span class="keyword">null</span>) &#123;</div><div class="line">                dialog.setButton(DialogInterface.BUTTON_POSITIVE, mPositiveButtonText,</div><div class="line">                        mPositiveButtonListener, <span class="keyword">null</span>);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (mNegativeButtonText != <span class="keyword">null</span>) &#123;</div><div class="line">                dialog.setButton(DialogInterface.BUTTON_NEGATIVE, mNegativeButtonText,</div><div class="line">                        mNegativeButtonListener, <span class="keyword">null</span>);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (mNeutralButtonText != <span class="keyword">null</span>) &#123;</div><div class="line">                dialog.setButton(DialogInterface.BUTTON_NEUTRAL, mNeutralButtonText,</div><div class="line">                        mNeutralButtonListener, <span class="keyword">null</span>);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (mForceInverseBackground) &#123;</div><div class="line">                dialog.setInverseBackgroundForced(<span class="keyword">true</span>);</div><div class="line">            &#125;</div><div class="line">            <span class="comment">// For a list, the client can either supply an array of items or an</span></div><div class="line">            <span class="comment">// adapter or a cursor</span></div><div class="line">            <span class="keyword">if</span> ((mItems != <span class="keyword">null</span>) || (mCursor != <span class="keyword">null</span>) || (mAdapter != <span class="keyword">null</span>)) &#123;</div><div class="line">                createListView(dialog);</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (mView != <span class="keyword">null</span>) &#123;</div><div class="line">                <span class="keyword">if</span> (mViewSpacingSpecified) &#123;</div><div class="line">                    dialog.setView(mView, mViewSpacingLeft, mViewSpacingTop, mViewSpacingRight,</div><div class="line">                            mViewSpacingBottom);</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    dialog.setView(mView);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
+<p>实际上就是把P中的参数挨个的设置到AlertController中， 也就是AlertDialog中的mAlert对象。从AlertDialog的各个setter方法中我们也可以看到，实际上也都是调用了mAlert对应的setter方法。在这里，Builder同时扮演了上文中提到的builder、ConcreteBuilder、Director的角色，简化了Builder模式的设计。</p>
+<h2 id="优缺点-1"><a href="#优缺点-1" class="headerlink" title="优缺点"></a>优缺点</h2><h3 id="优点-3"><a href="#优点-3" class="headerlink" title="优点"></a>优点</h3><p>*良好的封装性， 使用建造者模式可以使客户端不必知道产品内部组成的细节；</p>
+<p>*建造者独立，容易扩展；</p>
+<p>*在对象创建过程中会使用到系统中的一些其它对象，这些对象在产品对象的创建过程中不易得到。</p>
+<h3 id="缺点-3"><a href="#缺点-3" class="headerlink" title="缺点"></a>缺点</h3><p>*会产生多余的Builder对象以及Director对象，消耗内存；</p>
+<p>*对象的构建过程暴露。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Design-Pattern/" rel="tag">#Design Pattern</a>
+          
+            <a href="/tags/Creational-Pattern/" rel="tag">#Creational Pattern</a>
+          
+            <a href="/tags/Simple-Factory-Pattern/" rel="tag">#Simple Factory Pattern</a>
+          
+            <a href="/tags/Factory-Method-Pattern/" rel="tag">#Factory Method Pattern</a>
+          
+            <a href="/tags/Abstract-Factory-Pattern/" rel="tag">#Abstract Factory Pattern</a>
+          
+            <a href="/tags/Builder-Pattern/" rel="tag">#Builder Pattern</a>
+          
+            <a href="/tags/设计模式/" rel="tag">#设计模式</a>
+          
+            <a href="/tags/Singleton-Pattern/" rel="tag">#Singleton Pattern</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/21/JVM-Things/" rel="next" title="JVM Things.">
+                <i class="fa fa-chevron-left"></i> JVM Things.
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcxMS84Mjc1">
+  <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+  </script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/ava.png"
+               alt="拾叁妖" />
+          <p class="site-author-name" itemprop="name">拾叁妖</p>
+          <p class="site-description motion-element" itemprop="description">奇变偶不变，符号看象限。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">69</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Altman29" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/5866547818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Simple-Factory-Pattern"><span class="nav-number">1.</span> <span class="nav-text">Simple Factory Pattern</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单工厂模式简介"><span class="nav-number">1.1.</span> <span class="nav-text">简单工厂模式简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">1.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用动机"><span class="nav-number">1.1.2.</span> <span class="nav-text">使用动机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单工厂模式结构"><span class="nav-number">1.2.</span> <span class="nav-text">简单工厂模式结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模式结构"><span class="nav-number">1.2.1.</span> <span class="nav-text">模式结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时序图"><span class="nav-number">1.2.2.</span> <span class="nav-text">时序图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单工厂使用实例"><span class="nav-number">1.3.</span> <span class="nav-text">简单工厂使用实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象产品Login"><span class="nav-number">1.3.1.</span> <span class="nav-text">抽象产品Login</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体产品DomainLogin"><span class="nav-number">1.3.2.</span> <span class="nav-text">具体产品DomainLogin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体产品PasswordLogin"><span class="nav-number">1.3.3.</span> <span class="nav-text">具体产品PasswordLogin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工厂类LoginManager"><span class="nav-number">1.3.4.</span> <span class="nav-text">工厂类LoginManager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试调用"><span class="nav-number">1.3.5.</span> <span class="nav-text">测试调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不使用简单工厂实现登录"><span class="nav-number">1.3.6.</span> <span class="nav-text">不使用简单工厂实现登录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单工厂模式的优缺点"><span class="nav-number">1.4.</span> <span class="nav-text">简单工厂模式的优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">1.4.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">1.4.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#适用环境"><span class="nav-number">1.5.</span> <span class="nav-text">适用环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Java中的应用"><span class="nav-number">1.6.</span> <span class="nav-text">在Java中的应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Factory-Method-Pattern"><span class="nav-number">2.</span> <span class="nav-text">Factory Method Pattern</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂方法模式简介"><span class="nav-number">2.1.</span> <span class="nav-text">工厂方法模式简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-1"><span class="nav-number">2.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用目的"><span class="nav-number">2.1.2.</span> <span class="nav-text">使用目的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂方法模式结构"><span class="nav-number">2.2.</span> <span class="nav-text">工厂方法模式结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模式结构-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">模式结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时序图-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">时序图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂方法模式使用实例"><span class="nav-number">2.3.</span> <span class="nav-text">工厂方法模式使用实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象产品接口ILight"><span class="nav-number">2.3.1.</span> <span class="nav-text">抽象产品接口ILight</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体的产品类BulbLight"><span class="nav-number">2.3.2.</span> <span class="nav-text">具体的产品类BulbLight</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体的产品类TubeLight"><span class="nav-number">2.3.3.</span> <span class="nav-text">具体的产品类TubeLight</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象的工厂类"><span class="nav-number">2.3.4.</span> <span class="nav-text">抽象的工厂类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体的工厂类BulbCreator"><span class="nav-number">2.3.5.</span> <span class="nav-text">具体的工厂类BulbCreator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体的工厂类TubeCreator"><span class="nav-number">2.3.6.</span> <span class="nav-text">具体的工厂类TubeCreator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端调用"><span class="nav-number">2.3.7.</span> <span class="nav-text">客户端调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂方法模式优缺点"><span class="nav-number">2.4.</span> <span class="nav-text">工厂方法模式优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-1"><span class="nav-number">2.4.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-1"><span class="nav-number">2.4.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#适用环境-1"><span class="nav-number">2.5.</span> <span class="nav-text">适用环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Java中的应用-1"><span class="nav-number">2.6.</span> <span class="nav-text">在Java中的应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Abstract-Factory-Patern"><span class="nav-number">3.</span> <span class="nav-text">Abstract Factory Patern</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象工程模式简介"><span class="nav-number">3.1.</span> <span class="nav-text">抽象工程模式简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-2"><span class="nav-number">3.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义阐述"><span class="nav-number">3.1.2.</span> <span class="nav-text">定义阐述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象工程模式结构"><span class="nav-number">3.2.</span> <span class="nav-text">抽象工程模式结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模式结构-2"><span class="nav-number">3.2.1.</span> <span class="nav-text">模式结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时序图-2"><span class="nav-number">3.2.2.</span> <span class="nav-text">时序图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象工厂的使用实例"><span class="nav-number">3.3.</span> <span class="nav-text">抽象工厂的使用实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象产品-苹果系列"><span class="nav-number">3.3.1.</span> <span class="nav-text">抽象产品:苹果系列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象产品-三星系列"><span class="nav-number">3.3.2.</span> <span class="nav-text">抽象产品:三星系列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体产品-iphone"><span class="nav-number">3.3.3.</span> <span class="nav-text">具体产品:iphone</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体产品-ipad"><span class="nav-number">3.3.4.</span> <span class="nav-text">具体产品:ipad</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体产品-note2"><span class="nav-number">3.3.5.</span> <span class="nav-text">具体产品:note2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体产品-tabs"><span class="nav-number">3.3.6.</span> <span class="nav-text">具体产品:tabs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象工厂"><span class="nav-number">3.3.7.</span> <span class="nav-text">抽象工厂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手机工厂"><span class="nav-number">3.3.8.</span> <span class="nav-text">手机工厂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pad工厂"><span class="nav-number">3.3.9.</span> <span class="nav-text">pad工厂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端调用-1"><span class="nav-number">3.3.10.</span> <span class="nav-text">客户端调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优缺点"><span class="nav-number">3.4.</span> <span class="nav-text">优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-2"><span class="nav-number">3.4.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-2"><span class="nav-number">3.4.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#适用环境-2"><span class="nav-number">3.5.</span> <span class="nav-text">适用环境</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Singleton-Pattern"><span class="nav-number">4.</span> <span class="nav-text">Singleton Pattern</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单例模式简介"><span class="nav-number">4.1.</span> <span class="nav-text">单例模式简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-3"><span class="nav-number">4.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">4.1.2.</span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建单例模式的方式"><span class="nav-number">4.2.</span> <span class="nav-text">创建单例模式的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#懒汉式，线程不安全"><span class="nav-number">4.2.1.</span> <span class="nav-text">懒汉式，线程不安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#懒汉式，线程安全"><span class="nav-number">4.2.2.</span> <span class="nav-text">懒汉式，线程安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双重检验锁"><span class="nav-number">4.2.3.</span> <span class="nav-text">双重检验锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#饿汉式"><span class="nav-number">4.2.4.</span> <span class="nav-text">饿汉式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态内部类"><span class="nav-number">4.2.5.</span> <span class="nav-text">静态内部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#枚举"><span class="nav-number">4.2.6.</span> <span class="nav-text">枚举</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单例分析"><span class="nav-number">4.3.</span> <span class="nav-text">单例分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Builder-Pattern"><span class="nav-number">5.</span> <span class="nav-text">Builder Pattern</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#建造者模式简介"><span class="nav-number">5.1.</span> <span class="nav-text">建造者模式简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建造者模式结构"><span class="nav-number">5.2.</span> <span class="nav-text">建造者模式结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时序图-3"><span class="nav-number">5.3.</span> <span class="nav-text">时序图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单实现"><span class="nav-number">5.4.</span> <span class="nav-text">简单实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android源码中体现"><span class="nav-number">5.5.</span> <span class="nav-text">Android源码中体现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优缺点-1"><span class="nav-number">5.6.</span> <span class="nav-text">优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-3"><span class="nav-number">5.6.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-3"><span class="nav-number">5.6.2.</span> <span class="nav-text">缺点</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">拾叁妖</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+  &nbsp;丨&nbsp;
+  <!-- 不蒜统计 -->
+  <span style="display: inline;" id="busuanzi_container_site_uv">本站总访客数 <span id="busuanzi_value_site_uv" font="微软雅黑"></span> 次</span>
+  &nbsp;丨&nbsp;
+  <span style="display: inline;" id="busuanzi_container_site_pv">本站总访问量 <span id="busuanzi_value_site_pv" font="微软雅黑"></span> 次</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("nfQNU5dFwiltiHNWVEeJeuFp-gzGzoHsz", "oANzCtO0CzmnL1JmWkHda5Dp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
