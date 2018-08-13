@@ -1,0 +1,993 @@
+<!doctype html>
+
+
+
+  
+
+<html class="theme-next mist use-motion">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Design Pattern,设计模式,Structural Pattern,Adapter Pattern,Facade Pattern,Wrapper Pattern,Proxy Pattern," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="结构型模式(Structural Pattern)描述如何将类或者对象结合在一起形成更大的结构，就像搭积木，可以通过简单积木的组合形成复杂的、功能更为强大的结构。
+结构型模式可以分为类结构型模式和对象结构型模式：
+类结构型模式关心类的组合，由多个类可以组合成一个更大的系统，在类结构型模式中一般只存在继承关系和实现关系。
+对象结构型模式关心类与对象的组合，通过关联关系使得在一 个类中定义另一个类的实">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Structural Pattern">
+<meta property="og:url" content="http://yoursite.com/2018/07/30/Structural-Pattern/index.html">
+<meta property="og:site_name" content="拾叁妖">
+<meta property="og:description" content="结构型模式(Structural Pattern)描述如何将类或者对象结合在一起形成更大的结构，就像搭积木，可以通过简单积木的组合形成复杂的、功能更为强大的结构。
+结构型模式可以分为类结构型模式和对象结构型模式：
+类结构型模式关心类的组合，由多个类可以组合成一个更大的系统，在类结构型模式中一般只存在继承关系和实现关系。
+对象结构型模式关心类与对象的组合，通过关联关系使得在一 个类中定义另一个类的实">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern001.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern002.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern003.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern004.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern005.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern006.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern007.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern008.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern009.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern010.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern011.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern012.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern013.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern014.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern015.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern016.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern017.jpg">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern018.jpg">
+<meta property="og:updated_time" content="2018-08-13T09:41:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Structural Pattern">
+<meta name="twitter:description" content="结构型模式(Structural Pattern)描述如何将类或者对象结合在一起形成更大的结构，就像搭积木，可以通过简单积木的组合形成复杂的、功能更为强大的结构。
+结构型模式可以分为类结构型模式和对象结构型模式：
+类结构型模式关心类的组合，由多个类可以组合成一个更大的系统，在类结构型模式中一般只存在继承关系和实现关系。
+对象结构型模式关心类与对象的组合，通过关联关系使得在一 个类中定义另一个类的实">
+<meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern001.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Structural Pattern | 拾叁妖 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">拾叁妖</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Structural Pattern
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-07-30T15:45:11+08:00" content="2018-07-30">
+              2018-07-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Design-Patterns/" itemprop="url" rel="index">
+                    <span itemprop="name">Design Patterns</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+          
+          
+             <span id="/2018/07/30/Structural-Pattern/" class="leancloud_visitors" data-flag-title="Structural Pattern">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>结构型模式(Structural Pattern)描述如何将类或者对象结合在一起形成更大的结构，就像搭积木，可以通过简单积木的组合形成复杂的、功能更为强大的结构。</p>
+<p>结构型模式可以分为类结构型模式和对象结构型模式：</p>
+<p><b>类结构型模式</b>关心类的组合，由多个类可以组合成一个更大的系统，在类结构型模式中一般只存在继承关系和实现关系。</p>
+<p><b>对象结构型模式</b>关心类与对象的组合，通过关联关系使得在一 个类中定义另一个类的实例对象，然后通过该对象调用其方法。 根据“合成复用原则”，在系统中尽量使用关联关系来替代继 承关系，因此大部分结构型模式都是对象结构型模式。</p>
+<a id="more"></a>
+<h1 id="Adapter-Pattern"><a href="#Adapter-Pattern" class="headerlink" title="Adapter Pattern"></a>Adapter Pattern</h1><h2 id="适配器模式简介"><a href="#适配器模式简介" class="headerlink" title="适配器模式简介"></a>适配器模式简介</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>适配器模式把一个类的接口变换成客户端所期待的另一种接口，从而使原本因接口不匹配而无法在一起工作的两个类能够在一起工作。</p>
+<h3 id="定义分析"><a href="#定义分析" class="headerlink" title="定义分析"></a>定义分析</h3><p>适配器提供客户类需要的接口，适配器的实现就是把客户类的请求转化为对适配者的相应接口的调用。也就是说：当客户类调用适配器的方法时，在适配器类的内部将调用适配者类的方法，而这个过程对客户类是透明的，客户类并不直接访问适配者类。因此，适配器可以使由于接口不兼容而不能交互的类可以一起工作。这就是适配器模式的模式动机。</p>
+<p>例如：用电器做例子，笔记本电脑的插头一般都是三相的，即除了阳极、阴极外，还有一个地极。而有些地方的电源插座却只有两极，没有地极。电源插座与笔记本电脑的电源插头不匹配使得笔记本电脑无法使用。这时候一个三相到两相的转换器（适配器）就能解决此问题，而这正像是本模式所做的事情。</p>
+<h2 id="适配器模式结构"><a href="#适配器模式结构" class="headerlink" title="适配器模式结构"></a>适配器模式结构</h2><p>适配器模式有<b>类适配器模式</b>和<b>对象适配器模式</b>两种不同的形式。</p>
+<h3 id="类适配器模式"><a href="#类适配器模式" class="headerlink" title="类适配器模式"></a>类适配器模式</h3><p>类的适配器模式把适配的类的API转换成为目标类的API。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern001.png" alt=""></p>
+<p>在上图中可以看出，Adaptee类并没有sampleOperation2()方法，而客户端则期待这个方法。为使客户端能够使用Adaptee类，提供一个中间环节，即类Adapter，把Adaptee的API与Target类的API衔接起来。Adapter与Adaptee是继承关系，这决定了这个适配器模式是类的。</p>
+<p>模式所涉及的<b>角色</b>有：</p>
+<p><b>*目标(Target)角色</b>：这就是所期待得到的接口。注意：由于这里讨论的是类适配器模式，因此目标不可以是类。</p>
+<p><b>*源(Adapee)角色</b>：现在需要适配的接口。</p>
+<p><b>*适配器(Adaper)角色</b>：适配器类是本模式的核心。适配器把源接口转换成目标接口。显然，这一角色不可以是接口，而必须是具体类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Target</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 这是源类Adaptee也有的方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sampleOperation1</span><span class="params">()</span></span>; </div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 这是源类Adapteee没有的方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sampleOperation2</span><span class="params">()</span></span>; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面给出的是目标角色的源代码，这个角色是以一个JAVA接口的形式实现的。可以看出，这个接口声明了两个方法：sampleOperation1()和sampleOperation2()。而源角色Adaptee是一个具体类，它有一个sampleOperation1()方法，但是没有sampleOperation2()方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Adaptee</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sampleOperation1</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>适配器角色Adapter扩展了Adaptee,同时又实现了目标(Target)接口。由于Adaptee没有提供sampleOperation2()方法，而目标接口又要求这个方法，因此适配器角色Adapter实现了这个方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Adapter</span> <span class="keyword">extends</span> <span class="title">Adaptee</span> <span class="keyword">implements</span> <span class="title">Target</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 由于源类Adaptee没有方法sampleOperation2()</div><div class="line">     * 因此适配器补充上这个方法</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sampleOperation2</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//写相关的代码</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="对象适配器模式"><a href="#对象适配器模式" class="headerlink" title="对象适配器模式"></a>对象适配器模式</h3><p>与类的适配器模式一样，对象的适配器模式把被适配的类的API转换成为目标类的API，与类的适配器模式不同的是，对象的适配器模式不是使用继承关系连接到Adaptee类，而是使用委派关系连接到Adaptee类。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern002.png" alt=""></p>
+<p>从上图可以看出，Adaptee类并没有sampleOperation2()方法，而客户端则期待这个方法。为使客户端能够使用Adaptee类，需要提供一个包装(Wrapper)类Adapter。这个包装类包装了一个Adaptee的实例，从而此包装类能够把Adaptee的API与Target类的API衔接起来。Adapter与Adaptee是委派关系，这决定了适配器模式是对象的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Target</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 这是源类Adaptee也有的方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sampleOperation1</span><span class="params">()</span></span>; </div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 这是源类Adapteee没有的方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sampleOperation2</span><span class="params">()</span></span>; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Adaptee</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sampleOperation1</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Adapter</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Adaptee adaptee;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Adapter</span><span class="params">(Adaptee adaptee)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.adaptee = adaptee;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 源类Adaptee有方法sampleOperation1</div><div class="line">     * 因此适配器类直接委派即可</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sampleOperation1</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.adaptee.sampleOperation1();</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 源类Adaptee没有方法sampleOperation2</div><div class="line">     * 因此由适配器类需要补充此方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sampleOperation2</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="comment">//写相关的代码</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="时序图"><a href="#时序图" class="headerlink" title="时序图"></a>时序图</h3><p><img src="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern003.png" alt=""></p>
+<h2 id="类适配器和对象适配器的权衡"><a href="#类适配器和对象适配器的权衡" class="headerlink" title="类适配器和对象适配器的权衡"></a>类适配器和对象适配器的权衡</h2><p>*类适配器使用对象继承的方式，是静态的定义方式；而对象适配器使用对象组合的方式，是动态组合的方式。</p>
+<p>*对于类适配器，由于适配器直接继承了Adaptee，使得适配器不能和Adaptee的子类一起工作，因为继承是静态的关系，当适配器继承了Adaptee后，就不可能再去处理 Adaptee的子类了。</p>
+<p>*对于对象适配器，一个适配器可以把多种不同的源适配到同一个目标。换言之，同一个适配器可以把源类和它的子类都适配到目标接口。因为对象适配器采用的是对象组合的关系，只要对象类型正确，是不是子类都无所谓。</p>
+<p>*对于类适配器，适配器可以重定义Adaptee的部分行为，相当于子类覆盖父类的部分实现方法。</p>
+<p>*对于对象适配器，要重定义Adaptee的行为比较困难，这种情况下，需要定义Adaptee的子类来实现重定义，然后让适配器组合子类。虽然重定义Adaptee的行为比较困难，但是想要增加一些新的行为则方便的很，而且新增加的行为可同时适用于所有的源。</p>
+<p>*对于类适配器，仅仅引入了一个对象，并不需要额外的引用来间接得到Adaptee。</p>
+<p>*对于对象适配器，需要额外的引用来间接得到Adaptee。</p>
+<p><b>建议尽量使用对象适配器的实现方式，多用合成/聚合、少用继承。当然，具体问题具体分析，根据需要来选用实现方式，最适合的才是最好的。</b></p>
+<h2 id="缺省适配器"><a href="#缺省适配器" class="headerlink" title="缺省适配器"></a>缺省适配器</h2><p>缺省适配(Default Adapter)模式为一个接口提供缺省实现，这样子类型可以从这个缺省实现进行扩展，而不必从原有接口进行扩展。</p>
+<p>当不需要全部实现接口提供的方法时，可先设计一个抽象类实现接口，并为该接口中每个方法提供一个默认实现（空方法），那么该抽象类的子类可有选择地覆盖父类的某些方法来实现需求，它适用于一个接口不想使用其所有的方法的情况。</p>
+<h2 id="Java中适配器模式的使用"><a href="#Java中适配器模式的使用" class="headerlink" title="Java中适配器模式的使用"></a>Java中适配器模式的使用</h2><p>JDK1.1 之前提供的容器有 Arrays,Vector,Stack,Hashtable,Properties,BitSet，其中定义了一种访问群集内各元素的标准方式，称为 Enumeration（列举器）接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Vector v=<span class="keyword">new</span> Vector();</div><div class="line"><span class="keyword">for</span> (Enumeration <span class="keyword">enum</span> =v.elements(); <span class="keyword">enum</span>.hasMoreElements();) &#123;</div><div class="line">  Object o = <span class="keyword">enum</span>.nextElement();</div><div class="line">  processObject(o);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>JDK1.2 版本中引入了 Iterator 接口，新版本的集合对（HashSet,HashMap,WeakHeahMap,ArrayList,TreeSet,TreeMap, LinkedList）是通过 Iterator 接口访问集合元素。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">List list=<span class="keyword">new</span> ArrayList();</div><div class="line"><span class="keyword">for</span>(Iterator it=list.iterator();it.hasNext();)&#123;</div><div class="line">   System.out.println(it.next());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样，如果将老版本的程序运行在新的 Java 编译器上就会出错。因为 List 接口中已经没有 elements()，而只有 iterator() 了。那么如何将老版本的程序运行在新的 Java 编译器上呢? 如果不加修改，是肯定不行的，但是修改要遵循“开－闭”原则。我们可以用 Java 设计模式中的适配器模式解决这个问题。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NewEnumeration</span> <span class="keyword">implements</span> <span class="title">Enumeration</span> </span>&#123;</div><div class="line">    Iterator it;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NewEnumeration</span><span class="params">(Iterator it)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.it = it;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasMoreElements</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> it.hasNext();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">nextElement</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> it.next();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        List list = <span class="keyword">new</span> ArrayList();</div><div class="line">        list.add(<span class="string">"a"</span>);</div><div class="line">        list.add(<span class="string">"b"</span>);</div><div class="line">        list.add(<span class="string">"C"</span>);</div><div class="line">        <span class="keyword">for</span> (Enumeration e = <span class="keyword">new</span> NewEnumeration(list.iterator()); e.hasMoreElements(); ) &#123;</div><div class="line">            System.out.println(e.nextElement());</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>NewEnumeration 是一个适配器类，通过它实现了从 Iterator 接口到 Enumeration 接口的适配，这样我们就可以使用老版本的代码来使用新的集合对象了。</p>
+<h2 id="Android中适配器模式的使用"><a href="#Android中适配器模式的使用" class="headerlink" title="Android中适配器模式的使用"></a>Android中适配器模式的使用</h2><p>在开发过程中,ListView的Adapter是我们最为常见的类型之一。一般的用法大致如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 代码省略</span></div><div class="line"> ListView myListView = (ListView) findViewById(listview_id);</div><div class="line"><span class="comment">// 设置适配器</span></div><div class="line"> myListView.setAdapter(<span class="keyword">new</span> MyAdapter(context,myDatas));</div><div class="line"></div><div class="line"><span class="comment">// 适配器</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAdapter</span> <span class="keyword">extends</span> <span class="title">BaseAdapter</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> LayoutInflater mInflater;</div><div class="line">    List&lt;String&gt; mDatas;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyAdapter</span><span class="params">(Context context, List&lt;String&gt; datas)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.mInflater = LayoutInflater.from(context);</div><div class="line">        mDatas = datas;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getCount</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mDatas.size();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getItem</span><span class="params">(<span class="keyword">int</span> pos)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> mDatas.get(pos);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">getItemId</span><span class="params">(<span class="keyword">int</span> pos)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> pos;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 解析、设置、缓存convertView以及相关内容</span></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> View <span class="title">getView</span><span class="params">(<span class="keyword">int</span> position, View convertView, ViewGroup parent)</span> </span>&#123;</div><div class="line">        ViewHolder holder = <span class="keyword">null</span>;</div><div class="line">        <span class="comment">// Item View的复用</span></div><div class="line">        <span class="keyword">if</span> (convertView == <span class="keyword">null</span>) &#123;</div><div class="line">            holder = <span class="keyword">new</span> ViewHolder();</div><div class="line">            convertView = mInflater.inflate(R.layout.my_listview_item, <span class="keyword">null</span>);</div><div class="line">            <span class="comment">// 获取title</span></div><div class="line">            holder.title = (TextView) convertView.findViewById(R.id.title);</div><div class="line">            convertView.setTag(holder);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            holder = (ViewHolder) convertView.getTag();</div><div class="line">        &#125;</div><div class="line">        holder.title.setText(mDatas.get(position));</div><div class="line">        <span class="keyword">return</span> convertView;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们知道，作为最重要的View，ListView需要能够显示各式各样的视图，每个人需要的显示效果各不相同，显示的数据类型、数量等也千变万化。那么如何隔离这种变化尤为重要。</p>
+<p>Android的做法是增加一个Adapter层来应对变化，<b>将ListView需要的接口抽象到Adapter对象中，这样只要用户实现了Adapter的接口，ListView就可以按照用户设定的显示效果、数量、数据来显示特定的Item View。</b></p>
+<p>通过代理数据集来告知ListView数据的个数( getCount函数 )以及每个数据的类型( getItem函数 )，最重要的是要解决Item View的输出。Item View千变万化，但终究它都是View类型，Adapter统一将Item View输出为View ( getView函数 )，这样就很好的应对了Item View的可变性。</p>
+<p>那么ListView是如何通过Adapter模式 ( 不止Adapter模式 )来运作的呢 ？我们一起来看一看。<br>ListView继承自AbsListView，Adapter定义在AbsListView中，我们看一看这个类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbsListView</span> <span class="keyword">extends</span> <span class="title">AdapterView</span>&lt;<span class="title">ListAdapter</span>&gt;</span></div><div class="line">        <span class="keyword">implements</span> <span class="title">TextWatcher</span>,</div><div class="line">        <span class="title">ViewTreeObserver</span>.<span class="title">OnGlobalLayoutListener</span>, <span class="title">Filter</span>.<span class="title">FilterListener</span>,</div><div class="line">        <span class="title">ViewTreeObserver</span>.<span class="title">OnTouchModeChangeListener</span>,</div><div class="line">        <span class="title">RemoteViewsAdapter</span>.<span class="title">RemoteAdapterConnectionCallback</span> &#123;</div><div class="line"></div><div class="line">    ListAdapter mAdapter;</div><div class="line"></div><div class="line">    <span class="comment">// 关联到Window时调用的函数</span></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onAttachedToWindow</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onAttachedToWindow();</div><div class="line">        <span class="comment">// 代码省略</span></div><div class="line">        <span class="comment">// 给适配器注册一个观察者。</span></div><div class="line">        <span class="keyword">if</span> (mAdapter != <span class="keyword">null</span>&amp;&amp;</div><div class="line">        mDataSetObserver == <span class="keyword">null</span>)&#123;</div><div class="line">            mDataSetObserver = <span class="keyword">new</span> AdapterDataSetObserver();</div><div class="line">            mAdapter.registerDataSetObserver(mDataSetObserver);</div><div class="line"></div><div class="line">            <span class="comment">// Data may have changed while we were detached. Refresh.</span></div><div class="line">            mDataChanged = <span class="keyword">true</span>;</div><div class="line">            mOldItemCount = mItemCount</div><div class="line">            <span class="comment">// 获取Item的数量,调用的是mAdapter的getCount方法</span></div><div class="line">            mItemCount = mAdapter.getCount();</div><div class="line">        &#125;</div><div class="line">        mIsAttached = <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 子类需要覆写layoutChildren()函数来布局child view,也就是Item View</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onLayout</span><span class="params">(<span class="keyword">boolean</span> changed, <span class="keyword">int</span> l, <span class="keyword">int</span> t, <span class="keyword">int</span> r, <span class="keyword">int</span> b)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onLayout(changed, l, t, r, b);</div><div class="line">        mInLayout = <span class="keyword">true</span>;</div><div class="line">        <span class="keyword">if</span> (changed) &#123;</div><div class="line">            <span class="keyword">int</span> childCount = getChildCount();</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;childCount; i++) &#123;</div><div class="line">                getChildAt(i).forceLayout();</div><div class="line">            &#125;</div><div class="line">            mRecycler.markChildrenDirty();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (mFastScroller != <span class="keyword">null</span>&amp;&amp;</div><div class="line">        mItemCount != mOldItemCount)&#123;</div><div class="line">            mFastScroller.onItemCountChanged(mOldItemCount, mItemCount);</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 布局Child View</span></div><div class="line">        layoutChildren();</div><div class="line">        mInLayout = <span class="keyword">false</span>;</div><div class="line"></div><div class="line">        mOverscrollMax = (b - t) / OVERSCROLL_LIMIT_DIVISOR;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 获取一个Item View</span></div><div class="line">    <span class="function">View <span class="title">obtainView</span><span class="params">(<span class="keyword">int</span> position, <span class="keyword">boolean</span>[] isScrap)</span> </span>&#123;</div><div class="line">        isScrap[<span class="number">0</span>] = <span class="keyword">false</span>;</div><div class="line">        View scrapView;</div><div class="line">        <span class="comment">// 从缓存的Item View中获取,ListView的复用机制就在这里</span></div><div class="line">        scrapView = mRecycler.getScrapView(position);</div><div class="line"></div><div class="line">        View child;</div><div class="line">        <span class="keyword">if</span> (scrapView != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="comment">// 代码省略</span></div><div class="line">            child = mAdapter.getView(position, scrapView, <span class="keyword">this</span>);</div><div class="line">            <span class="comment">// 代码省略</span></div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            child = mAdapter.getView(position, <span class="keyword">null</span>, <span class="keyword">this</span>);</div><div class="line">            <span class="comment">// 代码省略</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> child;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>通过增加Adapter一层来将Item View的操作抽象起来，ListView等集合视图通过Adapter对象获得Item的个数、数据元素、Item View等，从而达到适配各种数据、各种Item视图的效果。</p>
+<p>因为Item View和数据类型千变万化，Android的架构师们将这些变化的部分交给用户来处理，通过getCount、getItem、getView等几个方法抽象出来，也就是将Item View的构造过程交给用户来处理，灵活地运用了适配器模式，达到了无限适配、拥抱变化的目的。</p>
+<h2 id="适配器模式的优缺点"><a href="#适配器模式的优缺点" class="headerlink" title="适配器模式的优缺点"></a>适配器模式的优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><h4 id="更好的复用性"><a href="#更好的复用性" class="headerlink" title="更好的复用性"></a>更好的复用性</h4><p>系统需要使用现有的类，而此类的接口不符合系统的需要。那么通过适配器模式就可以让这些功能得到更好的复用。</p>
+<h4 id="更好的扩展性"><a href="#更好的扩展性" class="headerlink" title="更好的扩展性"></a>更好的扩展性</h4><p>在实现适配器功能的时候，可以调用自己开发的功能，从而自然地扩展系统的功能。</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>过多的使用适配器，会让系统非常零乱，不易整体进行把握。比如，明明看到调用的是A接口，其实内部被适配成了B接口的实现，一个系统如果太多出现这种情况，无异于一场灾难。因此如果不是很有必要，可以不使用适配器，而是直接对系统进行重构。</p>
+<hr>
+<hr>
+<h1 id="Facade-Pattern"><a href="#Facade-Pattern" class="headerlink" title="Facade Pattern"></a>Facade Pattern</h1><h2 id="外观模式简介"><a href="#外观模式简介" class="headerlink" title="外观模式简介"></a>外观模式简介</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>外观模式(Facade Pattern)：外部与一个子系统的通信必须通过一个统一的外观对象进行，为子系统中的一组接口提供一个一致的界面，外观模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。外观模式又称为门面模式，它是一种对象结构型模式。</p>
+<h3 id="定义阐述"><a href="#定义阐述" class="headerlink" title="定义阐述"></a>定义阐述</h3><p>医院的例子</p>
+<p>现代的软件系统都是比较复杂的，设计师处理复杂系统的一个常见方法便是将其“分而治之”，把一个系统划分为几个较小的子系统。如果把医院作为一个子系统，按照部门职能，这个系统可以划分为挂号、门诊、划价、化验、收费、取药等。看病的病人要与这些部门打交道，就如同一个子系统的客户端与一个子系统的各个类打交道一样，不是一件容易的事情。</p>
+<p>首先病人必须先挂号，然后门诊。如果医生要求化验，病人必须首先划价，然后缴费，才可以到化验部门做化验。化验后再回到门诊室。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern004.png" alt=""></p>
+<p>上图描述的是病人在医院里的体验，图中的方框代表医院。</p>
+<p>解决这种不便的方法便是引进外观模式，医院可以设置一个接待员的位置，由接待员负责代为挂号、划价、缴费、取药等。这个接待员就是外观模式的体现，病人只接触接待员，由接待员与各个部门打交道。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern005.png" alt=""></p>
+<h2 id="外观模式结构"><a href="#外观模式结构" class="headerlink" title="外观模式结构"></a>外观模式结构</h2><p>外观模式没有一个一般化的类图描述，最好的描述方法实际上就是以一个例子说明。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern006.png" alt=""></p>
+<p>由于门面模式的结构图过于抽象，因此把它稍稍具体点。假设子系统内有三个模块，分别是ModuleA、ModuleB和ModuleC，它们分别有一个示例方法，那么此时示例的整体结构图如下：</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern007.png" alt=""></p>
+<h3 id="结构描述"><a href="#结构描述" class="headerlink" title="结构描述"></a>结构描述</h3><p>在这个对象图中，出现了两个<b>角色</b>：<br><b>外观(Facade)角色</b> ：客户端可以调用这个角色的方法。此角色知晓相关的（一个或者多个）子系统的功能和责任。在正常情况下，本角色会将所有从客户端发来的请求委派到相应的子系统去。</p>
+<p><b>子系统(SubSystem)角色</b> ：可以同时有一个或者多个子系统。每个子系统都不是一个单独的类，而是一个类的集合（如上面的子系统就是由ModuleA、ModuleB、ModuleC三个类组合而成）。每个子系统都可以被客户端直接调用，或者被门面角色调用。子系统并不知道门面的存在，对于子系统而言，门面仅仅是另外一个客户端而已。</p>
+<h3 id="时序图-1"><a href="#时序图-1" class="headerlink" title="时序图"></a>时序图</h3><p><img src="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern008.png" alt=""></p>
+<h3 id="子系统角色中的类"><a href="#子系统角色中的类" class="headerlink" title="子系统角色中的类"></a>子系统角色中的类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ModuleA</span> </span>&#123;</div><div class="line">    <span class="comment">//示意方法</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testA</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"调用ModuleA中的testA方法"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ModuleB</span> </span>&#123;</div><div class="line">    <span class="comment">//示意方法</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testB</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"调用ModuleB中的testB方法"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ModuleC</span> </span>&#123;</div><div class="line">    <span class="comment">//示意方法</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testC</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"调用ModuleC中的testC方法"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="外观角色类"><a href="#外观角色类" class="headerlink" title="外观角色类"></a>外观角色类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Facade</span> </span>&#123;</div><div class="line">    <span class="comment">//示意方法，满足客户端需要的功能</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</div><div class="line">        ModuleA a = <span class="keyword">new</span> ModuleA();</div><div class="line">        a.testA();</div><div class="line">        ModuleB b = <span class="keyword">new</span> ModuleB();</div><div class="line">        b.testB();</div><div class="line">        ModuleC c = <span class="keyword">new</span> ModuleC();</div><div class="line">        c.testC();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="客户端角色类"><a href="#客户端角色类" class="headerlink" title="客户端角色类"></a>客户端角色类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line"></div><div class="line">        Facade facade = <span class="keyword">new</span> Facade();</div><div class="line">        facade.test();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Facade类其实相当于A、B、C模块的外观界面，有了这个Facade类，那么客户端就不需要亲自调用子系统中的A、B、C模块了，也不需要知道系统内部的实现细节，甚至都不需要知道A、B、C模块的存在，客户端只需要跟Facade类交互就好了，从而更好地实现了客户端和子系统中A、B、C模块的解耦，让客户端更容易地使用系统。</p>
+<h2 id="外观模式扩展"><a href="#外观模式扩展" class="headerlink" title="外观模式扩展"></a>外观模式扩展</h2><p><b>使用外观模式还有一个附带的好处，就是能够有选择性地暴露方法。</b>一个模块中定义的方法可以分成两部分，一部分是给子系统外部使用的，一部分是子系统内部模块之间相互调用时使用的。有了Facade类，那么用于子系统内部模块之间相互调用的方法就不用暴露给子系统外部了。</p>
+<p>比如，定义如下A、B、C模块。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ModuleA</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 提供给子系统外部使用的方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">a1</span><span class="params">()</span></span>&#123;&#125;;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 子系统内部模块之间相互调用时使用的方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">a2</span><span class="params">()</span></span>&#123;&#125;;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">a3</span><span class="params">()</span></span>&#123;&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ModuleB</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 提供给子系统外部使用的方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">b1</span><span class="params">()</span></span>&#123;&#125;;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 子系统内部模块之间相互调用时使用的方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">b2</span><span class="params">()</span></span>&#123;&#125;;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">b3</span><span class="params">()</span></span>&#123;&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ModuleC</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 提供给子系统外部使用的方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">c1</span><span class="params">()</span></span>&#123;&#125;;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 子系统内部模块之间相互调用时使用的方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">c2</span><span class="params">()</span></span>&#123;&#125;;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">c3</span><span class="params">()</span></span>&#123;&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ModuleFacade</span> </span>&#123;</div><div class="line"></div><div class="line">    ModuleA a = <span class="keyword">new</span> ModuleA();</div><div class="line">    ModuleB b = <span class="keyword">new</span> ModuleB();</div><div class="line">    ModuleC c = <span class="keyword">new</span> ModuleC();</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 下面这些是A、B、C模块对子系统外部提供的方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">a1</span><span class="params">()</span></span>&#123;</div><div class="line">        a.a1();</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">b1</span><span class="params">()</span></span>&#123;</div><div class="line">        b.b1();</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">c1</span><span class="params">()</span></span>&#123;</div><div class="line">        c.c1();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样定义一个ModuleFacade类可以有效地屏蔽内部的细节，免得客户端去调用Module类时，发现一些不需要它知道的方法。比如a2()和a3()方法就不需要让客户端知道，否则既暴露了内部的细节，又让客户端迷惑。</p>
+<p>*一个系统可以有几个外观类</p>
+<p>在外观模式中，通常只需要一个外观类，并且此外观类只有一个实例，换言之它是一个单例类。当然这并不意味着在整个系统里只有一个外观类，而仅仅是说对每一个子系统只有一个外观类。或者说，如果一个系统有好几个子系统的话，每一个子系统都有一个外观类，整个系统可以有数个外观类。</p>
+<p>*为子系统增加新行为</p>
+<p>初学者往往以为通过继承一个外观类便可在子系统中加入新的行为，这是错误的。外观模式的用意是为子系统提供一个集中化和简化的沟通管道，而不能向子系统加入新的行为。比如医院中的接待员并不是医护人员，接待员并不能为病人提供医疗服务。</p>
+<h2 id="外观模式实例"><a href="#外观模式实例" class="headerlink" title="外观模式实例"></a>外观模式实例</h2><h3 id="实例说明"><a href="#实例说明" class="headerlink" title="实例说明"></a>实例说明</h3><p>某软件公司欲开发一个可应用于多个软件的文件加密模块，<b>该模块可以对文件中的数据进行加密并将加密之后的数据存储在一个新文件中，具体的流程包括三个部分，分别是读取源文件、加密、保存加密之后的文件</b>，其中，读取文件和保存文件使用流来实现，加密操作通过求模运算实现。这三个操作相对独立，为了实现代码的独立重用，让设计更符合单一职责原则，这三个操作的业务代码封装在三个不同的类中。</p>
+<h3 id="实例类图"><a href="#实例类图" class="headerlink" title="实例类图"></a>实例类图</h3><p><img src="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern009.png" alt=""></p>
+<p>EncryptFacade充当外观类，FileReader、CipherMachine和FileWriter充当子系统类。</p>
+<h3 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h3><h4 id="FileReader"><a href="#FileReader" class="headerlink" title="FileReader"></a>FileReader</h4><p>文件读取类，充当子系统类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileReader</span>  </span>&#123;  </div><div class="line">	<span class="function"><span class="keyword">public</span> string <span class="title">Read</span><span class="params">(string fileNameSrc)</span></span>&#123;  </div><div class="line">		Console.Write(<span class="string">"读取文件，获取明文："</span>);  </div><div class="line">		FileStream fs = <span class="keyword">null</span>;  </div><div class="line">		StringBuilder sb = <span class="keyword">new</span> StringBuilder();  </div><div class="line">		<span class="keyword">try</span>  &#123;  </div><div class="line">			fs = <span class="keyword">new</span> FileStream(fileNameSrc, FileMode.Open);  </div><div class="line">			<span class="keyword">int</span> data;  </div><div class="line">			<span class="keyword">while</span>((data = fs.ReadByte())!= -<span class="number">1</span>)&#123;  </div><div class="line">				sb = sb.Append((<span class="keyword">char</span>)data);  </div><div class="line">			&#125;  </div><div class="line">			fs.Close();  </div><div class="line">			Console.WriteLine(sb.ToString());  </div><div class="line">		&#125;  </div><div class="line">		<span class="keyword">catch</span>(FileNotFoundException e)&#123;  </div><div class="line">			Console.WriteLine(<span class="string">"文件不存在！"</span>);  </div><div class="line">		&#125;  </div><div class="line">		<span class="keyword">catch</span>(IOException e)&#123;  </div><div class="line">			Console.WriteLine(<span class="string">"文件操作错误！"</span>);  </div><div class="line">		&#125;  </div><div class="line">		<span class="keyword">return</span> sb.ToString();  </div><div class="line">	&#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="CipherMachine"><a href="#CipherMachine" class="headerlink" title="CipherMachine"></a>CipherMachine</h4><p>数据加密类，充当子系统类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">CipherMachine</span></span>&#123;  </div><div class="line">	<span class="function"><span class="keyword">public</span> string <span class="title">Encrypt</span><span class="params">(string plainText)</span> </span>&#123;  </div><div class="line">		Console.Write(<span class="string">"数据加密，将明文转换为密文："</span>);  </div><div class="line">		string es = <span class="string">""</span>;  </div><div class="line">		<span class="keyword">char</span>[] chars = plainText.ToCharArray();  </div><div class="line">		foreach(<span class="keyword">char</span> ch in chars)&#123;  </div><div class="line">			string c = (ch % <span class="number">7</span>).ToString();  </div><div class="line">			es += c;  </div><div class="line">		&#125;  </div><div class="line">		Console.WriteLine(es);  </div><div class="line">		<span class="keyword">return</span> es;  </div><div class="line">	&#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="FileWriter"><a href="#FileWriter" class="headerlink" title="FileWriter"></a>FileWriter</h4><p>文件保存类，充当子系统类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileWriter</span></span>&#123;  </div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Write</span><span class="params">(string encryptStr,string fileNameDes)</span></span>&#123;  </div><div class="line">		Console.WriteLine(<span class="string">"保存密文，写入文件。"</span>);  </div><div class="line">		FileStream fs = <span class="keyword">null</span>;  </div><div class="line">		<span class="keyword">try</span>&#123;  </div><div class="line">			fs = <span class="keyword">new</span> FileStream(fileNameDes, FileMode.Create);  </div><div class="line">			<span class="keyword">byte</span>[] str = Encoding.Default.GetBytes(encryptStr);  </div><div class="line">			fs.Write(str,<span class="number">0</span>,str.Length);  </div><div class="line">			fs.Flush();  </div><div class="line">			fs.Close();  </div><div class="line">		&#125;      </div><div class="line">		<span class="keyword">catch</span>(FileNotFoundException e) &#123;  </div><div class="line">			Console.WriteLine(<span class="string">"文件不存在！"</span>);  </div><div class="line">		&#125;  </div><div class="line">		<span class="keyword">catch</span>(IOException e)&#123;  </div><div class="line">			Console.WriteLine(e.Message);  </div><div class="line">			Console.WriteLine(<span class="string">"文件操作错误！"</span>);  </div><div class="line">		&#125;          </div><div class="line">	&#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="EncryptFacade"><a href="#EncryptFacade" class="headerlink" title="EncryptFacade"></a>EncryptFacade</h4><p>加密外观类，充当外观类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">EncryptFacade</span> </span>&#123;  </div><div class="line">	<span class="comment">//维持对其他对象的引用  </span></div><div class="line">	<span class="keyword">private</span> FileReader reader;  </div><div class="line">	<span class="keyword">private</span> CipherMachine cipher;  </div><div class="line">	<span class="keyword">private</span> FileWriter writer;  </div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">EncryptFacade</span><span class="params">()</span></span>&#123;  </div><div class="line">		reader = <span class="keyword">new</span> FileReader();  </div><div class="line">		cipher = <span class="keyword">new</span> CipherMachine();  </div><div class="line">		writer = <span class="keyword">new</span> FileWriter();  </div><div class="line">	&#125;  </div><div class="line"></div><div class="line">	<span class="comment">//调用其他对象的业务方法  </span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">FileEncrypt</span><span class="params">(string fileNameSrc, string fileNameDes)</span></span>&#123;  </div><div class="line">		string plainStr = reader.Read(fileNameSrc);  </div><div class="line">		string encryptStr = cipher.Encrypt(plainStr);  </div><div class="line">		writer.Write(encryptStr, fileNameDes);  </div><div class="line">	&#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Program"><a href="#Program" class="headerlink" title="Program"></a>Program</h4><p>客户端测试类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Program</span></span>&#123;  </div><div class="line">	<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span><span class="params">(string[] args)</span></span>&#123;  </div><div class="line">		EncryptFacade ef = <span class="keyword">new</span> EncryptFacade();  </div><div class="line">		ef.FileEncrypt(<span class="string">"src.txt"</span>, <span class="string">"des.txt"</span>);  </div><div class="line">		Console.Read();  </div><div class="line">	&#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="外观模式的优点"><a href="#外观模式的优点" class="headerlink" title="外观模式的优点"></a>外观模式的优点</h2><h3 id="松散耦合"><a href="#松散耦合" class="headerlink" title="松散耦合"></a>松散耦合</h3><p>外观模式松散了客户端与子系统的耦合关系，让子系统内部的模块能更容易扩展和维护。</p>
+<h3 id="简单易用"><a href="#简单易用" class="headerlink" title="简单易用"></a>简单易用</h3><p>外观模式让子系统更加易用，客户端不再需要了解子系统内部的实现，也不需要跟众多子系统内部的模块进行交互，只需要跟外观类交互就可以了。</p>
+<h3 id="更好的划分访问层次"><a href="#更好的划分访问层次" class="headerlink" title="更好的划分访问层次"></a>更好的划分访问层次</h3><p>通过合理使用Facade，可以帮助我们更好地划分访问的层次。有些方法是对系统外的，有些方法是系统内部使用的。把需要暴露给外部的功能集中到外观中，这样既方便客户端使用，也很好地隐藏了内部的细节。</p>
+<hr>
+<hr>
+<h1 id="Wrapper-Pattern"><a href="#Wrapper-Pattern" class="headerlink" title="Wrapper Pattern"></a>Wrapper Pattern</h1><h2 id="装饰者模式简介"><a href="#装饰者模式简介" class="headerlink" title="装饰者模式简介"></a>装饰者模式简介</h2><p>装饰者模式又名包装(Wrapper)模式。装饰者模式以对客户端透明的方式扩展对象的功能，是继承关系的一个替代方案。</p>
+<p>装饰者模式动态地将责任附加到对象身上。若要扩展功能，装饰者提供了比继承更有弹性的替代方案。</p>
+<h2 id="装饰者模式结构"><a href="#装饰者模式结构" class="headerlink" title="装饰者模式结构"></a>装饰者模式结构</h2><p>装饰者模式以对客户透明的方式动态地给一个对象附加上更多的责任。换言之，客户端并不会觉得对象在装饰前和装饰后有什么不同。装饰者模式可以在不使用创造更多子类的情况下，将对象的功能加以扩展。</p>
+<p>装饰者模式的类图如下：</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern010.png" alt=""></p>
+<p>在装饰模式中的<b>角色</b>有：</p>
+<p><b>*抽象构件(Component)角色</b>：给出一个抽象接口，以规范准备接收附加责任的对象。</p>
+<p><b>*具体构件(ConcreteComponent)角色</b>：定义一个将要接收附加责任的类。</p>
+<p><b>*装饰(Decorator)角色</b>：持有一个构件(Component)对象的实例，并定义一个与抽象构件接口一致的接口。</p>
+<p><b>*具体装饰(ConcreteDecorator)角色</b>：负责给构件对象“贴上”附加的责任。</p>
+<h3 id="抽象构件角色"><a href="#抽象构件角色" class="headerlink" title="抽象构件角色"></a>抽象构件角色</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Component</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sampleOperation</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="具体构件角色"><a href="#具体构件角色" class="headerlink" title="具体构件角色"></a>具体构件角色</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteComponent</span> <span class="keyword">implements</span> <span class="title">Component</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sampleOperation</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// 写相关的业务代码</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="装饰角色"><a href="#装饰角色" class="headerlink" title="装饰角色"></a>装饰角色</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Decorator</span> <span class="keyword">implements</span> <span class="title">Component</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> Component component;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Decorator</span><span class="params">(Component component)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.component = component;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sampleOperation</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// 委派给构件</span></div><div class="line">        component.sampleOperation();</div><div class="line">    &#125;   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="具体装饰角色"><a href="#具体装饰角色" class="headerlink" title="具体装饰角色"></a>具体装饰角色</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteDecoratorA</span> <span class="keyword">extends</span> <span class="title">Decorator</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ConcreteDecoratorA</span><span class="params">(Component component)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(component);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sampleOperation</span><span class="params">()</span> </span>&#123;</div><div class="line">      <span class="comment">// 写相关的业务代码</span></div><div class="line">　　　<span class="keyword">super</span>.sampleOperation();</div><div class="line">     <span class="comment">// 写相关的业务代码</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="装饰者模式实例"><a href="#装饰者模式实例" class="headerlink" title="装饰者模式实例"></a>装饰者模式实例</h2><p><b>齐天大圣的例子</b><br>孙悟空有七十二般变化，他的每一种变化都给他带来一种附加的本领。他变成鱼儿时，就可以到水里游泳；他变成鸟儿时，就可以在天上飞行。</p>
+<p>本例中，Component的角色便由鼎鼎大名的齐天大圣扮演；ConcreteComponent的角色属于大圣的本尊，就是猢狲本人；Decorator的角色由大圣的七十二变扮演。而ConcreteDecorator的角色便是鱼儿、鸟儿等七十二般变化。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern011.png" alt=""></p>
+<h3 id="抽象构件角色-1"><a href="#抽象构件角色-1" class="headerlink" title="抽象构件角色"></a>抽象构件角色</h3><p>抽象构件角色“齐天大圣”接口定义了一个move()方法，这是所有的具体构件类和装饰类必须实现的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//大圣的尊号</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TheGreatestSage</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="具体构件角色-“大圣本尊”猢狲类"><a href="#具体构件角色-“大圣本尊”猢狲类" class="headerlink" title="具体构件角色-“大圣本尊”猢狲类"></a>具体构件角色-“大圣本尊”猢狲类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Monkey</span> <span class="keyword">implements</span> <span class="title">TheGreatestSage</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//代码</span></div><div class="line">        System.out.println(<span class="string">"Monkey Move"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="抽象装饰角色-七十二变"><a href="#抽象装饰角色-七十二变" class="headerlink" title="抽象装饰角色-七十二变"></a>抽象装饰角色-七十二变</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Change</span> <span class="keyword">implements</span> <span class="title">TheGreatestSage</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> TheGreatestSage sage;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Change</span><span class="params">(TheGreatestSage sage)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.sage = sage;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// 代码</span></div><div class="line">        sage.move();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="具体装饰角色-fish"><a href="#具体装饰角色-fish" class="headerlink" title="具体装饰角色-fish"></a>具体装饰角色-fish</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Fish</span> <span class="keyword">extends</span> <span class="title">Change</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Fish</span><span class="params">(TheGreatestSage sage)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(sage);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// 代码</span></div><div class="line">        System.out.println(<span class="string">"Fish Move"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="具体装饰角色-bird"><a href="#具体装饰角色-bird" class="headerlink" title="具体装饰角色-bird"></a>具体装饰角色-bird</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Bird</span> <span class="keyword">extends</span> <span class="title">Change</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Bird</span><span class="params">(TheGreatestSage sage)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(sage);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// 代码</span></div><div class="line">        System.out.println(<span class="string">"Bird Move"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="客户端调用"><a href="#客户端调用" class="headerlink" title="客户端调用"></a>客户端调用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        TheGreatestSage sage = <span class="keyword">new</span> Monkey();</div><div class="line">        <span class="comment">// 第一种写法  单层装饰</span></div><div class="line">        TheGreatestSage bird = <span class="keyword">new</span> Bird(sage);</div><div class="line">        TheGreatestSage fish = <span class="keyword">new</span> Fish(bird);</div><div class="line">        <span class="comment">// 第二种写法 双层装饰</span></div><div class="line">        <span class="comment">//TheGreatestSage fish = new Fish(new Bird(sage));</span></div><div class="line">        fish.move(); </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>“大圣本尊”是ConcreteComponent类，而“鸟儿”、“鱼儿”是装饰类。要装饰的是“大圣本尊”，也即“猢狲”实例。</p>
+<p>上面的例子中，第二种些方法：系统把大圣从一只猢狲装饰成了一只鸟儿（把鸟儿的功能加到了猢狲身上），然后又把鸟儿装饰成了一条鱼儿（把鱼儿的功能加到了猢狲+鸟儿身上，得到了猢狲+鸟儿+鱼儿）。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern012.png" alt=""></p>
+<p>如上图所示，大圣的变化首先将鸟儿的功能附加到了猢狲身上，然后又将鱼儿的功能附加到猢狲+鸟儿身上。</p>
+<h2 id="装饰者模式的一些变化"><a href="#装饰者模式的一些变化" class="headerlink" title="装饰者模式的一些变化"></a>装饰者模式的一些变化</h2><h3 id="装饰者模式简化"><a href="#装饰者模式简化" class="headerlink" title="装饰者模式简化"></a>装饰者模式简化</h3><p>大多数情况下，装饰者模式的实现都要比上面给出的示意性例子要简单。</p>
+<p>如果只有一个ConcreteComponent类，那么可以考虑去掉抽象的Component类（接口），把Decorator作为一个ConcreteComponent子类。如下图所示：</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern013.png" alt=""></p>
+<p>如果只有一个ConcreteDecorator类，那么就没有必要建立一个单独的Decorator类，而可以把Decorator和ConcreteDecorator的责任合并成一个类。甚至在只有两个ConcreteDecorator类的情况下，都可以这样做。如下图所示：</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern014.png" alt=""></p>
+<h3 id="透明性要求"><a href="#透明性要求" class="headerlink" title="透明性要求"></a>透明性要求</h3><p>装饰者模式对客户端的透明性要求程序不要声明一个ConcreteComponent类型的变量，而应当声明一个Component类型的变量。</p>
+<p>用孙悟空的例子来说，必须永远把孙悟空的所有变化都当成孙悟空来对待，而如果把老孙变成的鱼儿当成鱼儿，而不是老孙，那就被老孙骗了，而这时不应当发生的。下面的做法是对的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">TheGreatestSage sage = <span class="keyword">new</span> Monkey();</div><div class="line">TheGreatestSage bird = <span class="keyword">new</span> Bird(sage);</div></pre></td></tr></table></figure>
+<p>而下面的做法是不对的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Monkey sage = <span class="keyword">new</span> Monkey();</div><div class="line">Bird bird = <span class="keyword">new</span> Bird(sage);</div></pre></td></tr></table></figure>
+<h3 id="半透明的装饰者模式"><a href="#半透明的装饰者模式" class="headerlink" title="半透明的装饰者模式"></a>半透明的装饰者模式</h3><p>然而，纯粹的装饰者模式很难找到。装饰者模式的用意是在不改变接口的前提下，增强所考虑的类的性能。在增强性能的时候，往往需要建立新的公开的方法。即便是在孙大圣的系统里，也需要新的方法。比如齐天大圣类并没有飞行的能力，而鸟儿有。这就意味着鸟儿应当有一个新的fly()方法。再比如，齐天大圣类并没有游泳的能力，而鱼儿有，这就意味着在鱼儿类里应当有一个新的swim()方法。</p>
+<p>这就导致了大多数的装饰者模式的实现都是“半透明”的，而不是完全透明的。换言之，允许装饰者模式改变接口，增加新的方法。这意味着客户端可以声明ConcreteDecorator类型的变量，从而可以调用ConcreteDecorator类中才有的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">TheGreatestSage sage = <span class="keyword">new</span> Monkey();</div><div class="line">Bird bird = <span class="keyword">new</span> Bird(sage);</div><div class="line">bird.fly();</div></pre></td></tr></table></figure>
+<p>半透明的装饰者模式是介于装饰者模式和适配器模式之间的。适配器模式的用意是改变所考虑的类的接口，也可以通过改写一个或几个方法，或增加新的方法来增强或改变所考虑的类的功能。大多数的装饰者模式实际上是半透明的装饰者模式，这样的装饰者模式也称做半装饰、半适配器模式。</p>
+<h2 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h2><h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><p>*装饰模式与继承关系的目的都是要扩展对象的功能，但是装饰模式可以提供比继承更多的灵活性。装饰模式允许系统动态决定“贴上”一个需要的“装饰”，或者除掉一个不需要的“装饰”。继承关系则不同，继承关系是静态的，它在系统运行前就决定了。</p>
+<p>*通过使用不同的具体装饰类以及这些装饰类的排列组合，设计师可以创造出很多不同行为的组合。</p>
+<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><p>由于使用装饰模式，可以比使用继承关系需要较少数目的类。使用较少的类，当然使设计比较易于进行。但是，在另一方面，使用装饰模式会产生比使用继承关系更多的对象。更多的对象会使得查错变得困难，特别是这些对象看上去都很相像。</p>
+<h2 id="在Java-IO流中的应用"><a href="#在Java-IO流中的应用" class="headerlink" title="在Java IO流中的应用"></a>在Java IO流中的应用</h2><p>装饰者模式在Java语言中的最著名的应用莫过于Java I/O标准库的设计了。</p>
+<p>由于Java I/O库需要很多性能的各种组合，如果这些性能都是用继承的方法实现的，那么每一种组合都需要一个类，这样就会造成大量性能重复的类出现。而如果采用装饰者模式，那么类的数目就会大大减少，性能的重复也可以减至最少。因此装饰者模式是Java I/O库的基本模式。</p>
+<p>Java I/O库的对象结构图如下，由于Java I/O的对象众多，因此只画出InputStream的部分。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern015.png" alt=""></p>
+<p>根据上图可以看出：</p>
+<p>●  抽象构件(Component)角色：由InputStream扮演。这是一个抽象类，为各种子类型提供统一的接口。</p>
+<p>●　具体构件(ConcreteComponent)角色：由ByteArrayInputStream、FileInputStream、PipedInputStream、StringBufferInputStream等类扮演。它们实现了抽象构件角色所规定的接口。</p>
+<p>●　抽象装饰(Decorator)角色：由FilterInputStream扮演。它实现了InputStream所规定的接口。</p>
+<p>●　具体装饰(ConcreteDecorator)角色：由几个类扮演，分别是BufferedInputStream、DataInputStream以及两个不常用到的类LineNumberInputStream、PushbackInputStream。</p>
+<h3 id="理解”半透明”"><a href="#理解”半透明”" class="headerlink" title="理解”半透明”"></a>理解”半透明”</h3><p>装饰者模式和适配器模式都是“包装模式(Wrapper Pattern)”，它们都是通过封装其他对象达到设计的目的的，但是它们的形态有很大区别。</p>
+<p>理想的装饰者模式在对被装饰对象进行功能增强的同时，要求具体构件角色、装饰角色的接口与抽象构件角色的接口完全一致。而适配器模式则不然，一般而言，适配器模式并不要求对源对象的功能进行增强，但是会改变源对象的接口，以便和目标接口相符合。</p>
+<p>装饰者模式有透明和半透明两种，这两种的区别就在于装饰角色的接口与抽象构件角色的接口是否完全一致。透明的装饰者模式也就是理想的装饰者模式，要求具体构件角色、装饰角色的接口与抽象构件角色的接口完全一致。相反，如果装饰角色的接口与抽象构件角色接口不一致，也就是说装饰角色的接口比抽象构件角色的接口宽的话，装饰角色实际上已经成了一个适配器角色，这种装饰者模式也是可以接受的，称为“半透明”的装饰模式，如下图所示。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern016.png" alt=""></p>
+<p>在适配器模式里面，适配器类的接口通常会与目标类的接口重叠，但往往并不完全相同。换言之，适配器类的接口会比被装饰的目标类接口宽。</p>
+<p>显然，半透明的装饰者模式实际上就是处于适配器模式与装饰者模式之间的灰色地带。如果将装饰者模式与适配器模式合并成为一个“包装模式”的话，那么半透明的装饰者模式倒可以成为这种合并后的“包装模式”的代表。</p>
+<h3 id="InputStream类型行中的装饰者模式"><a href="#InputStream类型行中的装饰者模式" class="headerlink" title="InputStream类型行中的装饰者模式"></a>InputStream类型行中的装饰者模式</h3><p>InputStream类型中的装饰者模式是半透明的。为了说明这一点，不妨看一看作装饰者模式的抽象构件角色的InputStream的源代码。这个抽象类声明了九个方法，并给出了其中八个的实现，另外一个是抽象方法，需要由子类实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">InputStream</span> <span class="keyword">implements</span> <span class="title">Closeable</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">(<span class="keyword">byte</span> b[])</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">(<span class="keyword">byte</span> b[], <span class="keyword">int</span> off, <span class="keyword">int</span> len)</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">skip</span><span class="params">(<span class="keyword">long</span> n)</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">available</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">mark</span><span class="params">(<span class="keyword">int</span> readlimit)</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">reset</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">markSupported</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>下面是作为装饰模式的抽象装饰角色FilterInputStream类的源代码。可以看出，FilterInputStream的接口与InputStream的接口是完全一致的。也就是说，直到这一步，还是与装饰模式相符合的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FilterInputStream</span> <span class="keyword">extends</span> <span class="title">InputStream</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">FilterInputStream</span><span class="params">(InputStream in)</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">(<span class="keyword">byte</span> b[])</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">(<span class="keyword">byte</span> b[], <span class="keyword">int</span> off, <span class="keyword">int</span> len)</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">skip</span><span class="params">(<span class="keyword">long</span> n)</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">available</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">mark</span><span class="params">(<span class="keyword">int</span> readlimit)</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">reset</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">markSupported</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>下面是具体装饰角色PushbackInputStream的源代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PushbackInputStream</span> <span class="keyword">extends</span> <span class="title">FilterInputStream</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureOpen</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PushbackInputStream</span><span class="params">(InputStream in, <span class="keyword">int</span> size)</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PushbackInputStream</span><span class="params">(InputStream in)</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">read</span><span class="params">(<span class="keyword">byte</span>[] b, <span class="keyword">int</span> off, <span class="keyword">int</span> len)</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unread</span><span class="params">(<span class="keyword">int</span> b)</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unread</span><span class="params">(<span class="keyword">byte</span>[] b, <span class="keyword">int</span> off, <span class="keyword">int</span> len)</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">unread</span><span class="params">(<span class="keyword">byte</span>[] b)</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">available</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">skip</span><span class="params">(<span class="keyword">long</span> n)</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">markSupported</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">mark</span><span class="params">(<span class="keyword">int</span> readlimit)</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">reset</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>查看源码，你会发现，这个装饰类提供了额外的方法unread()，这就意味着PushbackInputStream是一个半透明的装饰类。换言 之，它破坏了理想的装饰者模式的要求。如果客户端持有一个类型为InputStream对象的引用in的话，那么如果in的真实类型是 PushbackInputStream的话，只要客户端不需要使用unread()方法，那么客户端一般没有问题。但是如果客户端必须使用这个方法，就 必须进行向下类型转换。将in的类型转换成为PushbackInputStream之后才可能调用这个方法。但是，这个类型转换意味着客户端必须知道它 拿到的引用是指向一个类型为PushbackInputStream的对象。这就破坏了使用装饰者模式的原始用意。</p>
+<p>现实世界与理论总归是有一段差距的。纯粹的装饰者模式在真实的系统中很难找到。一般所遇到的，都是这种半透明的装饰者模式。</p>
+<p>下面是使用I/O流读取文件内容的简单操作示例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IOTest</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        <span class="comment">// 流式读取文件</span></div><div class="line">        DataInputStream dis = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">try</span>&#123;</div><div class="line">            dis = <span class="keyword">new</span> DataInputStream(</div><div class="line">                    <span class="keyword">new</span> BufferedInputStream(</div><div class="line">                            <span class="keyword">new</span> FileInputStream(<span class="string">"test.txt"</span>)</div><div class="line">                    )</div><div class="line">            );</div><div class="line">            <span class="comment">//读取文件内容</span></div><div class="line">            <span class="keyword">byte</span>[] bs = <span class="keyword">new</span> <span class="keyword">byte</span>[dis.available()];</div><div class="line">            dis.read(bs);</div><div class="line">            String content = <span class="keyword">new</span> String(bs);</div><div class="line">            System.out.println(content);</div><div class="line">        &#125;<span class="keyword">finally</span>&#123;</div><div class="line">            dis.close();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>观察上面的代码，会发现最里层是一个FileInputStream对象，然后把它传递给一个BufferedInputStream对象，经过BufferedInputStream处理，再把处理后的对象传递给了DataInputStream对象进行处理，这个过程其实就是装饰器的组装过程，FileInputStream对象相当于原始的被装饰的对象，而BufferedInputStream对象和DataInputStream对象则相当于装饰器。</p>
+<hr>
+<hr>
+<h1 id="Proxy-Pattern"><a href="#Proxy-Pattern" class="headerlink" title="Proxy Pattern"></a>Proxy Pattern</h1><h2 id="代理模式简介"><a href="#代理模式简介" class="headerlink" title="代理模式简介"></a>代理模式简介</h2><p>代理模式(Proxy Pattern) ：给某一个对象提供一个代 理，并由代理对象控制对原对象的引用。代理模式的英 文叫做Proxy或Surrogate，它是一种对象结构型模式。</p>
+<h2 id="代理模式结构"><a href="#代理模式结构" class="headerlink" title="代理模式结构"></a>代理模式结构</h2><p>代理模式包含如下<b>角色</b>：</p>
+<p>Subject: 抽象主题角色<br>Proxy: 代理主题角色<br>RealSubject: 真实主题角色</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern017.jpg" alt=""></p>
+<h2 id="时序图-2"><a href="#时序图-2" class="headerlink" title="时序图"></a>时序图</h2><p><img src="http://ogo6z0ylk.bkt.clouddn.com/structural_pattern018.jpg" alt=""></p>
+<h2 id="代理模式的简单实现"><a href="#代理模式的简单实现" class="headerlink" title="代理模式的简单实现"></a>代理模式的简单实现</h2><h3 id="抽象对象角色"><a href="#抽象对象角色" class="headerlink" title="抽象对象角色"></a>抽象对象角色</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractObject</span> </span>&#123;</div><div class="line">    <span class="comment">//操作</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="目标对象角色"><a href="#目标对象角色" class="headerlink" title="目标对象角色"></a>目标对象角色</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RealObject</span> <span class="keyword">extends</span> <span class="title">AbstractObject</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//一些操作</span></div><div class="line">        System.out.println(<span class="string">"一些操作"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div></pre></td></tr></table></figure>
+<h3 id="代理对象角色"><a href="#代理对象角色" class="headerlink" title="代理对象角色"></a>代理对象角色</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyObject</span> <span class="keyword">extends</span> <span class="title">AbstractObject</span></span>&#123;</div><div class="line">    RealObject realObject = <span class="keyword">new</span> RealObject();</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">operation</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//调用目标对象之前可以做相关操作</span></div><div class="line">        System.out.println(<span class="string">"before"</span>);        </div><div class="line">        realObject.operation();        </div><div class="line">        <span class="comment">//调用目标对象之后可以做相关操作</span></div><div class="line">        System.out.println(<span class="string">"after"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        AbstractObject obj = <span class="keyword">new</span> ProxyObject();</div><div class="line">        obj.operation();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="代理模式在Binder中的使用"><a href="#代理模式在Binder中的使用" class="headerlink" title="代理模式在Binder中的使用"></a>代理模式在Binder中的使用</h2><p>直观来说，Binder是Android中的一个类，它继承了IBinder接口。从IPC角度来说，Binder是Android中的一种跨进程通信方式，Binder还可以理解为一种虚拟的物理设备，它的设备驱动是/dev/binder，该通信方式在linux中没有；从Android Framework角度来说，Binder是ServiceManager连接各种Manager（ActivityManager、WindowManager，etc）和相应ManagerService的桥梁；从Android应用层来说，Binder是客户端和服务端进行通信的媒介，当你bindService的时候，服务端会返回一个包含了服务端业务调用的Binder对象，通过这个Binder对象，客户端就可以获取服务端提供的服务或者数据，这里的服务包括普通服务和基于AIDL的服务。</p>
+<p>Binder一个很重要的作用是：将客户端的请求参数通过Parcel包装后传到远程服务端，远程服务端解析数据并执行对应的操作，同时客户端线程挂起，当服务端方法执行完毕后，再将返回结果写入到另外一个Parcel中并将其通过Binder传回到客户端，客户端接收到返回数据的Parcel后，Binder会解析数据包中的内容并将原始结果返回给客户端，至此，整个Binder的工作过程就完成了。由此可见，Binder更像一个数据通道，Parcel对象就在这个通道中跨进程传输，至于双方如何通信，这并不负责，只需要双方按照约定好的规范去打包和解包数据即可。</p>
+<p>为了更好地说明Binder，这里我们先手动实现了一个Binder。为了使得逻辑更清晰，这里简化一下，我们来模拟一个银行系统，这个银行提供的功能只有一个：即查询余额，只有传递一个int的id过来，银行就会将你的余额设置为id*10，满足下大家的发财梦。</p>
+<p>*先定义一个Binder接口:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.ryg.design.manualbinder;</div><div class="line"></div><div class="line"><span class="keyword">import</span> android.os.IBinder;</div><div class="line"><span class="keyword">import</span> android.os.IInterface;</div><div class="line"><span class="keyword">import</span> android.os.RemoteException;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IBank</span> <span class="keyword">extends</span> <span class="title">IInterface</span> </span>&#123;</div><div class="line"></div><div class="line">   <span class="keyword">static</span> <span class="keyword">final</span> String DESCRIPTOR = <span class="string">"com.ryg.design.manualbinder.IBank"</span>;</div><div class="line"></div><div class="line">   <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> TRANSACTION_queryMoney = (IBinder.FIRST_CALL_TRANSACTION + <span class="number">0</span>);</div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">queryMoney</span><span class="params">(<span class="keyword">int</span> uid)</span> <span class="keyword">throws</span> RemoteException</span>;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>*创建一个Binder并实现这个上述接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.ryg.design.manualbinder;</div><div class="line"></div><div class="line"><span class="keyword">import</span> android.os.Binder;</div><div class="line"><span class="keyword">import</span> android.os.IBinder;</div><div class="line"><span class="keyword">import</span> android.os.Parcel;</div><div class="line"><span class="keyword">import</span> android.os.RemoteException;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BankImpl</span> <span class="keyword">extends</span> <span class="title">Binder</span> <span class="keyword">implements</span> <span class="title">IBank</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BankImpl</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.attachInterface(<span class="keyword">this</span>, DESCRIPTOR);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> IBank <span class="title">asInterface</span><span class="params">(IBinder obj)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> ((obj == <span class="keyword">null</span>)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">        &#125;</div><div class="line">        android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);</div><div class="line">        <span class="keyword">if</span> (((iin != <span class="keyword">null</span>) &amp;&amp; (iin <span class="keyword">instanceof</span> IBank))) &#123;</div><div class="line">            <span class="keyword">return</span> ((IBank) iin);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> BankImpl.Proxy(obj);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> IBinder <span class="title">asBinder</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTransact</span><span class="params">(<span class="keyword">int</span> code, Parcel data, Parcel reply, <span class="keyword">int</span> flags)</span></span></div><div class="line">            <span class="keyword">throws</span> RemoteException &#123;</div><div class="line">        <span class="keyword">switch</span> (code) &#123;</div><div class="line">        <span class="keyword">case</span> INTERFACE_TRANSACTION: &#123;</div><div class="line">            reply.writeString(DESCRIPTOR);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">case</span> TRANSACTION_queryMoney: &#123;</div><div class="line">            data.enforceInterface(DESCRIPTOR);</div><div class="line">            <span class="keyword">int</span> uid = data.readInt();</div><div class="line">            <span class="keyword">long</span> result = <span class="keyword">this</span>.queryMoney(uid);</div><div class="line">            reply.writeNoException();</div><div class="line">            reply.writeLong(result);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.onTransact(code, data, reply, flags);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">queryMoney</span><span class="params">(<span class="keyword">int</span> uid)</span> <span class="keyword">throws</span> RemoteException </span>&#123;</div><div class="line">        <span class="keyword">return</span> uid * <span class="number">10l</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Proxy</span> <span class="keyword">implements</span> <span class="title">IBank</span> </span>&#123;</div><div class="line">        <span class="keyword">private</span> IBinder mRemote;</div><div class="line"></div><div class="line">        Proxy(IBinder remote) &#123;</div><div class="line">            mRemote = remote;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> IBinder <span class="title">asBinder</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> mRemote;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">public</span> java.lang.<span class="function">String <span class="title">getInterfaceDescriptor</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> DESCRIPTOR;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">queryMoney</span><span class="params">(<span class="keyword">int</span> uid)</span> <span class="keyword">throws</span> RemoteException </span>&#123;</div><div class="line">            Parcel data = Parcel.obtain();</div><div class="line">            Parcel reply = Parcel.obtain();</div><div class="line">            <span class="keyword">long</span> result;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                data.writeInterfaceToken(DESCRIPTOR);</div><div class="line">                data.writeInt(uid);</div><div class="line">                mRemote.transact(TRANSACTION_queryMoney, data, reply, <span class="number">0</span>);</div><div class="line">                reply.readException();</div><div class="line">                result = reply.readLong();</div><div class="line">            &#125; <span class="keyword">finally</span> &#123;</div><div class="line">                reply.recycle();</div><div class="line">                data.recycle();</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">return</span> result;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>ok，到此为止，我们的Binder就完成了，这里只要创建服务端和客户端，二者就能通过我们的Binder来通信了。这里就不做这个示例了，我们的目的是分析代理模式在Binder中的使用。</p>
+<p>我们看上述Binder的实现中，有一个叫做“Proxy”的类，它的构造方法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Proxy(IBinder remote) &#123;</div><div class="line">	mRemote = remote;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Proxy类接收一个IBinder参数，这个参数实际上就是服务端Service中的onBind方法返回的Binder对象在客户端重新打包后的结果，因为客户端无法直接通过这个打包的Binder和服务端通信，因此客户端必须借助Proxy类来和服务端通信，这里Proxy的作用就是代理的作用，客户端所有的请求全部通过Proxy来代理，具体工作流程为：Proxy接收到客户端的请求后，会将客户端的请求参数打包到Parcel对象中，然后将Parcel对象通过它内部持有的Ibinder对象传送到服务端，服务端接收数据、执行方法后返回结果给客户端的Proxy，Proxy解析数据后返回给客户端的真正调用者。很显然，上述所分析的就是典型的代理模式。至于Binder如何传输数据，这涉及到很底层的知识，这个很难搞懂，但是数据传输的核心思想是共享内存。</p>
+<h2 id="优缺点-1"><a href="#优缺点-1" class="headerlink" title="优缺点"></a>优缺点</h2><h3 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h3><p>给对象增加了本地化的扩展性，增加了存取操作控制</p>
+<h3 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h3><p>会产生多余的代理类</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Design-Pattern/" rel="tag">#Design Pattern</a>
+          
+            <a href="/tags/设计模式/" rel="tag">#设计模式</a>
+          
+            <a href="/tags/Structural-Pattern/" rel="tag">#Structural Pattern</a>
+          
+            <a href="/tags/Adapter-Pattern/" rel="tag">#Adapter Pattern</a>
+          
+            <a href="/tags/Facade-Pattern/" rel="tag">#Facade Pattern</a>
+          
+            <a href="/tags/Wrapper-Pattern/" rel="tag">#Wrapper Pattern</a>
+          
+            <a href="/tags/Proxy-Pattern/" rel="tag">#Proxy Pattern</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/28/Creational-Pattern/" rel="next" title="Creational Pattern">
+                <i class="fa fa-chevron-left"></i> Creational Pattern
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcxMS84Mjc1">
+  <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+  </script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/ava.png"
+               alt="拾叁妖" />
+          <p class="site-author-name" itemprop="name">拾叁妖</p>
+          <p class="site-description motion-element" itemprop="description">奇变偶不变，符号看象限。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Altman29" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/5866547818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Adapter-Pattern"><span class="nav-number">1.</span> <span class="nav-text">Adapter Pattern</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#适配器模式简介"><span class="nav-number">1.1.</span> <span class="nav-text">适配器模式简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">1.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义分析"><span class="nav-number">1.1.2.</span> <span class="nav-text">定义分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#适配器模式结构"><span class="nav-number">1.2.</span> <span class="nav-text">适配器模式结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类适配器模式"><span class="nav-number">1.2.1.</span> <span class="nav-text">类适配器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对象适配器模式"><span class="nav-number">1.2.2.</span> <span class="nav-text">对象适配器模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时序图"><span class="nav-number">1.2.3.</span> <span class="nav-text">时序图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类适配器和对象适配器的权衡"><span class="nav-number">1.3.</span> <span class="nav-text">类适配器和对象适配器的权衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缺省适配器"><span class="nav-number">1.4.</span> <span class="nav-text">缺省适配器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java中适配器模式的使用"><span class="nav-number">1.5.</span> <span class="nav-text">Java中适配器模式的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android中适配器模式的使用"><span class="nav-number">1.6.</span> <span class="nav-text">Android中适配器模式的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#适配器模式的优缺点"><span class="nav-number">1.7.</span> <span class="nav-text">适配器模式的优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">1.7.1.</span> <span class="nav-text">优点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#更好的复用性"><span class="nav-number">1.7.1.1.</span> <span class="nav-text">更好的复用性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更好的扩展性"><span class="nav-number">1.7.1.2.</span> <span class="nav-text">更好的扩展性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">1.7.2.</span> <span class="nav-text">缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Facade-Pattern"><span class="nav-number">2.</span> <span class="nav-text">Facade Pattern</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#外观模式简介"><span class="nav-number">2.1.</span> <span class="nav-text">外观模式简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-1"><span class="nav-number">2.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义阐述"><span class="nav-number">2.1.2.</span> <span class="nav-text">定义阐述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#外观模式结构"><span class="nav-number">2.2.</span> <span class="nav-text">外观模式结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结构描述"><span class="nav-number">2.2.1.</span> <span class="nav-text">结构描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时序图-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">时序图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子系统角色中的类"><span class="nav-number">2.2.3.</span> <span class="nav-text">子系统角色中的类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外观角色类"><span class="nav-number">2.2.4.</span> <span class="nav-text">外观角色类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端角色类"><span class="nav-number">2.2.5.</span> <span class="nav-text">客户端角色类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#外观模式扩展"><span class="nav-number">2.3.</span> <span class="nav-text">外观模式扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#外观模式实例"><span class="nav-number">2.4.</span> <span class="nav-text">外观模式实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实例说明"><span class="nav-number">2.4.1.</span> <span class="nav-text">实例说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例类图"><span class="nav-number">2.4.2.</span> <span class="nav-text">实例类图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例代码"><span class="nav-number">2.4.3.</span> <span class="nav-text">实例代码</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#FileReader"><span class="nav-number">2.4.3.1.</span> <span class="nav-text">FileReader</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CipherMachine"><span class="nav-number">2.4.3.2.</span> <span class="nav-text">CipherMachine</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FileWriter"><span class="nav-number">2.4.3.3.</span> <span class="nav-text">FileWriter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EncryptFacade"><span class="nav-number">2.4.3.4.</span> <span class="nav-text">EncryptFacade</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Program"><span class="nav-number">2.4.3.5.</span> <span class="nav-text">Program</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#外观模式的优点"><span class="nav-number">2.5.</span> <span class="nav-text">外观模式的优点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#松散耦合"><span class="nav-number">2.5.1.</span> <span class="nav-text">松散耦合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单易用"><span class="nav-number">2.5.2.</span> <span class="nav-text">简单易用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更好的划分访问层次"><span class="nav-number">2.5.3.</span> <span class="nav-text">更好的划分访问层次</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Wrapper-Pattern"><span class="nav-number">3.</span> <span class="nav-text">Wrapper Pattern</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#装饰者模式简介"><span class="nav-number">3.1.</span> <span class="nav-text">装饰者模式简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装饰者模式结构"><span class="nav-number">3.2.</span> <span class="nav-text">装饰者模式结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象构件角色"><span class="nav-number">3.2.1.</span> <span class="nav-text">抽象构件角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体构件角色"><span class="nav-number">3.2.2.</span> <span class="nav-text">具体构件角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰角色"><span class="nav-number">3.2.3.</span> <span class="nav-text">装饰角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体装饰角色"><span class="nav-number">3.2.4.</span> <span class="nav-text">具体装饰角色</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装饰者模式实例"><span class="nav-number">3.3.</span> <span class="nav-text">装饰者模式实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象构件角色-1"><span class="nav-number">3.3.1.</span> <span class="nav-text">抽象构件角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体构件角色-“大圣本尊”猢狲类"><span class="nav-number">3.3.2.</span> <span class="nav-text">具体构件角色-“大圣本尊”猢狲类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象装饰角色-七十二变"><span class="nav-number">3.3.3.</span> <span class="nav-text">抽象装饰角色-七十二变</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体装饰角色-fish"><span class="nav-number">3.3.4.</span> <span class="nav-text">具体装饰角色-fish</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体装饰角色-bird"><span class="nav-number">3.3.5.</span> <span class="nav-text">具体装饰角色-bird</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端调用"><span class="nav-number">3.3.6.</span> <span class="nav-text">客户端调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装饰者模式的一些变化"><span class="nav-number">3.4.</span> <span class="nav-text">装饰者模式的一些变化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰者模式简化"><span class="nav-number">3.4.1.</span> <span class="nav-text">装饰者模式简化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#透明性要求"><span class="nav-number">3.4.2.</span> <span class="nav-text">透明性要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#半透明的装饰者模式"><span class="nav-number">3.4.3.</span> <span class="nav-text">半透明的装饰者模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优缺点"><span class="nav-number">3.5.</span> <span class="nav-text">优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-1"><span class="nav-number">3.5.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-1"><span class="nav-number">3.5.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Java-IO流中的应用"><span class="nav-number">3.6.</span> <span class="nav-text">在Java IO流中的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#理解”半透明”"><span class="nav-number">3.6.1.</span> <span class="nav-text">理解”半透明”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InputStream类型行中的装饰者模式"><span class="nav-number">3.6.2.</span> <span class="nav-text">InputStream类型行中的装饰者模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Proxy-Pattern"><span class="nav-number">4.</span> <span class="nav-text">Proxy Pattern</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代理模式简介"><span class="nav-number">4.1.</span> <span class="nav-text">代理模式简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代理模式结构"><span class="nav-number">4.2.</span> <span class="nav-text">代理模式结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时序图-2"><span class="nav-number">4.3.</span> <span class="nav-text">时序图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代理模式的简单实现"><span class="nav-number">4.4.</span> <span class="nav-text">代理模式的简单实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象对象角色"><span class="nav-number">4.4.1.</span> <span class="nav-text">抽象对象角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目标对象角色"><span class="nav-number">4.4.2.</span> <span class="nav-text">目标对象角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代理对象角色"><span class="nav-number">4.4.3.</span> <span class="nav-text">代理对象角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端"><span class="nav-number">4.4.4.</span> <span class="nav-text">客户端</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代理模式在Binder中的使用"><span class="nav-number">4.5.</span> <span class="nav-text">代理模式在Binder中的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优缺点-1"><span class="nav-number">4.6.</span> <span class="nav-text">优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-2"><span class="nav-number">4.6.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-2"><span class="nav-number">4.6.2.</span> <span class="nav-text">缺点</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">拾叁妖</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+  &nbsp;丨&nbsp;
+  <!-- 不蒜统计 -->
+  <span style="display: inline;" id="busuanzi_container_site_uv">本站总访客数 <span id="busuanzi_value_site_uv" font="微软雅黑"></span> 次</span>
+  &nbsp;丨&nbsp;
+  <span style="display: inline;" id="busuanzi_container_site_pv">本站总访问量 <span id="busuanzi_value_site_pv" font="微软雅黑"></span> 次</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("nfQNU5dFwiltiHNWVEeJeuFp-gzGzoHsz", "oANzCtO0CzmnL1JmWkHda5Dp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
