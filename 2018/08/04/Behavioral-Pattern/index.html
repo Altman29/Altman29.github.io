@@ -1,0 +1,863 @@
+<!doctype html>
+
+
+
+  
+
+<html class="theme-next mist use-motion">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Behavioral Pattern,Design Pattern,Command Pattern,Strategy Pattern,设计模式," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="行为型模式(Behavioral Pattern)是对在不同的对象之间划分责任和算法的抽象化。
+行为型模式不仅仅关注类和对象的结构，而且重点关注它们之间的相互作用。
+通过行为型模式，可以更加清晰地划分类与对象的职责，并研究系统在运行时实例对象 之间的交互。在系统运行时，对象并不是孤立的，它们可以通过相互通信与协作完成某些复杂功能，一个对象在运行时也将影响到其他对象的运行。
+行为型模式分为类行为型模">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Behavioral Pattern">
+<meta property="og:url" content="http://yoursite.com/2018/08/04/Behavioral-Pattern/index.html">
+<meta property="og:site_name" content="拾叁妖">
+<meta property="og:description" content="行为型模式(Behavioral Pattern)是对在不同的对象之间划分责任和算法的抽象化。
+行为型模式不仅仅关注类和对象的结构，而且重点关注它们之间的相互作用。
+通过行为型模式，可以更加清晰地划分类与对象的职责，并研究系统在运行时实例对象 之间的交互。在系统运行时，对象并不是孤立的，它们可以通过相互通信与协作完成某些复杂功能，一个对象在运行时也将影响到其他对象的运行。
+行为型模式分为类行为型模">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/behavioral_pattern001.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/behavioral_pattern002.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/behavioral_pattern003.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/behavioral_pattern004.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/behavioral_pattern005.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/behavioral_pattern006.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/behavioral_pattern007.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/behavioral_pattern008.png">
+<meta property="og:updated_time" content="2018-08-14T04:08:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Behavioral Pattern">
+<meta name="twitter:description" content="行为型模式(Behavioral Pattern)是对在不同的对象之间划分责任和算法的抽象化。
+行为型模式不仅仅关注类和对象的结构，而且重点关注它们之间的相互作用。
+通过行为型模式，可以更加清晰地划分类与对象的职责，并研究系统在运行时实例对象 之间的交互。在系统运行时，对象并不是孤立的，它们可以通过相互通信与协作完成某些复杂功能，一个对象在运行时也将影响到其他对象的运行。
+行为型模式分为类行为型模">
+<meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/behavioral_pattern001.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Behavioral Pattern | 拾叁妖 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">拾叁妖</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Behavioral Pattern
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-08-04T11:17:23+08:00" content="2018-08-04">
+              2018-08-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Design-Patterns/" itemprop="url" rel="index">
+                    <span itemprop="name">Design Patterns</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+          
+          
+             <span id="/2018/08/04/Behavioral-Pattern/" class="leancloud_visitors" data-flag-title="Behavioral Pattern">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>行为型模式(Behavioral Pattern)是对在不同的对象之间划分责任和算法的抽象化。</p>
+<p>行为型模式不仅仅关注类和对象的结构，而且重点关注它们之间的相互作用。</p>
+<p>通过行为型模式，可以更加清晰地划分类与对象的职责，并研究系统在运行时实例对象 之间的交互。在系统运行时，对象并不是孤立的，它们可以通过相互通信与协作完成某些复杂功能，一个对象在运行时也将影响到其他对象的运行。</p>
+<p>行为型模式分为类行为型模式和对象行为型模式两种：</p>
+<p><b>类行为型模式</b>：类的行为型模式使用继承关系在几个类之间分配行为，类行为型模式主要通过多态等方式来分配父类与子类的职责。</p>
+<p><b>对象行为型模式</b>：对象的行为型模式则使用对象的聚合关联关系来分配行为，对象行为型模式主要是通过对象关联等方式来分配两个或多个类的职责。根据“合成复用原则”，系统中要尽量使用关联关系来取代继承关系，因此大部分行为型设计模式都属于对象行为型设计模式。</p>
+<a id="more"></a>
+<h1 id="Command-Pattern"><a href="#Command-Pattern" class="headerlink" title="Command Pattern"></a>Command Pattern</h1><h2 id="命令模式的概念"><a href="#命令模式的概念" class="headerlink" title="命令模式的概念"></a>命令模式的概念</h2><p>命令模式属于对象的行为模式。命令模式又称为行动(Action)模式或交易(Transaction)模式。</p>
+<p>命令模式把一个请求或者操作封装到一个对象中。命令模式允许系统使用不同的请求把客户端参数化，具有请求排队或者记录请求日志，提供命令的撤销和恢复的功能。</p>
+<p>命令模式可以将请求发送者和接收者完全解耦，发送者与接收者之间没有直接引用关系，发送请求的对象只需要知道如何发送请求，而不必知道如何完成请求。</p>
+<h2 id="命令模式的结构"><a href="#命令模式的结构" class="headerlink" title="命令模式的结构"></a>命令模式的结构</h2><h3 id="命令模式解析"><a href="#命令模式解析" class="headerlink" title="命令模式解析"></a>命令模式解析</h3><p>命令模式是对命令的封装。命令模式把发出命令的责任和执行命令的责任分割开，委派给不同的对象。</p>
+<p>每一个命令都是一个操作：请求的一方发出请求要求执行一个操作；接收的一方收到请求，并执行操作。命令模式允许请求的一方和接收的一方独立开来，使得请求的一方不必知道接收请求的一方的接口，更不必知道请求是怎么被接收，以及操作是否被执行、何时被执行，以及是怎么被执行的。</p>
+<p>下面以一个示意性的系统，说明命令模式的结构。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/behavioral_pattern001.png" alt=""></p>
+<h3 id="涉及角色"><a href="#涉及角色" class="headerlink" title="涉及角色"></a>涉及角色</h3><p>命令模式涉及到五个角色，它们分别是：</p>
+<p>●　　客户端(Client)角色：创建请求者，接收者以及命令对象，执行具体逻辑。</p>
+<p>●　　命令(Command)角色：声明了一个给所有具体命令类的抽象接口。</p>
+<p>●　　具体命令(ConcreteCommand)角色：定义一个接收者和行为之间的弱耦合；实现execute()方法，负责调用接收者的相应操作。execute()方法通常叫做执行方法。</p>
+<p>●　　请求者(Invoker)角色：负责调用命令对象执行请求，相关的方法叫做行动方法。</p>
+<p>●　　接收者(Receiver)角色：负责具体实施和执行一个请求。任何一个类都可以成为接收者，实施和执行请求的方法叫做行动方法。</p>
+<h3 id="时序图"><a href="#时序图" class="headerlink" title="时序图"></a>时序图</h3><p><img src="http://ogo6z0ylk.bkt.clouddn.com/behavioral_pattern002.png" alt=""></p>
+<h3 id="接收者角色类"><a href="#接收者角色类" class="headerlink" title="接收者角色类"></a>接收者角色类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Receiver</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 真正执行命令相应的操作</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">action</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"执行操作"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="抽象命令角色类"><a href="#抽象命令角色类" class="headerlink" title="抽象命令角色类"></a>抽象命令角色类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Command</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 执行方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="具体命令角色类"><a href="#具体命令角色类" class="headerlink" title="具体命令角色类"></a>具体命令角色类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteCommand</span> <span class="keyword">implements</span> <span class="title">Command</span> </span>&#123;</div><div class="line">    <span class="comment">//持有相应的接收者对象</span></div><div class="line">    <span class="keyword">private</span> Receiver receiver = <span class="keyword">null</span>;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 构造方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ConcreteCommand</span><span class="params">(Receiver receiver)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.receiver = receiver;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//通常会转调接收者对象的相应方法，让接收者来真正执行功能</span></div><div class="line">        receiver.action();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="请求者角色类"><a href="#请求者角色类" class="headerlink" title="请求者角色类"></a>请求者角色类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Invoker</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 持有命令对象</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> Command command = <span class="keyword">null</span>;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 构造方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Invoker</span><span class="params">(Command command)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.command = command;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 行动方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">action</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">        command.execute();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="客户端角色类"><a href="#客户端角色类" class="headerlink" title="客户端角色类"></a>客户端角色类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="comment">//创建接收者</span></div><div class="line">        Receiver receiver = <span class="keyword">new</span> Receiver();</div><div class="line">        <span class="comment">//创建命令对象，设定它的接收者</span></div><div class="line">        Command command = <span class="keyword">new</span> ConcreteCommand(receiver);</div><div class="line">        <span class="comment">//创建请求者，把命令对象设置进去</span></div><div class="line">        Invoker invoker = <span class="keyword">new</span> Invoker(command);</div><div class="line">        <span class="comment">//执行方法</span></div><div class="line">        invoker.action();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="命令模式实例"><a href="#命令模式实例" class="headerlink" title="命令模式实例"></a>命令模式实例</h2><h3 id="AudioPlayer系统"><a href="#AudioPlayer系统" class="headerlink" title="AudioPlayer系统"></a>AudioPlayer系统</h3><p>小女孩茱丽(Julia)有一个盒式录音机，此录音机有播音(Play)、倒带(Rewind)和停止(Stop)功能，录音机的键盘便是请求者(Invoker)角色；茱丽(Julia)是客户端角色，而录音机便是接收者角色。Command类扮演抽象命令角色，而PlayCommand、StopCommand和RewindCommand便是具体命令类。茱丽(Julia)不需要知道播音(play)、倒带(rewind)和停止(stop)功能是怎么具体执行的，这些命令执行的细节全都由键盘(Keypad)具体实施。茱丽(Julia)只需要在键盘上按下相应的键便可以了。</p>
+<p>录音机是典型的命令模式。录音机按键把客户端与录音机的操作细节分割开来。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/behavioral_pattern003.png" alt=""></p>
+<h3 id="接收者角色，录音机扮演"><a href="#接收者角色，录音机扮演" class="headerlink" title="接收者角色，录音机扮演"></a>接收者角色，录音机扮演</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AudioPlayer</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"播放..."</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rewind</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"倒带..."</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stop</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"停止..."</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="抽象命令角色类-1"><a href="#抽象命令角色类-1" class="headerlink" title="抽象命令角色类"></a>抽象命令角色类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Command</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 执行方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="具体命令角色类-1"><a href="#具体命令角色类-1" class="headerlink" title="具体命令角色类"></a>具体命令角色类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PlayCommand</span> <span class="keyword">implements</span> <span class="title">Command</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> AudioPlayer myAudio;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PlayCommand</span><span class="params">(AudioPlayer audioPlayer)</span></span>&#123;</div><div class="line">        myAudio = audioPlayer;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 执行方法</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;</div><div class="line">        myAudio.play();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RewindCommand</span> <span class="keyword">implements</span> <span class="title">Command</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> AudioPlayer myAudio;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RewindCommand</span><span class="params">(AudioPlayer audioPlayer)</span></span>&#123;</div><div class="line">        myAudio = audioPlayer;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;</div><div class="line">        myAudio.rewind();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StopCommand</span> <span class="keyword">implements</span> <span class="title">Command</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> AudioPlayer myAudio;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">StopCommand</span><span class="params">(AudioPlayer audioPlayer)</span></span>&#123;</div><div class="line">        myAudio = audioPlayer;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;</div><div class="line">        myAudio.stop();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="请求者角色，键盘类扮演"><a href="#请求者角色，键盘类扮演" class="headerlink" title="请求者角色，键盘类扮演"></a>请求者角色，键盘类扮演</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Keypad</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Command playCommand;</div><div class="line">    <span class="keyword">private</span> Command rewindCommand;</div><div class="line">    <span class="keyword">private</span> Command stopCommand;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPlayCommand</span><span class="params">(Command playCommand)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.playCommand = playCommand;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRewindCommand</span><span class="params">(Command rewindCommand)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.rewindCommand = rewindCommand;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setStopCommand</span><span class="params">(Command stopCommand)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.stopCommand = stopCommand;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 执行播放方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span></span>&#123;</div><div class="line">        playCommand.execute();</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 执行倒带方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rewind</span><span class="params">()</span></span>&#123;</div><div class="line">        rewindCommand.execute();</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 执行播放方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stop</span><span class="params">()</span></span>&#123;</div><div class="line">        stopCommand.execute();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="客户端角色，由Julia小女孩扮演"><a href="#客户端角色，由Julia小女孩扮演" class="headerlink" title="客户端角色，由Julia小女孩扮演"></a>客户端角色，由Julia小女孩扮演</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Julia</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[]args)</span></span>&#123;</div><div class="line">        <span class="comment">//创建接收者对象</span></div><div class="line">        AudioPlayer audioPlayer = <span class="keyword">new</span> AudioPlayer();</div><div class="line">        <span class="comment">//创建命令对象</span></div><div class="line">        Command playCommand = <span class="keyword">new</span> PlayCommand(audioPlayer);</div><div class="line">        Command rewindCommand = <span class="keyword">new</span> RewindCommand(audioPlayer);</div><div class="line">        Command stopCommand = <span class="keyword">new</span> StopCommand(audioPlayer);</div><div class="line">        <span class="comment">//创建请求者对象</span></div><div class="line">        Keypad keypad = <span class="keyword">new</span> Keypad();</div><div class="line">        keypad.setPlayCommand(playCommand);</div><div class="line">        keypad.setRewindCommand(rewindCommand);</div><div class="line">        keypad.setStopCommand(stopCommand);</div><div class="line">        <span class="comment">//测试</span></div><div class="line">        keypad.play();</div><div class="line">        keypad.rewind();</div><div class="line">        keypad.stop();</div><div class="line">        keypad.play();</div><div class="line">        keypad.stop();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/behavioral_pattern004.png" alt=""></p>
+<h2 id="宏命令"><a href="#宏命令" class="headerlink" title="宏命令"></a>宏命令</h2><p>所谓宏命令简单点说就是包含多个命令的命令，是一个命令的组合。</p>
+<p>设想茱丽的录音机有一个记录功能，<b>可以把一个一个的命令记录下来，再在任何需要的时候重新把这些记录下来的命令一次性执行</b>，这就是所谓的宏命令集功能。因此，茱丽的录音机系统现在有四个键，分别为播音、倒带、停止和宏命令功能。此时系统的设计与前面的设计相比有所增强，主要体现在Julia类现在有了一个新方法，用以操作宏命令键。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/behavioral_pattern005.png" alt=""></p>
+<p>系统需要一个代表宏命令的接口，以定义出具体宏命令所需要的接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MacroCommand</span> <span class="keyword">extends</span> <span class="title">Command</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 宏命令聚集的管理方法</div><div class="line">     * 可以添加一个成员命令</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Command cmd)</span></span>;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 宏命令聚集的管理方法</div><div class="line">     * 可以删除一个成员命令</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(Command cmd)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>具体的宏命令MacroAudioCommand类负责把个别的命令合成宏命令。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MacroAudioCommand</span> <span class="keyword">implements</span> <span class="title">MacroCommand</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> List&lt;Command&gt; commandList = <span class="keyword">new</span> ArrayList&lt;Command&gt;();</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 宏命令聚集管理方法</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Command cmd)</span> </span>&#123;</div><div class="line">        commandList.add(cmd);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 宏命令聚集管理方法</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(Command cmd)</span> </span>&#123;</div><div class="line">        commandList.remove(cmd);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 执行方法</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span>(Command cmd : commandList)&#123;</div><div class="line">            cmd.execute();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>客户端类Julia</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div><div class="line">272</div><div class="line">273</div><div class="line">274</div><div class="line">275</div><div class="line">276</div><div class="line">277</div><div class="line">278</div><div class="line">279</div><div class="line">280</div><div class="line">281</div><div class="line">282</div><div class="line">283</div><div class="line">284</div><div class="line">285</div><div class="line">286</div><div class="line">287</div><div class="line">288</div><div class="line">289</div><div class="line">290</div><div class="line">291</div><div class="line">292</div><div class="line">293</div><div class="line">294</div><div class="line">295</div><div class="line">296</div><div class="line">297</div><div class="line">298</div><div class="line">299</div><div class="line">300</div><div class="line">301</div><div class="line">302</div><div class="line">303</div><div class="line">304</div><div class="line">305</div><div class="line">306</div><div class="line">307</div><div class="line">308</div><div class="line">309</div><div class="line">310</div><div class="line">311</div><div class="line">312</div><div class="line">313</div><div class="line">314</div><div class="line">315</div><div class="line">316</div><div class="line">317</div><div class="line">318</div><div class="line">319</div><div class="line">320</div><div class="line">321</div><div class="line">322</div><div class="line">323</div><div class="line">324</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Android 面试指南</div><div class="line">一、命令模式的概念</div><div class="line">命令模式属于对象的行为模式。命令模式又称为行动(Action)模式或交易(Transaction)模式。</div><div class="line"></div><div class="line">命令模式把一个请求或者操作封装到一个对象中。命令模式允许系统使用不同的请求把客户端参数化，具有请求排队或者记录请求日志，提供命令的撤销和恢复的功能。</div><div class="line"></div><div class="line">命令模式可以将请求发送者和接收者完全解耦，发送者与接收者之间没有直接引用关系，发送请求的对象只需要知道如何发送请求，而不必知道如何完成请求。</div><div class="line"></div><div class="line">二、命令模式的结构</div><div class="line">命令模式是对命令的封装。命令模式把发出命令的责任和执行命令的责任分割开，委派给不同的对象。</div><div class="line"></div><div class="line">每一个命令都是一个操作：请求的一方发出请求要求执行一个操作；接收的一方收到请求，并执行操作。命令模式允许请求的一方和接收的一方独立开来，使得请求的一方不必知道接收请求的一方的接口，更不必知道请求是怎么被接收，以及操作是否被执行、何时被执行，以及是怎么被执行的。</div><div class="line"></div><div class="line">下面以一个示意性的系统，说明命令模式的结构。</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">命令模式涉及到五个角色，它们分别是：</div><div class="line"></div><div class="line">●　　客户端(Client)角色：创建请求者，接收者以及命令对象，执行具体逻辑。</div><div class="line"></div><div class="line">●　　命令(Command)角色：声明了一个给所有具体命令类的抽象接口。</div><div class="line"></div><div class="line">●　　具体命令(ConcreteCommand)角色：定义一个接收者和行为之间的弱耦合；实现execute()方法，负责调用接收者的相应操作。execute()方法通常叫做执行方法。</div><div class="line"></div><div class="line">●　　请求者(Invoker)角色：负责调用命令对象执行请求，相关的方法叫做行动方法。</div><div class="line"></div><div class="line">●　　接收者(Receiver)角色：负责具体实施和执行一个请求。任何一个类都可以成为接收者，实施和执行请求的方法叫做行动方法。</div><div class="line"></div><div class="line">时序图</div><div class="line"></div><div class="line"></div><div class="line">接收者角色类</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Receiver</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 真正执行命令相应的操作</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">action</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"执行操作"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">抽象命令角色类</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Command</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 执行方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line">具体命令角色类</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteCommand</span> <span class="keyword">implements</span> <span class="title">Command</span> </span>&#123;</div><div class="line">    <span class="comment">//持有相应的接收者对象</span></div><div class="line">    <span class="keyword">private</span> Receiver receiver = <span class="keyword">null</span>;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 构造方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ConcreteCommand</span><span class="params">(Receiver receiver)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.receiver = receiver;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//通常会转调接收者对象的相应方法，让接收者来真正执行功能</span></div><div class="line">        receiver.action();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">请求者角色类</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Invoker</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 持有命令对象</div><div class="line">     */</div><div class="line">    <span class="keyword">private</span> Command command = <span class="keyword">null</span>;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 构造方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Invoker</span><span class="params">(Command command)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.command = command;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 行动方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">action</span><span class="params">()</span></span>&#123;</div><div class="line"></div><div class="line">        command.execute();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">客户端角色类</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="comment">//创建接收者</span></div><div class="line">        Receiver receiver = <span class="keyword">new</span> Receiver();</div><div class="line">        <span class="comment">//创建命令对象，设定它的接收者</span></div><div class="line">        Command command = <span class="keyword">new</span> ConcreteCommand(receiver);</div><div class="line">        <span class="comment">//创建请求者，把命令对象设置进去</span></div><div class="line">        Invoker invoker = <span class="keyword">new</span> Invoker(command);</div><div class="line">        <span class="comment">//执行方法</span></div><div class="line">        invoker.action();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">三、命令模式的具体实例</div><div class="line">AudioPlayer系统</div><div class="line"></div><div class="line">小女孩茱丽(Julia)有一个盒式录音机，此录音机有播音(Play)、倒带(Rewind)和停止(Stop)功能，录音机的键盘便是请求者(Invoker)角色；茱丽(Julia)是客户端角色，而录音机便是接收者角色。Command类扮演抽象命令角色，而PlayCommand、StopCommand和RewindCommand便是具体命令类。茱丽(Julia)不需要知道播音(play)、倒带(rewind)和停止(stop)功能是怎么具体执行的，这些命令执行的细节全都由键盘(Keypad)具体实施。茱丽(Julia)只需要在键盘上按下相应的键便可以了。</div><div class="line"></div><div class="line">录音机是典型的命令模式。录音机按键把客户端与录音机的操作细节分割开来。</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">接收者角色，由录音机类扮演</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AudioPlayer</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"播放..."</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rewind</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"倒带..."</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stop</span><span class="params">()</span></span>&#123;</div><div class="line">        System.out.println(<span class="string">"停止..."</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">抽象命令角色类</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Command</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 执行方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span></span>;</div><div class="line">&#125;</div><div class="line">具体命令角色类</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PlayCommand</span> <span class="keyword">implements</span> <span class="title">Command</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> AudioPlayer myAudio;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PlayCommand</span><span class="params">(AudioPlayer audioPlayer)</span></span>&#123;</div><div class="line">        myAudio = audioPlayer;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 执行方法</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;</div><div class="line">        myAudio.play();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RewindCommand</span> <span class="keyword">implements</span> <span class="title">Command</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> AudioPlayer myAudio;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RewindCommand</span><span class="params">(AudioPlayer audioPlayer)</span></span>&#123;</div><div class="line">        myAudio = audioPlayer;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;</div><div class="line">        myAudio.rewind();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StopCommand</span> <span class="keyword">implements</span> <span class="title">Command</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> AudioPlayer myAudio;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">StopCommand</span><span class="params">(AudioPlayer audioPlayer)</span></span>&#123;</div><div class="line">        myAudio = audioPlayer;</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;</div><div class="line">        myAudio.stop();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">请求者角色，由键盘类扮演</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Keypad</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Command playCommand;</div><div class="line">    <span class="keyword">private</span> Command rewindCommand;</div><div class="line">    <span class="keyword">private</span> Command stopCommand;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPlayCommand</span><span class="params">(Command playCommand)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.playCommand = playCommand;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRewindCommand</span><span class="params">(Command rewindCommand)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.rewindCommand = rewindCommand;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setStopCommand</span><span class="params">(Command stopCommand)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.stopCommand = stopCommand;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 执行播放方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span></span>&#123;</div><div class="line">        playCommand.execute();</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 执行倒带方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rewind</span><span class="params">()</span></span>&#123;</div><div class="line">        rewindCommand.execute();</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 执行播放方法</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stop</span><span class="params">()</span></span>&#123;</div><div class="line">        stopCommand.execute();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">客户端角色，由茱丽小女孩扮演</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Julia</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[]args)</span></span>&#123;</div><div class="line">        <span class="comment">//创建接收者对象</span></div><div class="line">        AudioPlayer audioPlayer = <span class="keyword">new</span> AudioPlayer();</div><div class="line">        <span class="comment">//创建命令对象</span></div><div class="line">        Command playCommand = <span class="keyword">new</span> PlayCommand(audioPlayer);</div><div class="line">        Command rewindCommand = <span class="keyword">new</span> RewindCommand(audioPlayer);</div><div class="line">        Command stopCommand = <span class="keyword">new</span> StopCommand(audioPlayer);</div><div class="line">        <span class="comment">//创建请求者对象</span></div><div class="line">        Keypad keypad = <span class="keyword">new</span> Keypad();</div><div class="line">        keypad.setPlayCommand(playCommand);</div><div class="line">        keypad.setRewindCommand(rewindCommand);</div><div class="line">        keypad.setStopCommand(stopCommand);</div><div class="line">        <span class="comment">//测试</span></div><div class="line">        keypad.play();</div><div class="line">        keypad.rewind();</div><div class="line">        keypad.stop();</div><div class="line">        keypad.play();</div><div class="line">        keypad.stop();</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">运行结果：</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">四、宏命令</div><div class="line">宏命令</div><div class="line">所谓宏命令简单点说就是包含多个命令的命令，是一个命令的组合。</div><div class="line"></div><div class="line">设想茱丽的录音机有一个记录功能，可以把一个一个的命令记录下来，再在任何需要的时候重新把这些记录下来的命令一次性执行，这就是所谓的宏命令集功能。因此，茱丽的录音机系统现在有四个键，分别为播音、倒带、停止和宏命令功能。此时系统的设计与前面的设计相比有所增强，主要体现在Julia类现在有了一个新方法，用以操作宏命令键。</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">系统需要一个代表宏命令的接口，以定义出具体宏命令所需要的接口。</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MacroCommand</span> <span class="keyword">extends</span> <span class="title">Command</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 宏命令聚集的管理方法</div><div class="line">     * 可以添加一个成员命令</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Command cmd)</span></span>;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 宏命令聚集的管理方法</div><div class="line">     * 可以删除一个成员命令</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(Command cmd)</span></span>;</div><div class="line">&#125;</div><div class="line">具体的宏命令MacroAudioCommand类负责把个别的命令合成宏命令。</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MacroAudioCommand</span> <span class="keyword">implements</span> <span class="title">MacroCommand</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> List</div><div class="line">&lt;</div><div class="line">Command</div><div class="line">&gt;</div><div class="line"> commandList = <span class="keyword">new</span> ArrayList</div><div class="line">&lt;</div><div class="line">Command</div><div class="line">&gt;</div><div class="line">();</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 宏命令聚集管理方法</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(Command cmd)</span> </span>&#123;</div><div class="line">        commandList.add(cmd);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 宏命令聚集管理方法</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(Command cmd)</span> </span>&#123;</div><div class="line">        commandList.remove(cmd);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 执行方法</div><div class="line">     */</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">for</span>(Command cmd : commandList)&#123;</div><div class="line">            cmd.execute();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">客户端类Julia</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Julia</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[]args)</span></span>&#123;</div><div class="line">        <span class="comment">//创建接收者对象</span></div><div class="line">        AudioPlayer audioPlayer = <span class="keyword">new</span> AudioPlayer();</div><div class="line">        <span class="comment">//创建命令对象</span></div><div class="line">        Command playCommand = <span class="keyword">new</span> PlayCommand(audioPlayer);</div><div class="line">        Command rewindCommand = <span class="keyword">new</span> RewindCommand(audioPlayer);</div><div class="line">        Command stopCommand = <span class="keyword">new</span> StopCommand(audioPlayer);</div><div class="line"></div><div class="line">        MacroCommand marco = <span class="keyword">new</span> MacroAudioCommand();</div><div class="line"></div><div class="line">        marco.add(playCommand);</div><div class="line">        marco.add(rewindCommand);</div><div class="line">        marco.add(stopCommand);</div><div class="line">        marco.execute();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样执行MacroCommand 的execute()方法就会一次性执行多条命令。</p>
+<h2 id="命令模式的优缺点"><a href="#命令模式的优缺点" class="headerlink" title="命令模式的优缺点"></a>命令模式的优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><h4 id="更松散的耦合"><a href="#更松散的耦合" class="headerlink" title="更松散的耦合"></a>更松散的耦合</h4><p>命令模式使得发起命令的对象，和具体实现命令的对象完全解耦，也就是说发起命令的对象完全不知道具体实现对象是谁，也不知道如何实现。</p>
+<h4 id="更动态的控制"><a href="#更动态的控制" class="headerlink" title="更动态的控制"></a>更动态的控制</h4><p>命令模式把请求封装起来，可以动态地对它进行参数化、队列化和日志化等操作，从而使得系统更灵活。</p>
+<h4 id="很自然的符合命令"><a href="#很自然的符合命令" class="headerlink" title="很自然的符合命令"></a>很自然的符合命令</h4><p>命令模式中的命令对象能够很容易地组合成复合命令，也就是宏命令，从而使系统操作更简单，功能更强大。</p>
+<h4 id="更好的扩张性"><a href="#更好的扩张性" class="headerlink" title="更好的扩张性"></a>更好的扩张性</h4><p>由于发起命令的对象和具体的实现完全解耦，因此扩展新的命令就很容易，只需要实现新的命令对象，然后在装配的时候，把具体的实现对象设置到命令对象中，然后就可以使用这个命令对象，已有的实现完全不用变化。</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>使用命令模式可能会导致某些系统有过多的具体命令类。因为针对每一个命令都需要设计一个具体命令类，因此某些系统可能需要大量具体命令类，这将影响命令模式的使用。</p>
+<hr>
+<hr>
+<h1 id="Strategy-Pattern"><a href="#Strategy-Pattern" class="headerlink" title="Strategy Pattern"></a>Strategy Pattern</h1><h2 id="策略模式简介"><a href="#策略模式简介" class="headerlink" title="策略模式简介"></a>策略模式简介</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>策略模式属于对象的行为模式。其用意是针对一组算法，将每一个算法封装到具有共同接口的独立的类中，从而使得它们可以相互替换。策略模式使得算法可以在不影响到客户端的情况下发生变化。</p>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>针对一个对象，其行为有些是固定的不变的，有些是容易变化的，针对不同情况有不同的表现形式。那么对于这些容易变化的行为，我们不希望将其实现绑定在对象中，而是希望以动态的形式，针对不同情况产生不同的应对策略。那么这个时候就要用到策略模式了。简言之，策略模式就是为了应对对象中复杂多变的行为而产生的。</p>
+<h2 id="策略模式的结构"><a href="#策略模式的结构" class="headerlink" title="策略模式的结构"></a>策略模式的结构</h2><p>策略模式是对算法的包装，是把调用算法的责任（行为）和算法本身（行为实现）分割开来，委派给不同的对象管理。策略模式通常把一个系列的算法包装到一系列的策略类里面，作为一个抽象策略类的子类。用一句话来说，就是：“准备一组算法，并将每一个算法封装起来，使得它们可以互换”。下面就以一个示意性的实现讲解策略模式实例的结构。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/behavioral_pattern006.png" alt=""></p>
+<p>这个模式涉及到三个<b>角色</b>：</p>
+<p>　　●　　环境(Context)角色：持有一个Strategy的引用，即具有复杂多变行为的对象。</p>
+<p>　　●　　抽象策略(Strategy)角色：这是一个抽象角色，通常由一个接口或抽象类实现。此角色给出所有的具体策略类所需的接口。</p>
+<p>　　●　　具体策略(ConcreteStrategy)角色：包装了相关的算法或行为。</p>
+<h2 id="具体场景实现"><a href="#具体场景实现" class="headerlink" title="具体场景实现"></a>具体场景实现</h2><p>假设现在要设计一个贩卖各类书籍的电子商务网站的购物车系统。一个最简单的情况就是把所有货品的单价乘上数量，但是实际情况肯定比这要复杂。比如，本网站可能对所有的高级会员提供每本20%的促销折扣；对中级会员提供每本10%的促销折扣；对初级会员没有折扣。</p>
+<p>根据描述，折扣是根据以下的几个算法中的一个进行的：</p>
+<p>　　*算法一：对初级会员没有折扣。</p>
+<p>　　*算法二：对中级会员提供10%的促销折扣。</p>
+<p>　　*算法三：对高级会员提供20%的促销折扣。</p>
+<p>　　使用策略模式来实现的结构图如下：</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/behavioral_pattern007.png" alt=""></p>
+<h3 id="抽象折扣类"><a href="#抽象折扣类" class="headerlink" title="抽象折扣类"></a>抽象折扣类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MemberStrategy</span> </span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 计算图书的价格</div><div class="line">     * <span class="doctag">@param</span> booksPrice    图书的原价</div><div class="line">     * <span class="doctag">@return</span>    计算出打折后的价格</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">calcPrice</span><span class="params">(<span class="keyword">double</span> booksPrice)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="初级会员折扣类"><a href="#初级会员折扣类" class="headerlink" title="初级会员折扣类"></a>初级会员折扣类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PrimaryMemberStrategy</span> <span class="keyword">implements</span> <span class="title">MemberStrategy</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">calcPrice</span><span class="params">(<span class="keyword">double</span> booksPrice)</span> </span>&#123;</div><div class="line"></div><div class="line">        System.out.println(<span class="string">"对于初级会员的没有折扣"</span>);</div><div class="line">        <span class="keyword">return</span> booksPrice;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="中级会员折扣类"><a href="#中级会员折扣类" class="headerlink" title="中级会员折扣类"></a>中级会员折扣类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">IntermediateMemberStrategy</span> <span class="keyword">implements</span> <span class="title">MemberStrategy</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">calcPrice</span><span class="params">(<span class="keyword">double</span> booksPrice)</span> </span>&#123;</div><div class="line"></div><div class="line">        System.out.println(<span class="string">"对于中级会员的折扣为10%"</span>);</div><div class="line">        <span class="keyword">return</span> booksPrice * <span class="number">0.9</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="高级会员折扣类"><a href="#高级会员折扣类" class="headerlink" title="高级会员折扣类"></a>高级会员折扣类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AdvancedMemberStrategy</span> <span class="keyword">implements</span> <span class="title">MemberStrategy</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">calcPrice</span><span class="params">(<span class="keyword">double</span> booksPrice)</span> </span>&#123;</div><div class="line"></div><div class="line">        System.out.println(<span class="string">"对于高级会员的折扣为20%"</span>);</div><div class="line">        <span class="keyword">return</span> booksPrice * <span class="number">0.8</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="价格类"><a href="#价格类" class="headerlink" title="价格类"></a>价格类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Price</span> </span>&#123;</div><div class="line">    <span class="comment">//持有一个具体的策略对象</span></div><div class="line">    <span class="keyword">private</span> MemberStrategy strategy;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 构造函数，传入一个具体的策略对象</div><div class="line">     * <span class="doctag">@param</span> strategy    具体的策略对象</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Price</span><span class="params">(MemberStrategy strategy)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.strategy = strategy;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 计算图书的价格</div><div class="line">     * <span class="doctag">@param</span> booksPrice    图书的原价</div><div class="line">     * <span class="doctag">@return</span>    计算出打折后的价格</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">quote</span><span class="params">(<span class="keyword">double</span> booksPrice)</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.strategy.calcPrice(booksPrice);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="具体调用"><a href="#具体调用" class="headerlink" title="具体调用"></a>具体调用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="comment">//选择并创建需要使用的策略对象</span></div><div class="line">        MemberStrategy strategy = <span class="keyword">new</span> AdvancedMemberStrategy();</div><div class="line">        <span class="comment">//创建环境</span></div><div class="line">        Price price = <span class="keyword">new</span> Price(strategy);</div><div class="line">        <span class="comment">//计算价格</span></div><div class="line">        <span class="keyword">double</span> quote = price.quote(<span class="number">300</span>);</div><div class="line">        System.out.println(<span class="string">"图书的最终价格为："</span> + quote);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h2 id="对策略模式的深入认识"><a href="#对策略模式的深入认识" class="headerlink" title="对策略模式的深入认识"></a>对策略模式的深入认识</h2><h3 id="策略模式对多态的使用"><a href="#策略模式对多态的使用" class="headerlink" title="策略模式对多态的使用"></a>策略模式对多态的使用</h3><p>通过让环境类持有一个抽象策略类（超类）的引用，在生成环境类实例对象时，让该引用指向具体的策略子类。再对应的方法调用中，就会通过Java的多态，调用对应策略子类的方法。从而可以相互替换，不需要修改环境类内部的实现。同时，在有新的需求的情况下，也只需要修改策略类即可，降低与环境类之间的耦合度。</p>
+<h3 id="策略模式的重心"><a href="#策略模式的重心" class="headerlink" title="策略模式的重心"></a>策略模式的重心</h3><p>策略模式的重心不是如何实现算法，而是如何组织、调用这些算法，从而让程序结构更灵活，具有更好的维护性和扩展性。</p>
+<h3 id="算法的平等性"><a href="#算法的平等性" class="headerlink" title="算法的平等性"></a>算法的平等性</h3><p>策略模式一个很大的特点就是各个策略算法的平等性。对于一系列具体的策略算法，大家的地位是完全一样的，正因为这个平等性，才能实现算法之间可以相互替换。所有的策略算法在实现上也是相互独立的，相互之间是没有依赖的。</p>
+<p>所以可以这样描述这一系列策略算法：策略算法是相同行为的不同实现。</p>
+<h3 id="运行时策略的唯一性"><a href="#运行时策略的唯一性" class="headerlink" title="运行时策略的唯一性"></a>运行时策略的唯一性</h3><p>运行期间，策略模式在每一个时刻只能使用一个具体的策略实现对象，虽然可以动态地在不同的策略实现中切换，但是同时只能使用一个。</p>
+<h3 id="公有的行为"><a href="#公有的行为" class="headerlink" title="公有的行为"></a>公有的行为</h3><p>经常见到的是，所有的具体策略类都有一些公有的行为。这时候，就应当把这些公有的行为放到共同的抽象策略角色Strategy类里面。当然这时候抽象策略角色必须要用Java抽象类实现，而不能使用接口。</p>
+<p>这其实也是典型的将代码向继承等级结构的上方集中的标准做法。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/behavioral_pattern008.png" alt=""></p>
+<h2 id="策略模式的优缺点"><a href="#策略模式的优缺点" class="headerlink" title="策略模式的优缺点"></a>策略模式的优缺点</h2><h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><p>（1）策略模式提供了管理相关的算法族的办法。策略类的等级结构定义了一个算法或行为族。恰当使用继承可以把公共的代码移到父类里面，从而避免代码重复。</p>
+<p>（2）使用策略模式可以避免使用多重条件(if-else)语句。多重条件语句不易维护，它把采取哪一种算法或采取哪一种行为的逻辑与算法或行为的逻辑混合在一起，统统列在一个多重条件语句里面，比使用继承的办法还要原始和落后。</p>
+<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><p>（1）客户端必须知道所有的策略类，并自行决定使用哪一个策略类。这就意味着客户端必须理解这些算法的区别，以便适时选择恰当的算法类。换言之，策略模式只适用于客户端知道算法或行为的情况。</p>
+<p>（2）由于策略模式把每个具体的策略实现都单独封装成为类，如果备选的策略很多的话，那么对象的数目就会很可观。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Behavioral-Pattern/" rel="tag">#Behavioral Pattern</a>
+          
+            <a href="/tags/Design-Pattern/" rel="tag">#Design Pattern</a>
+          
+            <a href="/tags/Command-Pattern/" rel="tag">#Command Pattern</a>
+          
+            <a href="/tags/Strategy-Pattern/" rel="tag">#Strategy Pattern</a>
+          
+            <a href="/tags/设计模式/" rel="tag">#设计模式</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/30/Structural-Pattern/" rel="next" title="Structural Pattern">
+                <i class="fa fa-chevron-left"></i> Structural Pattern
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcxMS84Mjc1">
+  <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+  </script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/ava.png"
+               alt="拾叁妖" />
+          <p class="site-author-name" itemprop="name">拾叁妖</p>
+          <p class="site-description motion-element" itemprop="description">奇变偶不变，符号看象限。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">37</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Altman29" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/5866547818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Command-Pattern"><span class="nav-number">1.</span> <span class="nav-text">Command Pattern</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#命令模式的概念"><span class="nav-number">1.1.</span> <span class="nav-text">命令模式的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令模式的结构"><span class="nav-number">1.2.</span> <span class="nav-text">命令模式的结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令模式解析"><span class="nav-number">1.2.1.</span> <span class="nav-text">命令模式解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#涉及角色"><span class="nav-number">1.2.2.</span> <span class="nav-text">涉及角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时序图"><span class="nav-number">1.2.3.</span> <span class="nav-text">时序图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接收者角色类"><span class="nav-number">1.2.4.</span> <span class="nav-text">接收者角色类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象命令角色类"><span class="nav-number">1.2.5.</span> <span class="nav-text">抽象命令角色类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体命令角色类"><span class="nav-number">1.2.6.</span> <span class="nav-text">具体命令角色类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#请求者角色类"><span class="nav-number">1.2.7.</span> <span class="nav-text">请求者角色类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端角色类"><span class="nav-number">1.2.8.</span> <span class="nav-text">客户端角色类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令模式实例"><span class="nav-number">1.3.</span> <span class="nav-text">命令模式实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AudioPlayer系统"><span class="nav-number">1.3.1.</span> <span class="nav-text">AudioPlayer系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接收者角色，录音机扮演"><span class="nav-number">1.3.2.</span> <span class="nav-text">接收者角色，录音机扮演</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象命令角色类-1"><span class="nav-number">1.3.3.</span> <span class="nav-text">抽象命令角色类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体命令角色类-1"><span class="nav-number">1.3.4.</span> <span class="nav-text">具体命令角色类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#请求者角色，键盘类扮演"><span class="nav-number">1.3.5.</span> <span class="nav-text">请求者角色，键盘类扮演</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端角色，由Julia小女孩扮演"><span class="nav-number">1.3.6.</span> <span class="nav-text">客户端角色，由Julia小女孩扮演</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#宏命令"><span class="nav-number">1.4.</span> <span class="nav-text">宏命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令模式的优缺点"><span class="nav-number">1.5.</span> <span class="nav-text">命令模式的优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">1.5.1.</span> <span class="nav-text">优点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#更松散的耦合"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">更松散的耦合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更动态的控制"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">更动态的控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#很自然的符合命令"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">很自然的符合命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更好的扩张性"><span class="nav-number">1.5.1.4.</span> <span class="nav-text">更好的扩张性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">1.5.2.</span> <span class="nav-text">缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Strategy-Pattern"><span class="nav-number">2.</span> <span class="nav-text">Strategy Pattern</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#策略模式简介"><span class="nav-number">2.1.</span> <span class="nav-text">策略模式简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">2.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景"><span class="nav-number">2.1.2.</span> <span class="nav-text">使用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#策略模式的结构"><span class="nav-number">2.2.</span> <span class="nav-text">策略模式的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体场景实现"><span class="nav-number">2.3.</span> <span class="nav-text">具体场景实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#抽象折扣类"><span class="nav-number">2.3.1.</span> <span class="nav-text">抽象折扣类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初级会员折扣类"><span class="nav-number">2.3.2.</span> <span class="nav-text">初级会员折扣类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中级会员折扣类"><span class="nav-number">2.3.3.</span> <span class="nav-text">中级会员折扣类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高级会员折扣类"><span class="nav-number">2.3.4.</span> <span class="nav-text">高级会员折扣类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#价格类"><span class="nav-number">2.3.5.</span> <span class="nav-text">价格类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体调用"><span class="nav-number">2.3.6.</span> <span class="nav-text">具体调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对策略模式的深入认识"><span class="nav-number">2.4.</span> <span class="nav-text">对策略模式的深入认识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#策略模式对多态的使用"><span class="nav-number">2.4.1.</span> <span class="nav-text">策略模式对多态的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#策略模式的重心"><span class="nav-number">2.4.2.</span> <span class="nav-text">策略模式的重心</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法的平等性"><span class="nav-number">2.4.3.</span> <span class="nav-text">算法的平等性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行时策略的唯一性"><span class="nav-number">2.4.4.</span> <span class="nav-text">运行时策略的唯一性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#公有的行为"><span class="nav-number">2.4.5.</span> <span class="nav-text">公有的行为</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#策略模式的优缺点"><span class="nav-number">2.5.</span> <span class="nav-text">策略模式的优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-1"><span class="nav-number">2.5.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-1"><span class="nav-number">2.5.2.</span> <span class="nav-text">缺点</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">拾叁妖</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+  &nbsp;丨&nbsp;
+  <!-- 不蒜统计 -->
+  <span style="display: inline;" id="busuanzi_container_site_uv">本站总访客数 <span id="busuanzi_value_site_uv" font="微软雅黑"></span> 次</span>
+  &nbsp;丨&nbsp;
+  <span style="display: inline;" id="busuanzi_container_site_pv">本站总访问量 <span id="busuanzi_value_site_pv" font="微软雅黑"></span> 次</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("nfQNU5dFwiltiHNWVEeJeuFp-gzGzoHsz", "oANzCtO0CzmnL1JmWkHda5Dp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
