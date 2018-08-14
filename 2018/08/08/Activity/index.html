@@ -1,0 +1,923 @@
+<!doctype html>
+
+
+
+  
+
+<html class="theme-next mist use-motion">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Activity,Android 启动流程," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Activity Here…….">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Activity">
+<meta property="og:url" content="http://yoursite.com/2018/08/08/Activity/index.html">
+<meta property="og:site_name" content="拾叁妖">
+<meta property="og:description" content="Activity Here…….">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity001.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity002.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity003.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity004.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity005.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity006.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity007.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity008.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity009.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity010.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity011.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity012.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity013.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity014.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity015.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity016.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity017.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity018.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity019.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity020.png">
+<meta property="og:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity021.png">
+<meta property="og:updated_time" content="2018-08-14T10:43:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Activity">
+<meta name="twitter:description" content="Activity Here…….">
+<meta name="twitter:image" content="http://ogo6z0ylk.bkt.clouddn.com/activity001.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Activity | 拾叁妖 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">拾叁妖</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Activity
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-08-08T16:24:36+08:00" content="2018-08-08">
+              2018-08-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+          
+          
+             <span id="/2018/08/08/Activity/" class="leancloud_visitors" data-flag-title="Activity">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Activity-Here……"><a href="#Activity-Here……" class="headerlink" title="Activity Here……."></a>Activity Here…….</h1><a id="more"></a>
+<h2 id="Activity的生命周期"><a href="#Activity的生命周期" class="headerlink" title="Activity的生命周期"></a>Activity的生命周期</h2><p>本节内容将生命周期的情况分为两部分介绍，第一部分先了解典型的生命周期的7个部分及Activity的状态。第二部分会介绍Activity在一些特殊情况下的生命周期的经历过程。</p>
+<h3 id="典型的生命周期"><a href="#典型的生命周期" class="headerlink" title="典型的生命周期"></a>典型的生命周期</h3><p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity001.png" alt=""></p>
+<p>关于这张图片，我们可能在初学Android时就有接触，回顾一下。</p>
+<p>在正常情况下，一个Activity从启动到结束会以如下顺序经历整个生命周期：<br>onCreate()-&gt;onStart()-&gt;onResume()-&gt;onPause()-&gt;onStop()-&gt;onDestory()。包含了六个部分，还有一个onRestart()没有调用，下面我们一一介绍这七部分内容。</p>
+<p>(1) onCreate()：当 Activity 第一次创建时会被调用。这是生命周期的第一个方法。在这个方法中，可以做一些初始化工作，比如调用setContentView去加载界面布局资源，初始化Activity所需的数据。当然也可借助onCreate()方法中的Bundle对象来回复异常情况下Activity结束时的状态（后面会介绍）。</p>
+<p>(2) onRestart()：表示Activity正在重新启动。一般情况下，当当前Activity从不可见重新变为可见状态时，onRestart就会被调用。这种情形一般是用户行为导致的，比如用户按Home键切换到桌面或打开了另一个新的Activity，接着用户又回到了这个Actvity。（关于这部分生命周期的历经过程，后面会介绍。）</p>
+<p>(3) onStart(): 表示Activity正在被启动，即将开始，这时Activity已经出现了，但是还没有出现在前台，无法与用户交互。这个时候可以理解为Activity已经显示出来，但是我们还看不到。</p>
+<p>(4) onResume():表示Activity已经可见了，并且出现在前台并开始活动。需要和onStart()对比，onStart的时候Activity还在后台，onResume的时候Activity才显示到前台。</p>
+<p>(5) onPause():表示 Activity正在停止，仍可见，正常情况下，紧接着onStop就会被调用。在特殊情况下，如果这个时候快速地回到当前Activity，那么onResume就会被调用（极端情况）。onPause中不能进行耗时操作，会影响到新Activity的显示。因为onPause必须执行完，新的Activity的onResume才会执行。</p>
+<p>(6) onStop():表示Activity即将停止，不可见，位于后台。可以做稍微重量级的回收工作，同样不能太耗时。</p>
+<p>(7) onDestory():表示Activity即将销毁，这是Activity生命周期的最后一个回调，可以做一些回收工作和最终的资源回收。</p>
+<p>在平常的开发中，我们经常用到的就是 onCreate()和onDestory()，做一些初始化和回收操作。</p>
+<h4 id="生命周期的普通情况"><a href="#生命周期的普通情况" class="headerlink" title="生命周期的普通情况"></a>生命周期的普通情况</h4><p>①针对一个特定的Activity，第一次启动，回调如下：onCreate()-&gt;onStart()-&gt;onResume()</p>
+<p>②用户打开新的Activiy的时候，上述Activity的回调如下：onPause()-&gt;onStop()</p>
+<p>③再次回到原Activity时，回调如下：onRestart()-&gt;onStart()-&gt;onResume()</p>
+<p>④按back键回退时，回调如下：onPause()-&gt;onStop()-&gt;onDestory()</p>
+<p>⑤按Home键切换到桌面后又回到该Actitivy，回调如下：onPause()-&gt;onStop()-&gt;onRestart()-&gt;onStart()-&gt;onResume()</p>
+<p>⑥调用finish()方法后，回调如下：onDestory()(以在onCreate()方法中调用为例，不同方法中回调不同，通常都是在onCreate()方法中调用)</p>
+<h4 id="生命周期的特殊情况"><a href="#生命周期的特殊情况" class="headerlink" title="生命周期的特殊情况"></a>生命周期的特殊情况</h4><p>上面是普通情况下Activity生命周期的一些流程，但是在一些特殊情况下，Activity的生命周期的经历有些异常，下面就是两种特殊情况。</p>
+<h5 id="横竖屏切换"><a href="#横竖屏切换" class="headerlink" title="横竖屏切换"></a>横竖屏切换</h5><p>在横竖屏切换的过程中，会发生Activity被销毁并重建的过程。</p>
+<p>在了解这种情况下的生命周期时，首先应该了解这两个回调：onSaveInstanceState和onRestoreInstanceState。</p>
+<p>在Activity由于异常情况下终止时，系统会调用onSaveInstanceState来保存当前Activity的状态。这个方法的调用是在onStop之前，它和onPause没有既定的时序关系，该方法只在Activity被异常终止的情况下调用。当异常终止的Activity被重建以后，系统会调用onRestoreInstanceState，并且把Activity销毁时onSaveInstanceState方法所保存的Bundle对象参数同时传递给onRestoreInstanceState和onCreate方法。因此，可以通过onRestoreInstanceState方法来恢复Activity的状态，该方法的调用时机是在onStart之后。其中onCreate和onRestoreInstanceState方法来恢复Activity的状态的区别： onRestoreInstanceState回调则表明其中Bundle对象非空，不用加非空判断。onCreate需要非空判断。建议使用onRestoreInstanceState。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity002.png" alt=""></p>
+<p><b>横竖屏切换的生命周期</b>：onPause()-&gt;onSaveInstanceState()-&gt; onStop()-&gt;onDestroy()-&gt;onCreate()-&gt;onStart()-&gt;onRestoreInstanceState-&gt;onResume()</p>
+<p>可以通过在AndroidManifest文件的Activity中指定如下属性：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android:configChanges = <span class="string">"orientation| screenSize"</span></div></pre></td></tr></table></figure>
+<p>来避免横竖屏切换时，Activity的销毁和重建，而是回调了下面的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onConfigurationChanged</span><span class="params">(Configuration newConfig)</span> </span>&#123;</div><div class="line">	<span class="keyword">super</span>.onConfigurationChanged(newConfig);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="资源内存不足导致优先级低的Activity被杀死"><a href="#资源内存不足导致优先级低的Activity被杀死" class="headerlink" title="资源内存不足导致优先级低的Activity被杀死"></a>资源内存不足导致优先级低的Activity被杀死</h5><p>Activity优先级的划分和下面的Activity的三种运行状态是对应的。</p>
+<p>(1) 前台Activity——正在和用户交互的Activity，优先级最高。</p>
+<p>(2) 可见但非前台Activity——比如Activity中弹出了一个对话框，导致Activity可见但是位于后台无法和用户交互。</p>
+<p>(3) 后台Activity——已经被暂停的Activity，比如执行了onStop，优先级最低。</p>
+<p>当系统内存不足时，会按照上述优先级从低到高去杀死目标Activity所在的进程。我们在平常使用手机时，能经常感受到这一现象。这种情况下数组存储和恢复过程和上述情况一致，生命周期情况也一样。</p>
+<h4 id="Activity的三种运行状态"><a href="#Activity的三种运行状态" class="headerlink" title="Activity的三种运行状态"></a>Activity的三种运行状态</h4><h5 id="Resumed活动状态"><a href="#Resumed活动状态" class="headerlink" title="Resumed活动状态"></a>Resumed活动状态</h5><p>又叫Running状态，这个Activity正在屏幕上显示，并且有用户焦点。这个很好理解，就是用户正在操作的那个界面。</p>
+<h5 id="Paused暂停状态"><a href="#Paused暂停状态" class="headerlink" title="Paused暂停状态"></a>Paused暂停状态</h5><p>这是一个比较不常见的状态。这个Activity在屏幕上是可见的，但是并不是在屏幕最前端的那个Activity。比如有另一个非全屏或者透明的Activity是Resumed状态，没有完全遮盖这个Activity。</p>
+<h5 id="Stoped停止状态"><a href="#Stoped停止状态" class="headerlink" title="Stoped停止状态"></a>Stoped停止状态</h5><p>当Activity完全不可见时，此时Activity还在后台运行，仍然在内存中保留Activity的状态，并不是完全销毁。这个也很好理解，当跳转的另外一个界面，之前的界面还在后台，按回退按钮还会恢复原来的状态，大部分软件在打开的时候，直接按Home键，并不会关闭它，此时的Activity就是Stopped状态。</p>
+<h2 id="Activity的启动模式"><a href="#Activity的启动模式" class="headerlink" title="Activity的启动模式"></a>Activity的启动模式</h2><h3 id="启动模式种类"><a href="#启动模式种类" class="headerlink" title="启动模式种类"></a>启动模式种类</h3><blockquote>
+<p>标准模式（standard）<br>栈顶复用模式（singleTop）<br>栈内复用模式（singleTask）<br>单例模式（singleInstance）</p>
+</blockquote>
+<h3 id="启动模式结构"><a href="#启动模式结构" class="headerlink" title="启动模式结构"></a>启动模式结构</h3><p>Activity的管理是采用任务栈的形式，任务栈采用“后进先出”的栈结构。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity003.png" alt=""></p>
+<h3 id="Activity的Launcher"><a href="#Activity的Launcher" class="headerlink" title="Activity的Launcher"></a>Activity的Launcher</h3><h4 id="standard标准模式"><a href="#standard标准模式" class="headerlink" title="standard标准模式"></a>standard标准模式</h4><p>每启动一次Activity，就会创建一个新的Activity实例并置于栈顶。谁启动了这个Activity，那么这个Activity就运行在启动它的那个Activity所在的栈中。</p>
+<p>例如：Activity A启动了Activity B，则就会在A所在的栈顶压入一个新的Activity。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity004.png" alt=""></p>
+<p><b>特殊情况</b>，如果在Service或Application中启动一个Activity，其并没有所谓的任务栈，可以使用标记位Flag来解决。解决办法：为待启动的Activity指定FLAG_ACTIVITY_NEW_TASK标记位，创建一个新栈。</p>
+<p><b>应用场景</b>： 绝大多数Activity。如果以这种方式启动的Activity被跨进程调用，在5.0之前新启动的Activity实例会放入发送Intent的Task的栈的顶部，尽管它们属于不同的程序，这似乎有点费解看起来也不是那么合理，所以在5.0之后，上述情景会创建一个新的Task，新启动的Activity就会放入刚创建的Task中，这样就合理的多了。</p>
+<h4 id="singleTop栈顶复用模式"><a href="#singleTop栈顶复用模式" class="headerlink" title="singleTop栈顶复用模式"></a>singleTop栈顶复用模式</h4><p>如果需要新建的Activity位于任务栈栈顶，那么此Activity的实例就不会重建，而是重用栈顶的实例。并回调如下方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onNewIntent</span><span class="params">(Intent intent)</span> </span>&#123;</div><div class="line">	<span class="keyword">super</span>.onNewIntent(intent);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>由于不会重建一个Activity实例，则不会回调其他生命周期方法。<br>如果栈顶不是新建的Activity,就会创建该Activity新的实例，并放入栈顶。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity005.png" alt=""></p>
+<p><b>应用场景</b>： 在通知栏点击收到的通知，然后需要启动一个Activity，这个Activity就可以用singleTop，否则每次点击都会新建一个Activity。当然实际的开发过程中，测试妹纸没准给你提过这样的bug：某个场景下连续快速点击，启动了两个Activity。如果这个时候待启动的Activity使用 singleTop模式也是可以避免这个Bug的。同standard模式，如果是外部程序启动singleTop的Activity，在Android 5.0之前新创建的Activity会位于调用者的Task中，5.0及以后会放入新的Task中。</p>
+<h4 id="singleTask栈内复用模式"><a href="#singleTask栈内复用模式" class="headerlink" title="singleTask栈内复用模式"></a>singleTask栈内复用模式</h4><p>该模式是一种单例模式，即一个栈内只有一个该Activity实例。该模式，可以通过在AndroidManifest文件的Activity中指定该Activity需要加载到那个栈中，即singleTask的Activity可以指定想要加载的目标栈。singleTask和taskAffinity配合使用，指定开启的Activity加入到哪个栈中。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;activity android:name=".Activity1"</div><div class="line">    android:launchMode="singleTask"</div><div class="line">    android:taskAffinity="com.lvr.task"</div><div class="line">    android:label="@string/app_name"&gt;</div><div class="line">&lt;/activity&gt;</div></pre></td></tr></table></figure>
+<p><b>关于taskAffinity的值</b>： 每个Activity都有taskAffinity属性，这个属性指出了它希望进入的Task。如果一个Activity没有显式的指明该Activity的taskAffinity，那么它的这个属性就等于Application指明的taskAffinity，如果Application也没有指明，那么该taskAffinity的值就等于包名.</p>
+<p><b>执行逻辑</b>：在这种模式下，如果Activity指定的栈不存在，则创建一个栈，并把创建的Activity压入栈内。如果Activity指定的栈存在，如果其中没有该Activity实例，则会创建Activity并压入栈顶，如果其中有该Activity实例，则把该Activity实例之上的Activity杀死清除出栈，重用并让该Activity实例处在栈顶，然后调用onNewIntent()方法。</p>
+<p>对应如下三种情况：</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity006.png" alt=""></p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity007.png" alt=""></p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity008.png" alt=""></p>
+<p><b>应用场景</b>： 大多数App的主页。对于大部分应用，当我们在主界面点击回退按钮的时候都是退出应用，那么当我们第一次进入主界面之后，主界面位于栈底，以后不管我们打开了多少个Activity，只要我们再次回到主界面，都应该使用将主界面Activity上所有的Activity移除的方式来让主界面Activity处于栈顶，而不是往栈顶新加一个主界面Activity的实例，通过这种方式能够保证退出应用时所有的Activity都能报销毁。在跨应用Intent传递时，如果系统中不存在singleTask Activity的实例，那么将创建一个新的Task，然后创建SingleTask Activity的实例，将其放入新的Task中。</p>
+<h4 id="singleInstance单例模式"><a href="#singleInstance单例模式" class="headerlink" title="singleInstance单例模式"></a>singleInstance单例模式</h4><p>作为栈内复用模式（singleTask）的加强版,打开该Activity时，直接创建一个新的任务栈，并创建该Activity实例放入新栈中。一旦该模式的Activity实例已经存在于某个栈中，任何应用再激活该Activity时都会重用该栈中的实例。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity009.png" alt=""></p>
+<p>应用场景： 呼叫来电界面。这种模式的使用情况比较罕见，在Launcher中可能使用。或者你确定你需要使Activity只有一个实例。建议谨慎使用。</p>
+<h3 id="特殊情况-前台栈和后台栈的交互"><a href="#特殊情况-前台栈和后台栈的交互" class="headerlink" title="特殊情况,前台栈和后台栈的交互"></a>特殊情况,前台栈和后台栈的交互</h3><p>假如目前有两个任务栈。前台任务栈为AB，后台任务栈为CD，这里假设CD的启动模式均为singleTask,现在请求启动D，那么这个后台的任务栈都会被切换到前台，这个时候整个后退列表就变成了ABCD。当用户按back返回时，列表中的activity会一一出栈，如下图。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity010.png" alt=""></p>
+<p>如果不是请求启动D而是启动C，那么情况又不一样，如下图。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity011.png" alt=""></p>
+<p>调用SingleTask模式的后台任务栈中的Activity，会把整个栈的Actvity压入当前栈的栈顶。singleTask会具有clearTop特性，把之上的栈内Activity清除。</p>
+<h3 id="Activity的Flags"><a href="#Activity的Flags" class="headerlink" title="Activity的Flags"></a>Activity的Flags</h3><p>Activity的Flags很多，这里介绍集中常用的，用于设定Activity的启动模式。可以在启动Activity时，通过Intent的addFlags()方法设置。</p>
+<p>(1)FLAG_ACTIVITY_NEW_TASK<br>其效果与指定Activity为singleTask模式一致。</p>
+<p>(2)FLAG_ACTIVITY_SINGLE_TOP<br>其效果与指定Activity为singleTop模式一致。</p>
+<p>(3)FLAG_ACTIVITY_CLEAR_TOP<br>具有此标记位的Activity，当它启动时，在同一个任务栈中所有位于它上面的Activity都要出栈。如果和singleTask模式一起出现，若被启动的Activity已经存在栈中，则清除其之上的Activity，并调用该Activity的onNewIntent方法。如果被启动的Activity采用standard模式，那么该Activity连同之上的所有Activity出栈，然后创建新的Activity实例并压入栈中。</p>
+<h2 id="App从流动到主页面显示"><a href="#App从流动到主页面显示" class="headerlink" title="App从流动到主页面显示"></a>App从流动到主页面显示</h2><h3 id="流程概述"><a href="#流程概述" class="headerlink" title="流程概述"></a>流程概述</h3><p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity012.png" alt=""></p>
+<h4 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程"></a>启动流程</h4><p>①点击桌面App图标，Launcher进程采用Binder IPC向system_server进程发起startActivity请求；</p>
+<p>②system_server进程接收到请求后，向zygote进程发送创建进程的请求；</p>
+<p>③Zygote进程fork出新的子进程，即App进程；</p>
+<p>④App进程，通过Binder IPC向sytem_server进程发起attachApplication请求；</p>
+<p>⑤system_server进程在收到请求后，进行一系列准备工作后，再通过binder IPC向App进程发送scheduleLaunchActivity请求；</p>
+<p>⑥App进程的binder线程（ApplicationThread）在收到请求后，通过handler向主线程发送LAUNCH_ACTIVITY消息；</p>
+<p>⑦主线程在收到Message后，通过发射机制创建目标Activity，并回调Activity.onCreate()等方法。</p>
+<p>⑧到此，App便正式启动，开始进入Activity生命周期，执行完onCreate/onStart/onResume方法，UI渲染结束后便可以看到App的主界面。</p>
+<p>上面的一些列步骤简单介绍了一个APP启动到主页面显示的过程，可能这些流程中的一些术语看的有些懵，什么是Launcher，什么是zygote，什么是applicationThread…..详见下文</p>
+<h3 id="理论基础"><a href="#理论基础" class="headerlink" title="理论基础"></a>理论基础</h3><h4 id="zygote"><a href="#zygote" class="headerlink" title="zygote"></a>zygote</h4><p>zygote意为“受精卵“。Android是基于Linux系统的，而在Linux中，所有的进程都是由init进程直接或者是间接fork出来的，zygote进程也不例外。</p>
+<p>在Android系统里面，zygote是一个进程的名字。Android是基于Linux System的，当你的手机开机的时候，Linux的内核加载完成之后就会启动一个叫“init“的进程。在Linux System里面，所有的进程都是由init进程fork出来的，我们的zygote进程也不例外。</p>
+<p>我们都知道，每一个App其实都是</p>
+<p>● 一个单独的dalvik虚拟机<br>● 一个单独的进程</p>
+<p>所以当系统里面的第一个zygote进程运行之后，在这之后再开启App，就相当于开启一个新的进程。而为了实现资源共用和更快的启动速度，Android系统开启新进程的方式，是通过fork第一个zygote进程实现的。所以说，除了第一个zygote进程，其他应用所在的进程都是zygote的子进程，这下你明白为什么这个进程叫“受精卵”了吧？因为就像是一个受精卵一样，它能快速的分裂，并且产生遗传物质一样的细胞！</p>
+<h4 id="system-server"><a href="#system-server" class="headerlink" title="system_server"></a>system_server</h4><p>SystemServer也是一个进程，而且是由zygote进程fork出来的。</p>
+<p>知道了SystemServer的本质，我们对它就不算太陌生了，这个进程是Android Framework里面两大非常重要的进程之一——另外一个进程就是上面的zygote进程。</p>
+<p>为什么说SystemServer非常重要呢？因为系统里面重要的服务都是在这个进程里面开启的，比如<br>ActivityManagerService、PackageManagerService、WindowManagerService等等。</p>
+<h4 id="ActivityManagerService"><a href="#ActivityManagerService" class="headerlink" title="ActivityManagerService"></a>ActivityManagerService</h4><p>ActivityManagerService，简称AMS，服务端对象，负责系统中所有Activity的生命周期。</p>
+<p>ActivityManagerService进行初始化的时机很明确，就是在SystemServer进程开启的时候，就会初始化ActivityManagerService。</p>
+<h5 id="Android系统里服务器和客户端"><a href="#Android系统里服务器和客户端" class="headerlink" title="Android系统里服务器和客户端"></a>Android系统里服务器和客户端</h5><p>其实服务器客户端的概念不仅仅存在于Web开发中，在Android的框架设计中，使用的也是这一种模式。服务器端指的就是所有App共用的系统服务，比如我们这里提到的ActivityManagerService，和前面提到的PackageManagerService、WindowManagerService等等，这些基础的系统服务是被所有的App公用的，当某个App想实现某个操作的时候，要告诉这些系统服务，比如你想打开一个App，那么我们知道了包名和MainActivity类名之后就可以打开。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Intent intent = <span class="keyword">new</span> Intent(Intent.ACTION_MAIN);  </div><div class="line">intent.addCategory(Intent.CATEGORY_LAUNCHER);              </div><div class="line">ComponentName cn = <span class="keyword">new</span> ComponentName(packageName, className);              </div><div class="line">intent.setComponent(cn);  </div><div class="line">startActivity(intent);</div></pre></td></tr></table></figure>
+<p>但是，我们的App通过调用startActivity()并不能直接打开另外一个App，这个方法会通过一系列的调用，最后还是告诉AMS说：“我要打开这个App，我知道他的住址和名字，你帮我打开吧！”所以是AMS来通知zygote进程来fork一个新进程，来开启我们的目标App的。这就像是浏览器想要打开一个超链接一样，浏览器把网页地址发送给服务器，然后还是服务器把需要的资源文件发送给客户端的。</p>
+<p>知道了Android Framework的客户端服务器架构之后，我们还需要了解一件事情，那就是我们的App和AMS(SystemServer进程)还有zygote进程分属于三个独立的进程，他们之间如何通信呢？</p>
+<p><b>App与AMS通过Binder进行IPC通信，AMS(SystemServer进程)与zygote通过Socket进行IPC通信。后面具体介绍。</b></p>
+<p>那么AMS有什么用呢？在前面我们知道了，<b>如果想打开一个App的话，需要AMS去通知zygote进程，除此之外，其实所有的Activity的开启、暂停、关闭都需要AMS来控制，所以我们说，AMS负责系统中所有Activity的生命周期。</b></p>
+<p>在Android系统中，任何一个Activity的启动都是由AMS和应用程序进程（主要是ActivityThread）相互配合来完成的。AMS服务统一调度系统中所有进程的Activity启动，而每个Activity的启动过程则由其所属的进程具体来完成。</p>
+<h4 id="Launcher"><a href="#Launcher" class="headerlink" title="Launcher"></a>Launcher</h4><p>当我们点击手机桌面上的图标的时候，App就由Launcher开始启动了。但是，你有没有思考过Launcher到底是一个什么东西？</p>
+<p>Launcher本质上也是一个应用程序，和我们的App一样，也是继承自Activity</p>
+<p>packages/apps/Launcher2/src/com/android/launcher2/Launcher.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Launcher</span> <span class="keyword">extends</span> <span class="title">Activity</span></span></div><div class="line">        <span class="keyword">implements</span> <span class="title">View</span>.<span class="title">OnClickListener</span>, <span class="title">OnLongClickListener</span>, <span class="title">LauncherModel</span>.<span class="title">Callbacks</span>,</div><div class="line">                   <span class="title">View</span>.<span class="title">OnTouchListener</span> &#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Launcher实现了点击、长按等回调接口，来接收用户的输入。既然是普通的App，那么我们的开发经验在这里就仍然适用，比如，我们点击图标的时候，是怎么开启的应用呢？<b>捕捉图标点击事件，然后startActivity()发送对应的Intent请求呗！是的，Launcher也是这么做的，就是这么easy！</b></p>
+<h4 id="Instrumentation和ActivityThread"><a href="#Instrumentation和ActivityThread" class="headerlink" title="Instrumentation和ActivityThread"></a>Instrumentation和ActivityThread</h4><p>每个Activity都持有Instrumentation对象的一个引用，但是整个进程只会存在一个Instrumentation对象。<br>Instrumentation这个类里面的方法大多数和Application和Activity有关，<b>这个类就是完成对Application和Activity初始化和生命周期的工具类。</b>Instrumentation这个类很重要，对Activity生命周期方法的调用根本就离不开他，他可以说是一个大管家。</p>
+<p>ActivityThread，依赖于UI线程。App和AMS是通过Binder传递信息的，那么ActivityThread就是专门与AMS的外交工作的。</p>
+<h4 id="ApplicationThread"><a href="#ApplicationThread" class="headerlink" title="ApplicationThread"></a>ApplicationThread</h4><p>前面我们已经知道了App的启动以及Activity的显示都需要AMS的控制，那么我们便需要和服务端的沟通，而这个沟通是双向的。</p>
+<p><b>客户端–&gt;服务端</b></p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity013.png" alt=""></p>
+<p>而且由于继承了同样的公共接口类，ActivityManagerProxy提供了与ActivityManagerService一样的函数原型，使用户感觉不出Server是运行在本地还是远端，从而可以更加方便的调用这些重要的系统服务。</p>
+<p><b>服务端–&gt;客户端</b></p>
+<p>还是通过Binder通信，不过是换了另外一对，换成了ApplicationThread和ApplicationThreadProxy。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity014.png" alt=""></p>
+<p>他们也都实现了相同的接口IApplicationThread</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">ApplicationThread</span> <span class="keyword">extends</span> <span class="title">ApplicationThreadNative</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">  <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">ApplicationThreadNative</span> <span class="keyword">extends</span> <span class="title">Binder</span> <span class="keyword">implements</span> <span class="title">IApplicationThread</span></span>&#123;&#125;</div><div class="line"></div><div class="line">  <span class="class"><span class="keyword">class</span> <span class="title">ApplicationThreadProxy</span> <span class="keyword">implements</span> <span class="title">IApplicationThread</span> </span>&#123;&#125;</div><div class="line"></div></pre></td></tr></table></figure>
+<p>关于Binder通信，可以参考这两篇文章理解一下：<a href="https://www.jianshu.com/p/4920c7781afe" target="_blank" rel="external">简单理解Binder机制的原理</a>,<a href="https://www.jianshu.com/p/e3293b8346ab" target="_blank" rel="external">关于AIDL使用和Binder机制详解，你只需要看这一篇即可。</a></p>
+<p>好了，前面罗里吧嗦的一大堆，介绍了一堆名词，可能不太清楚，没关系，下面结合流程图介绍.</p>
+<h3 id="启动流程-1"><a href="#启动流程-1" class="headerlink" title="启动流程"></a>启动流程</h3><h4 id="创建进程"><a href="#创建进程" class="headerlink" title="创建进程"></a>创建进程</h4><p>①先从Launcher的startActivity()方法，通过Binder通信，调用ActivityManagerService的startActivity方法。</p>
+<p>②一系列折腾，最后调用startProcessLocked()方法来创建新的进程。</p>
+<p>③该方法会通过前面讲到的socket通道传递参数给Zygote进程。Zygote孵化自身。调用ZygoteInit.main()方法来实例化ActivityThread对象并最终返回新进程的pid。</p>
+<p>④调用ActivityThread.main()方法，ActivityThread随后依次调用Looper.prepareLoop()和Looper.loop()来开启消息循环。</p>
+<p><b>方法调用流程图如下:</b></p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity015.png" alt=""></p>
+<p><b>更直白的流程解释：</b></p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity016.png" alt=""></p>
+<p>①App发起进程：当从桌面启动应用，则发起进程便是Launcher所在进程；当从某App内启动远程进程，则发送进程便是该App所在进程。发起进程先通过binder发送消息给system_server进程；<br>②system_server进程：调用Process.start()方法，通过socket向zygote进程发送创建新进程的请求；</p>
+<p>③zygote进程：在执行ZygoteInit.main()后便进入runSelectLoop()循环体内，当有客户端连接时便会执行ZygoteConnection.runOnce()方法，再经过层层调用后fork出新的应用进程；</p>
+<p>④新进程：执行handleChildProc方法，最后调用ActivityThread.main()方法。</p>
+<h4 id="绑定Application"><a href="#绑定Application" class="headerlink" title="绑定Application"></a>绑定Application</h4><p>上面创建进程后，执行ActivityThread.main()方法，随后调用attach()方法。</p>
+<p>将进程和指定的Application绑定起来。这个是通过上节的ActivityThread对象中调用bindApplication()方法完成的。该方法发送一个BIND_APPLICATION的消息到消息队列中, 最终通过handleBindApplication()方法处理该消息. 然后调用makeApplication()方法来加载App的classes到内存中。</p>
+<p><b>方法调用流程图如下：</b></p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity017.png" alt=""></p>
+<p><b>更直白的流程解释：</b></p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity018.png" alt=""></p>
+<h4 id="显示Activity界面"><a href="#显示Activity界面" class="headerlink" title="显示Activity界面"></a>显示Activity界面</h4><p>经过前两个步骤之后, 系统已经拥有了该application的进程。 后面的调用顺序就是普通的从一个已经存在的进程中启动一个新进程的activity了。</p>
+<p>实际调用方法是realStartActivity(), 它会调用application线程对象中的scheduleLaunchActivity()发送一个LAUNCH_ACTIVITY消息到消息队列中, 通过 handleLaunchActivity()来处理该消息。在 handleLaunchActivity()通过performLaunchActiivty()方法回调Activity的onCreate()方法和onStart()方法，然后通过handleResumeActivity()方法，回调Activity的onResume()方法，最终显示Activity界面。</p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity019.png" alt=""></p>
+<p><b>更直白的流程解释：</b></p>
+<p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity020.png" alt=""></p>
+<h4 id="Binder通信"><a href="#Binder通信" class="headerlink" title="Binder通信"></a>Binder通信</h4><p><img src="http://ogo6z0ylk.bkt.clouddn.com/activity021.png" alt=""></p>
+<h5 id="简称"><a href="#简称" class="headerlink" title="简称"></a>简称</h5><p>ATP: ApplicationThreadProxy</p>
+<p>AT: ApplicationThread</p>
+<p>AMP: ActivityManagerProxy</p>
+<p><strong>AMS: </strong>ActivityManagerServ</p>
+<h5 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h5><p>①system_server进程中调用startProcessLocked方法,该方法最终通过socket方式,将需要创建新进程的消息告知Zygote进程,并阻塞等待Socket返回新创建进程的pid;</p>
+<p>②Zygote进程接收到system_server发送过来的消息, 则通过fork的方法，将zygote自身进程复制生成新的进程，并将ActivityThread相关的资源加载到新进程app process,这个进程可能是用于承载activity等组件;</p>
+<p>③ 在新进程app process向servicemanager查询system_server进程中binder服务端AMS, 获取相对应的Client端,也就是AMP. 有了这一对binder c/s对, 那么app process便可以通过binder向跨进程system_server发送请求,即attachApplication()</p>
+<p>④system_server进程接收到相应binder操作后,经过多次调用,利用ATP向app process发送binder请求, 即bindApplication.<br>system_server拥有ATP/AMS, 每一个新创建的进程都会有一个相应的AT/AMP,从而可以跨进程 进行相互通信. 这便是进程创建过程的完整生态链。</p>
+<p>以上大概介绍了一个APP从启动到主页面显示经历的流程，主要从宏观角度介绍了其过程，具体可结合源码理解。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Activity/" rel="tag">#Activity</a>
+          
+            <a href="/tags/Android-启动流程/" rel="tag">#Android 启动流程</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/04/Behavioral-Pattern/" rel="next" title="Behavioral Pattern">
+                <i class="fa fa-chevron-left"></i> Behavioral Pattern
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+  <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zMTcxMS84Mjc1">
+  <script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+  </script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/ava.png"
+               alt="拾叁妖" />
+          <p class="site-author-name" itemprop="name">拾叁妖</p>
+          <p class="site-description motion-element" itemprop="description">奇变偶不变，符号看象限。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">65</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Altman29" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/5866547818/profile?rightmod=1&wvr=6&mod=personinfo&is_all=1" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity-Here……"><span class="nav-number">1.</span> <span class="nav-text">Activity Here…….</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity的生命周期"><span class="nav-number">1.1.</span> <span class="nav-text">Activity的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#典型的生命周期"><span class="nav-number">1.1.1.</span> <span class="nav-text">典型的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#生命周期的普通情况"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">生命周期的普通情况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生命周期的特殊情况"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">生命周期的特殊情况</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#横竖屏切换"><span class="nav-number">1.1.1.2.1.</span> <span class="nav-text">横竖屏切换</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#资源内存不足导致优先级低的Activity被杀死"><span class="nav-number">1.1.1.2.2.</span> <span class="nav-text">资源内存不足导致优先级低的Activity被杀死</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Activity的三种运行状态"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">Activity的三种运行状态</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Resumed活动状态"><span class="nav-number">1.1.1.3.1.</span> <span class="nav-text">Resumed活动状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Paused暂停状态"><span class="nav-number">1.1.1.3.2.</span> <span class="nav-text">Paused暂停状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Stoped停止状态"><span class="nav-number">1.1.1.3.3.</span> <span class="nav-text">Stoped停止状态</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity的启动模式"><span class="nav-number">1.2.</span> <span class="nav-text">Activity的启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动模式种类"><span class="nav-number">1.2.1.</span> <span class="nav-text">启动模式种类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动模式结构"><span class="nav-number">1.2.2.</span> <span class="nav-text">启动模式结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity的Launcher"><span class="nav-number">1.2.3.</span> <span class="nav-text">Activity的Launcher</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#standard标准模式"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">standard标准模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#singleTop栈顶复用模式"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">singleTop栈顶复用模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#singleTask栈内复用模式"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">singleTask栈内复用模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#singleInstance单例模式"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">singleInstance单例模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊情况-前台栈和后台栈的交互"><span class="nav-number">1.2.4.</span> <span class="nav-text">特殊情况,前台栈和后台栈的交互</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity的Flags"><span class="nav-number">1.2.5.</span> <span class="nav-text">Activity的Flags</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#App从流动到主页面显示"><span class="nav-number">1.3.</span> <span class="nav-text">App从流动到主页面显示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流程概述"><span class="nav-number">1.3.1.</span> <span class="nav-text">流程概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#启动流程"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">启动流程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#理论基础"><span class="nav-number">1.3.2.</span> <span class="nav-text">理论基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#zygote"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">zygote</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#system-server"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">system_server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ActivityManagerService"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">ActivityManagerService</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Android系统里服务器和客户端"><span class="nav-number">1.3.2.3.1.</span> <span class="nav-text">Android系统里服务器和客户端</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Launcher"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">Launcher</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Instrumentation和ActivityThread"><span class="nav-number">1.3.2.5.</span> <span class="nav-text">Instrumentation和ActivityThread</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ApplicationThread"><span class="nav-number">1.3.2.6.</span> <span class="nav-text">ApplicationThread</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动流程-1"><span class="nav-number">1.3.3.</span> <span class="nav-text">启动流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建进程"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">创建进程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绑定Application"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">绑定Application</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#显示Activity界面"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">显示Activity界面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Binder通信"><span class="nav-number">1.3.3.4.</span> <span class="nav-text">Binder通信</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#简称"><span class="nav-number">1.3.3.4.1.</span> <span class="nav-text">简称</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#图解"><span class="nav-number">1.3.3.4.2.</span> <span class="nav-text">图解</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+
+  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">拾叁妖</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+  &nbsp;丨&nbsp;
+  <!-- 不蒜统计 -->
+  <span style="display: inline;" id="busuanzi_container_site_uv">本站总访客数 <span id="busuanzi_value_site_uv" font="微软雅黑"></span> 次</span>
+  &nbsp;丨&nbsp;
+  <span style="display: inline;" id="busuanzi_container_site_pv">本站总访问量 <span id="busuanzi_value_site_pv" font="微软雅黑"></span> 次</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("nfQNU5dFwiltiHNWVEeJeuFp-gzGzoHsz", "oANzCtO0CzmnL1JmWkHda5Dp");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
